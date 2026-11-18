@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Le Meridien Dubai Hotel & Conference Centre",
+    "image": "https://hblimg.mmtcdn.com/content/hubble/img/desttvimg/mmt/destination/t_trp/m_Bali_tv_destination_img_1_l_771_1158.jpg?im=Resize=(400,268)",
+    "location": "Airport Road",
+    "rating": 4.5,
+    "review": "10k",
+    "price": "532",
+    "taxAmount": "587"
+  },
+  {
+    "id": 2,
+    "title": "Le Meridien Dubai Hotel & Conference Centre",
+    "image": "https://hblimg.mmtcdn.com/content/hubble/img/desttvimg/mmt/destination/t_trp/m_Bali_tv_destination_img_1_l_771_1158.jpg?im=Resize=(400,268)",
+    "location": "Airport Road",
+    "rating": 4.5,
+    "review": "10k",
+    "price": "532",
+    "taxAmount": "587"
+  },
+  {
+    "id": 3,
+    "title": "Le Meridien Dubai Hotel & Conference Centre",
+    "image": "https://hblimg.mmtcdn.com/content/hubble/img/desttvimg/mmt/destination/t_trp/m_Bali_tv_destination_img_1_l_771_1158.jpg?im=Resize=(400,268)",
+    "location": "Airport Road",
+    "rating": 4.5,
+    "review": "10k",
+    "price": "532",
+    "taxAmount": "587"
+  }
+]

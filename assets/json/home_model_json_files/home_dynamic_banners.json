@@ -1,0 +1,28 @@
+[
+  {
+    "title": "Save up to 30% on Delhi getaways",
+    "description": "Use code",
+    "promoCode": "DELHI30",
+    "descriptionSuffix": "at checkout",
+    "bgImage": "banner_background"
+  },
+  {
+    "title": "Flat 25% off on Goa beach stays",
+    "description": "Use code",
+    "promoCode": "GOA25",
+    "descriptionSuffix": "on weekend bookings",
+    "bgImage": "banner_background"
+  },
+  {
+    "title": "Explore royal Jaipur packages",
+    "description": "Starting at ₹4,999 with free breakfast",
+    "bgImage": "banner_background"
+  },
+  {
+    "title": "Escape to Manali hill resorts",
+    "description": "Use code",
+    "promoCode": "HILLS20",
+    "descriptionSuffix": "for instant savings",
+    "bgImage": "banner_background"
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Dubai",
+    "image": "https://res.cloudinary.com/dtljonz0f/image/upload/c_auto,ar_4:3,w_1200,g_auto/f_auto/q_auto/v1/shutterstock_2414539851_ss_non-editorial_dcx0bm?_a=BAVHyiGg0",
+    "subtitle": "From Thiruvananthapuram"
+  },
+  {
+    "id": 2,
+    "title": "Toronto",
+    "image": "https://cdn.getyourguide.com/image/format=avif%2Cfit=cover%2Cgravity=auto%2Cquality=60%2Cwidth=1600%2Cheight=900/dam/BCC-2024-EXPLORER-TORONTO-FUN-THINGS-TO-DO-IN-TORONTO-HEADER_DESKTOP.jpg",
+    "subtitle": "From New Delhi"
+  },
+  {
+    "id": 3,
+    "title": "Dubai",
+    "image": "https://res.cloudinary.com/dtljonz0f/image/upload/c_auto,ar_4:3,w_1200,g_auto/f_auto/q_auto/v1/shutterstock_2414539851_ss_non-editorial_dcx0bm?_a=BAVHyiGg0",
+    "subtitle": "From New Delhi"
+  },
+  {
+    "id": 4,
+    "title": "San Francisco",
+    "image": "https://cdn.britannica.com/13/77413-050-95217C0B/Golden-Gate-Bridge-San-Francisco.jpg",
+    "subtitle": "From New Delhi"
+  },
+  {
+    "id": 5,
+    "title": "San Francisco",
+    "image": "https://cdn.britannica.com/13/77413-050-95217C0B/Golden-Gate-Bridge-San-Francisco.jpg",
+    "subtitle": "From New Delhi"
+  },
+  {
+    "id": 6,
+    "title": "Dubai",
+    "image": "https://res.cloudinary.com/dtljonz0f/image/upload/c_auto,ar_4:3,w_1200,g_auto/f_auto/q_auto/v1/shutterstock_2414539851_ss_non-editorial_dcx0bm?_a=BAVHyiGg0",
+    "subtitle": "From Thiruvananthapuram"
+  }
+]

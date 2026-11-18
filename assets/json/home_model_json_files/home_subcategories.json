@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "cars",
+    "icon": "car"
+  },
+  {
+    "id": 2,
+    "title": "holiday",
+    "icon": "holiday"
+  },
+  {
+    "id": 3,
+    "title": "activities",
+    "icon": "activities"
+  },
+  {
+    "id": 4,
+    "title": "cruises",
+    "icon": "cruise"
+  },
+  {
+    "id": 5,
+    "title": "choppers",
+    "icon": "choppers"
+  },
+  {
+    "id": 6,
+    "title": "charteredPlanes",
+    "icon": "flight"
+  },
+  {
+    "id": 7,
+    "title": "insurance",
+    "icon": "insurance"
+  },
+  {
+    "id": 8,
+    "title": "visa",
+    "icon": "visa"
+  }
+]
