@@ -12,6 +12,9 @@ class Assets {
   static const String bus = 'assets/images/bus.svg';
   static const String price = 'assets/images/price.svg';
   static const String room = 'assets/images/room.svg';
+  static const String arrowLeft = 'assets/images/arrow_left.svg';
+  static const String locationCursor = 'assets/images/location_cursor.svg';
+
   static const String car = 'assets/images/car.svg';
   static const String cruise = 'assets/images/cruise.svg';
   static const String dubai = 'assets/images/dubai.svg';
@@ -34,6 +37,7 @@ class Assets {
   static const String train = 'assets/images/train.svg';
   static const String trip = 'assets/images/trip.svg';
   static const String visa = 'assets/images/visa.svg';
+  static const String emptyScroll = 'assets/images/empty_scroll.svg';
 
   static const String homeHotelDeals =
       'assets/json/home_model_json_files/home_hotel_deals.json';

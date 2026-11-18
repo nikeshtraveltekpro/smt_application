@@ -9,7 +9,7 @@ class HotelConstants {
   static const String buses = "Buses";
   static const String cars = "Cars";
   static const String holidays = "Holidays";
-
+  static const String propertiesNearMe = "Properties near me";
   // Location
   static const String hotelSearchLocationTitle =
       "City, Property name or Location";
@@ -44,14 +44,21 @@ class HotelConstants {
 
   // Recent Searches
   static const String recentSearchesTitle = "Recent Searches";
+  static const String recentSearchTitle = "Recent Search";
   static const String recentSearchCity = "Ahmedabad";
-  static const String recentSearchDate = "12 Aug - 25 Aug";
-  static const String recentSearchGuests = "1 Room + 2 Guests";
+  static const String recentSearchDateIn = "12 Aug";
+  static const String recentSearchDateOut = "25 Aug";
+  static const String recentSearchGuestsRoom = "1 Room";
+  static const String recentSearchTotalGuests = "2 Guest";
 
   // Promotional Banner
   static const String refundableHotelsTitle = "Refundable Hotels";
+  static const String searchByCityAndProperty =
+      "Search by City or Property Name";
   static const String refundableHotelsDescription =
       "Cancel anytime and get 100% of your money back — no questions asked.";
+  static const String refundableHotelsExtraDescription =
+      "Last minute Emergency, Personal Emergency, Plan Changed";
 
   // Popular Destinations
   static const String popularDestinationsTitle = "Popular Destinations";

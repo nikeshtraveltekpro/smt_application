@@ -11,6 +11,7 @@ abstract class Routes {
   static const sniggy = _Paths.sniggy;
   static const wishlist = _Paths.wishlist;
   static const hotel = _Paths.hotel;
+  static const hotelSearchCity = _Paths.hotelSearchCity;
 }
 
 abstract class _Paths {
@@ -22,4 +23,5 @@ abstract class _Paths {
   static const trip = '/trip';
   static const wishlist = '/wishlist';
   static const hotel = '/hotel';
+  static const hotelSearchCity = '/search_hotel_city';
 }

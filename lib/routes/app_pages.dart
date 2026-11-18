@@ -7,6 +7,7 @@ import 'package:smt_application/src/modules/home/bindings/home_binding.dart';
 import 'package:smt_application/src/modules/home/views/home_view.dart';
 import 'package:smt_application/src/modules/hotels/bindings/hotels_binding.dart';
 import 'package:smt_application/src/modules/hotels/views/hotel_view.dart';
+import 'package:smt_application/src/modules/hotels/views/search_city_view.dart';
 import 'package:smt_application/src/modules/sniggy/bindings/sniggy_binding.dart';
 import 'package:smt_application/src/modules/sniggy/views/sniggy_view.dart';
 import 'package:smt_application/src/modules/trip/bindings/trip_binding.dart';
@@ -36,7 +37,8 @@ class AppPages {
       name: _Paths.trip,
       page: () => const TripView(),
       binding: TripBinding(),
-    ),GetPage(
+    ),
+    GetPage(
       name: _Paths.sniggy,
       page: () => const SniggyView(),
       binding: SniggyBinding(),
@@ -50,9 +52,15 @@ class AppPages {
       name: _Paths.account,
       page: () => const AccountView(),
       binding: AccountBinding(),
-    ), GetPage(
+    ),
+    GetPage(
       name: _Paths.hotel,
       page: () => const HotelView(),
+      binding: HotelBinding(),
+    ),
+    GetPage(
+      name: _Paths.hotelSearchCity,
+      page: () => const SearchCityView(),
       binding: HotelBinding(),
     ),
   ];
