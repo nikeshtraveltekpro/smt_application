@@ -6,6 +6,7 @@ import 'package:smt_application/src/modules/dashboard/views/dashboard_view.dart'
 import 'package:smt_application/src/modules/home/bindings/home_binding.dart';
 import 'package:smt_application/src/modules/home/views/home_view.dart';
 import 'package:smt_application/src/modules/hotels/bindings/hotels_binding.dart';
+import 'package:smt_application/src/modules/hotels/views/calendar/calendar_screen.dart';
 import 'package:smt_application/src/modules/hotels/views/hotel_view.dart';
 import 'package:smt_application/src/modules/hotels/views/search_city_view.dart';
 import 'package:smt_application/src/modules/sniggy/bindings/sniggy_binding.dart';
@@ -58,10 +59,7 @@ class AppPages {
       page: () => const HotelView(),
       binding: HotelBinding(),
     ),
-    GetPage(
-      name: _Paths.hotelSearchCity,
-      page: () => const SearchCityView(),
-      binding: HotelBinding(),
-    ),
+    GetPage(name: _Paths.hotelSearchCity, page: () => const SearchCityView()),
+    GetPage(name: _Paths.calendar, page: () => const CalendarView()),
   ];
 }

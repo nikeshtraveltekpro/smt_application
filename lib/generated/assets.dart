@@ -12,9 +12,13 @@ class Assets {
   static const String bus = 'assets/images/bus.svg';
   static const String price = 'assets/images/price.svg';
   static const String room = 'assets/images/room.svg';
+  static const String hotelIcon = 'assets/images/hotel_icon.svg';
+  static const String time = 'assets/images/time.svg';
+  static const String unselectedRadio = 'assets/images/unselected_radio.svg';
+  static const String selectedRadio = 'assets/images/selected_radio.svg';
+  static const String cross = 'assets/images/cross.svg';
   static const String arrowLeft = 'assets/images/arrow_left.svg';
   static const String locationCursor = 'assets/images/location_cursor.svg';
-
   static const String car = 'assets/images/car.svg';
   static const String cruise = 'assets/images/cruise.svg';
   static const String dubai = 'assets/images/dubai.svg';

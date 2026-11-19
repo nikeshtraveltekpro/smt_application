@@ -9,12 +9,17 @@ class HotelConstants {
   static const String buses = "Buses";
   static const String cars = "Cars";
   static const String holidays = "Holidays";
+  static const String room1AdultsTotal = '1';
+  static const String room1Children1Total = '1';
   static const String propertiesNearMe = "Properties near me";
+
   // Location
   static const String hotelSearchLocationTitle =
       "City, Property name or Location";
   static const String hotelSearchCityName = "New Delhi";
   static const String hotelSearchCountryName = "India";
+  static const String hotelRecentSearchFullName = "Ahmedabad, Gujarat, India";
+  static const String hotelRecentSearchCity = "Ahmedabad";
 
   // Check-in & Check-out
   static const String checkInTitle = "Check-in";
@@ -27,8 +32,25 @@ class HotelConstants {
 
   // Rooms & Guests
   static const String roomsAndGuestsTitle = "Rooms & Guests";
+  static const String addRoomsAndGuestsTitle = "Add Rooms & Guests";
   static const String roomCount = "1 Room";
   static const String guestCount = "2 Adults";
+
+  // Add Room & Guest Bottom Sheet
+  static const String addRoomAndGuestTitle = "Add Room & Guest";
+  static const String roomTitle = "Room";
+  static const String room1 = "Room 1";
+  static const String room2 = "Room 2";
+  static const String room3 = "Room 3";
+  static const String adultsTitle = "Adults";
+  static const String adultsAgeSubtitle = "12 years or above";
+  static const String childrenTitle = "Children";
+  static const String childrenAgeSubtitle = "2-12 years";
+  static const String defaultAdultCount = "1";
+  static const String defaultChildrenCount = "0";
+  static const String removeRoom = "Remove Room";
+  static const String addRoom = "Add Room";
+  static const String continueButton = "Continue";
 
   // Price
   static const String pricePerNightTitle = "Price per Night";
@@ -46,6 +68,7 @@ class HotelConstants {
   static const String recentSearchesTitle = "Recent Searches";
   static const String recentSearchTitle = "Recent Search";
   static const String recentSearchCity = "Ahmedabad";
+  static const String clear = "Clear";
   static const String recentSearchDateIn = "12 Aug";
   static const String recentSearchDateOut = "25 Aug";
   static const String recentSearchGuestsRoom = "1 Room";

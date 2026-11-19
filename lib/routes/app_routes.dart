@@ -12,6 +12,7 @@ abstract class Routes {
   static const wishlist = _Paths.wishlist;
   static const hotel = _Paths.hotel;
   static const hotelSearchCity = _Paths.hotelSearchCity;
+  static const calendar = _Paths.calendar;
 }
 
 abstract class _Paths {
@@ -23,5 +24,6 @@ abstract class _Paths {
   static const trip = '/trip';
   static const wishlist = '/wishlist';
   static const hotel = '/hotel';
+  static const calendar = '/calendar';
   static const hotelSearchCity = '/search_hotel_city';
 }

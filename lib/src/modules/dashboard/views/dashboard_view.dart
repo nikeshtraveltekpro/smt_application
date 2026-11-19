@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:smt_application/utils/common_asset_image.dart';
 import 'package:smt_application/utils/app_colors.dart';
 import 'package:smt_application/utils/custom_textstyle.dart';
-import 'package:svg_flutter/svg.dart';
 
 import '../controllers/dashboard_controller.dart';
 import '../enums/screens_enums.dart';
