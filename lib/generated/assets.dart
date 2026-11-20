@@ -13,6 +13,7 @@ class Assets {
   static const String price = 'assets/images/price.svg';
   static const String room = 'assets/images/room.svg';
   static const String hotelIcon = 'assets/images/hotel_icon.svg';
+  static const String hotelBannerBg = 'assets/images/hotel_banner_bg.svg';
   static const String time = 'assets/images/time.svg';
   static const String unselectedRadio = 'assets/images/unselected_radio.svg';
   static const String selectedRadio = 'assets/images/selected_radio.svg';
@@ -39,10 +40,17 @@ class Assets {
   static const String smtLogo = 'assets/images/smt_logo.png';
   static const String screenBg = 'assets/images/screen_bg.svg';
   static const String train = 'assets/images/train.svg';
+  static const String flightTo = 'assets/images/flight_to.svg';
+  static const String flightFrom = 'assets/images/flight_from.svg';
+  static const String persons = 'assets/images/persons.svg';
   static const String trip = 'assets/images/trip.svg';
+  static const String arrowUpDown = 'assets/images/arrow_up_down.svg';
   static const String visa = 'assets/images/visa.svg';
+  static const String iButton = 'assets/images/i_button.svg';
   static const String emptyScroll = 'assets/images/empty_scroll.svg';
 
+  static const String popularDestination =
+      'assets/json/propular_destination.json';
   static const String homeHotelDeals =
       'assets/json/home_model_json_files/home_hotel_deals.json';
   static const String homeTopFlights =

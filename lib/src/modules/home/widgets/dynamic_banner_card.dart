@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smt_application/src/modules/home/controllers/home_controller.dart';
 import 'package:smt_application/src/modules/home/models/home_dynamic_banner_model.dart';
-import 'package:smt_application/utils/common_asset_image.dart';
 import 'package:smt_application/utils/app_colors.dart';
 import 'package:smt_application/utils/custom_textstyle.dart';
 
@@ -30,7 +29,7 @@ class DynamicBannerCard extends GetView<HomeController> {
                     crossAxisAlignment: .start,
                     mainAxisAlignment: .start,
                     children: [
-                      Container(
+                      SizedBox(
                         width: 180,
                         child: Text(
                           dynamicBannerItem.title,
@@ -62,8 +61,7 @@ class DynamicBannerCard extends GetView<HomeController> {
                                     child: Text(
                                       dynamicBannerItem.promoCode ?? "",
                                       maxLines: 2,
-                                      style: CustomTextstyle.bold600Text8
-                                          .copyWith(color: AppColors.dark_blue),
+                                      style: CustomTextstyle.promoCodeDarkBlue,
                                     ),
                                   ),
                                 ),

@@ -35,7 +35,7 @@ class DashboardView extends GetView<DashboardController> {
                     height: 65,
                     padding: const EdgeInsets.symmetric(horizontal: 7),
                     decoration: BoxDecoration(
-                      color: AppColors.bottom_bg,
+                      color: AppColors.bottomBg,
                       borderRadius: .circular(54),
                       border: Border.all(color: AppColors.white, width: 1),
                     ),
@@ -46,7 +46,7 @@ class DashboardView extends GetView<DashboardController> {
                       child: BottomNavigationBar(
                         currentIndex: controller.currentIndex.value,
                         onTap: controller.selectedIndex,
-                        backgroundColor: AppColors.bottom_bg,
+                        backgroundColor: AppColors.bottomBg,
                         elevation: 0,
                         type: BottomNavigationBarType.fixed,
                         selectedItemColor: AppColors.red,
@@ -117,7 +117,7 @@ class SniggyBottomButton extends GetView<DashboardController> {
           shape: BoxShape.circle,
           boxShadow: const [
             BoxShadow(
-              color: AppColors.shadow_blue,
+              color: AppColors.shadowBlue,
               offset: Offset.zero,
               blurRadius: 12,
               spreadRadius: 2,

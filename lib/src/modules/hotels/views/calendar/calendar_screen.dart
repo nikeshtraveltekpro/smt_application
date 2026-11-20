@@ -4,8 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:smt_application/src/modules/hotels/controllers/calendar_controller.dart';
 import 'package:smt_application/src/modules/hotels/views/calendar/widgets/calendar_month_widget.dart';
 
-import '../../controllers/hotel_controller.dart';
-
 class CalendarView extends GetView<CalendarController> {
   const CalendarView({super.key});
 

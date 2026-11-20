@@ -49,7 +49,7 @@ class DynamicBannerWidget extends GetView<HomeController> {
                       height: 5,
                       width: isActive ? 15 : 5,
                       decoration: BoxDecoration(
-                        color: AppColors.bottom_bg,
+                        color: AppColors.bottomBg,
                         borderRadius: .circular(10),
                       ),
                     ),

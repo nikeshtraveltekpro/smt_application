@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smt_application/generated/assets.dart';
 import 'package:smt_application/src/modules/home/controllers/home_controller.dart';
 import 'package:smt_application/utils/common_asset_image.dart';
 import 'package:smt_application/src/modules/home/widgets/shimmer/home_sub_category_shimmer.dart';
@@ -8,7 +9,7 @@ import 'package:smt_application/utils/app_sizes.dart';
 import 'package:smt_application/utils/custom_textstyle.dart';
 
 class HomeSubCategory extends GetView<HomeController> {
-  const new({super.key});
+  const HomeSubCategory({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class HomeSubCategory extends GetView<HomeController> {
                   color: AppColors.white,
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.shadow_blue,
+                      color: AppColors.shadowBlue,
                       offset: Offset(0, 1.94),
                       blurRadius: 12.62,
                       spreadRadius: 0,
@@ -62,10 +63,9 @@ class HomeSubCategory extends GetView<HomeController> {
                             ),
                             SizedBox(height: AppSize.s11),
                             Text(
-                              textAlign: .center,
-                              style: CustomTextstyle.normalText12,
-
                               item.title,
+                              textAlign: TextAlign.center,
+                              style: CustomTextstyle.normalText12,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                             ),

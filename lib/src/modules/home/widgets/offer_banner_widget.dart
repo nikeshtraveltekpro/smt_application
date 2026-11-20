@@ -50,7 +50,7 @@ class OfferBannerWidget extends GetView<HomeController> {
                                 left: 19.87,
                               ),
                               child: Text(
-                                AppConstants.zero_payment_fees,
+                                AppConstants.zeroPaymentFees,
                                 style: CustomTextstyle.boldText20,
                               ),
                             ),
@@ -63,7 +63,7 @@ class OfferBannerWidget extends GetView<HomeController> {
                               child: SizedBox(
                                 width: 229,
                                 child: Text(
-                                  AppConstants.pay_via_upi,
+                                  AppConstants.payViaUpi,
                                   maxLines: 2,
                                   overflow: .ellipsis,
                                   style: CustomTextstyle.normalText11,

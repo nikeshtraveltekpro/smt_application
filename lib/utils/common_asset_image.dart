@@ -23,7 +23,9 @@ class CommonAssetImage extends StatelessWidget {
       height: height,
       width: width,
       fit: fit,
-      color: color,
+      colorFilter: color == null
+          ? null
+          : ColorFilter.mode(color!, BlendMode.srcIn),
     );
   }
 }

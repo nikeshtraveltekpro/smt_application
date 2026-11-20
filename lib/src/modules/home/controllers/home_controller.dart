@@ -26,7 +26,7 @@ class HomeController extends GetxController {
   RxList<HomeTopFlightsModel> homeTopFlights = <HomeTopFlightsModel>[].obs;
   RxList<HomeDynamicBannerModel> homeDynamicBanner =
       <HomeDynamicBannerModel>[].obs;
-  RxString selectedOffer = AppConstants.all_offers.obs;
+  RxString selectedOffer = AppConstants.allOffers.obs;
 
   @override
   void onInit() {
@@ -58,13 +58,19 @@ class HomeController extends GetxController {
     }
   }
 
+  final RxBool isSubCategoryExpanded = false.obs;
+
+  void toggleSubCategory() {
+    isSubCategoryExpanded.value = !isSubCategoryExpanded.value;
+  }
+
   void selectOffer(String filterId) {
     selectedOffer(filterId);
     applyOffer(filterId);
   }
 
   void applyOffer(String filterId) {
-    if (filterId == AppConstants.all_offers) {
+    if (filterId == AppConstants.allOffers) {
       filterOffer.assignAll(homeOffer);
       return;
     }

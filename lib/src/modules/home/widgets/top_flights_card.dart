@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smt_application/src/modules/home/models/home_top_flights_model.dart';
 import 'package:smt_application/utils/app_colors.dart';
 import 'package:smt_application/utils/custom_textstyle.dart';
+
 class TopFlightsCard extends StatelessWidget {
   const new({super.key, required this.topFlight});
 
@@ -19,14 +20,14 @@ class TopFlightsCard extends StatelessWidget {
         border: Border.all(width: 3, color: Colors.white),
         boxShadow: [
           BoxShadow(
-            color: AppColors.grey_bg_shadow.withOpacity(0.1),
+            color: AppColors.greyBgShadow.withValues(alpha: 0.1),
             offset: Offset(1, 1.97),
             blurRadius: 2,
 
             spreadRadius: 3,
           ),
           BoxShadow(
-            color: AppColors.grey_bg_shadow.withOpacity(0.2),
+            color: AppColors.greyBgShadow.withValues(alpha: 0.2),
             offset: Offset(-1, -1.97),
             blurRadius: 2,
             spreadRadius: 3,
@@ -58,15 +59,11 @@ class TopFlightsCard extends StatelessWidget {
                   children: [
                     Text(
                       topFlight.title,
-                      style: CustomTextstyle.normalText14.copyWith(
-                        color: AppColors.white,
-                      ),
+                      style: CustomTextstyle.topFlightTitleWhite,
                     ),
                     Text(
                       topFlight.subtitle,
-                      style: CustomTextstyle.normal400Text10.copyWith(
-                        color: AppColors.white,
-                      ),
+                      style: CustomTextstyle.topFlightSubtitleWhite,
                     ),
                   ],
                 ),

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smt_application/generated/assets.dart';
-import 'package:smt_application/src/modules/hotels/controllers/search_city_controller.dart';
-import 'package:smt_application/src/modules/hotels/widgets/hotel_constants.dart';
+import 'package:smt_application/src/modules/flights/controllers/flights_controller.dart';
+import 'package:smt_application/src/modules/flights/controllers/search_airport_controller.dart';
+import 'package:smt_application/src/modules/flights/models/flight_destination_model.dart';
 import 'package:smt_application/utils/app_colors.dart';
+import 'package:smt_application/generated/assets.dart';
+import 'package:smt_application/src/modules/hotels/widgets/hotel_constants.dart';
 import 'package:smt_application/utils/common_asset_image.dart';
 import 'package:smt_application/utils/custom_textstyle.dart';
 
-class SearchCityView extends GetView<SearchCityController> {
-  const SearchCityView({super.key});
+class CommonSearchScreen extends GetView<SearchAirportController> {
+  const CommonSearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,6 @@ class SearchCityView extends GetView<SearchCityController> {
               SizedBox(height: 8),
               CitySearchBar(),
               SizedBox(height: 18),
-              LocationNearMeWidget(),
               SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -37,10 +38,7 @@ class SearchCityView extends GetView<SearchCityController> {
                         Spacer(),
                         Text(
                           HotelConstants.clear,
-                          style: CustomTextstyle.normal400Text12Red.copyWith(
-                            decoration: TextDecoration.underline,
-                            decorationColor: AppColors.red,
-                          ),
+                          style: CustomTextstyle.clearRecentSearch,
                         ),
                       ],
                     ),
@@ -64,7 +62,7 @@ class SearchCityView extends GetView<SearchCityController> {
   }
 }
 
-class CitySearchBar extends GetView<SearchCityController> {
+class CitySearchBar extends GetView<SearchAirportController> {
   const CitySearchBar({super.key});
 
   @override
@@ -82,6 +80,7 @@ class CitySearchBar extends GetView<SearchCityController> {
             child: SizedBox(
               height: 44,
               child: TextFormField(
+                controller: controller.searchController,
                 decoration: InputDecoration(
                   hintText: HotelConstants.searchByCityAndProperty,
                   hintStyle: CustomTextstyle.normal400Text12,
@@ -94,12 +93,12 @@ class CitySearchBar extends GetView<SearchCityController> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: .circular(52),
                     borderSide: BorderSide(
-                      color: AppColors.grey_2.withValues(alpha: 0.3),
+                      color: AppColors.grey2.withValues(alpha: 0.3),
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: .circular(52),
-                    borderSide: BorderSide(color: AppColors.text_icon_blue),
+                    borderSide: BorderSide(color: AppColors.textIconBlue),
                   ),
                 ),
               ),
@@ -111,124 +110,94 @@ class CitySearchBar extends GetView<SearchCityController> {
   }
 }
 
-class LocationNearMeWidget extends GetView<SearchCityController> {
-  const LocationNearMeWidget({super.key});
-
+class RecentSearchItem extends GetView<FlightsController> {
+  RecentSearchItem({super.key});
+  final searchController = Get.find<SearchAirportController>();
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: controller.selectNearMe,
-      child: Container(
-        height: 65,
-        width: .infinity,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          border: Border.symmetric(
-            horizontal: BorderSide(
-              width: 1,
-              color: AppColors.grey_2.withValues(alpha: 0.14),
+    return Obx(() {
+      final recentSearchItem = controller.recentSearch;
+
+      if (recentSearchItem.isEmpty) {
+        return const SizedBox.shrink();
+      }
+
+      return Column(
+        children: List.generate(recentSearchItem.length, (index) {
+          final searchDetail = recentSearchItem[index];
+          final List<FlightDestinationModel> destination = [
+            FlightDestinationModel(
+              city: searchDetail.fromCity.city,
+              airport: searchDetail.fromCity.airport,
             ),
-          ),
-        ),
-        child: Row(
-          children: [
-            CommonAssetImage(image: Assets.locationCursor),
-            SizedBox(width: 10),
-            Text(
-              HotelConstants.propertiesNearMe,
-              style: CustomTextstyle.bold500Text15.copyWith(
-                fontSize: 14,
-                color: AppColors.text_icon_blue,
+            FlightDestinationModel(
+              city: searchDetail.toCity.city,
+              airport: searchDetail.toCity.airport,
+            ),
+          ];
+          return GestureDetector(
+            onTap: () {
+              controller.addRecentSearch();
+              searchController.selectFlightDestination(destination);
+            },
+            child: SizedBox(
+              height: 48,
+              width: double.infinity,
+              child: Row(
+                children: [
+                  CommonAssetImage(image: Assets.time),
+                  const SizedBox(width: 10),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${searchDetail.fromCity.city} -> ${searchDetail.toCity.city}',
+                        style: CustomTextstyle.boldText14Blue,
+                      ),
+                      Flexible(
+                        child: Text(
+                          "${searchDetail.departureDate} • ${searchDetail.travellers} Travellers • ${searchDetail.travelClass}",
+                          style: CustomTextstyle.normal400Text12,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
+        }),
+      );
+    });
   }
 }
 
-class RecentSearchItem extends GetView<SearchCityController> {
-  const RecentSearchItem({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 48,
-      width: .infinity,
-      child: Row(
-        children: [
-          CommonAssetImage(image: Assets.time),
-          SizedBox(width: 10),
-          Column(
-            mainAxisAlignment: .center,
-            crossAxisAlignment: .start,
-            children: [
-              Text(
-                HotelConstants.hotelRecentSearchFullName,
-                style: CustomTextstyle.bold600Text14.copyWith(
-                  color: AppColors.text_icon_blue,
-                ),
-              ),
-              Text(
-                HotelConstants.recentSearchCity,
-                style: CustomTextstyle.normal400Text12,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class PopularDestinationsWidget extends GetView<SearchCityController> {
+class PopularDestinationsWidget extends GetView<SearchAirportController> {
   const PopularDestinationsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        PopularDestinationGroup(
-          city: HotelConstants.recentSearchCity,
-          country: HotelConstants.recentSearchCity,
-          subDestinations: [
-            HotelConstants.recentSearchCity,
-            HotelConstants.recentSearchCity,
-            HotelConstants.recentSearchCity,
-            HotelConstants.recentSearchCity,
-            HotelConstants.recentSearchCity,
-          ],
-        ),
-        SizedBox(height: 10),
-        PopularDestinationItem(
-          city: HotelConstants.recentSearchCity,
-          country: HotelConstants.recentSearchCity,
-        ),
-        SizedBox(height: 10),
+    return Obx(() {
+      final destinations = controller.filteredDestinations;
 
-        PopularDestinationItem(
-          city: HotelConstants.recentSearchCity,
-          country: HotelConstants.recentSearchCity,
-        ),
-        SizedBox(height: 10),
-
-        PopularDestinationItem(
-          city: HotelConstants.recentSearchCity,
-          country: HotelConstants.recentSearchCity,
-        ),
-        SizedBox(height: 10),
-        PopularDestinationItem(
-          city: HotelConstants.recentSearchCity,
-          country: HotelConstants.recentSearchCity,
-        ),
-      ],
-    );
+      return Column(
+        children: List.generate(destinations.length, (index) {
+          final destination = destinations[index];
+          return PopularDestinationItem(
+            city: destination.city,
+            country: destination.airport,
+            onTap: () => controller.selectFlightDestination(destinations),
+          );
+        }),
+      );
+    });
   }
 }
 
-class PopularDestinationGroup extends GetView<SearchCityController> {
+class PopularDestinationGroup extends StatelessWidget {
   final String city;
   final String country;
   final List<String> subDestinations;
@@ -244,7 +213,7 @@ class PopularDestinationGroup extends GetView<SearchCityController> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        PopularDestinationItem(city: city, country: country),
+        PopularDestinationItem(city: city, country: country, onTap: () {}),
         Padding(
           padding: EdgeInsets.only(left: 9),
           child: IntrinsicHeight(
@@ -253,7 +222,7 @@ class PopularDestinationGroup extends GetView<SearchCityController> {
               children: [
                 Container(
                   width: 1,
-                  color: AppColors.grey_2.withValues(alpha: 0.4),
+                  color: AppColors.grey2.withValues(alpha: 0.4),
                 ),
                 SizedBox(width: 20),
                 Expanded(
@@ -277,46 +246,56 @@ class PopularDestinationGroup extends GetView<SearchCityController> {
   }
 }
 
-class PopularDestinationItem extends GetView<SearchCityController> {
+class PopularDestinationItem extends StatelessWidget {
   final String city;
   final String country;
+  final VoidCallback onTap;
 
   const PopularDestinationItem({
     super.key,
     required this.city,
     required this.country,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 42,
-      child: Row(
-        children: [
-          CommonAssetImage(image: Assets.hotelIcon),
-          SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: .center,
-              crossAxisAlignment: .start,
-              children: [
-                Text(
-                  city,
-                  style: CustomTextstyle.bold600Text14.copyWith(
-                    color: AppColors.text_icon_blue,
+    return GestureDetector(
+      onTap: onTap,
+      child: SizedBox(
+        height: 42,
+        child: Row(
+          children: [
+            CommonAssetImage(image: Assets.flightFrom),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    city,
+                    style: CustomTextstyle.boldText14Blue,
+                    overflow: .ellipsis,
+                    maxLines: 1,
                   ),
-                ),
-                Text(country, style: CustomTextstyle.normal400Text12),
-              ],
+                  Text(
+                    country,
+                    style: CustomTextstyle.normal400Text12,
+                    overflow: .ellipsis,
+                    maxLines: 1,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
 
-class SubDestinationItem extends GetView<SearchCityController> {
+class SubDestinationItem extends StatelessWidget {
   final String title;
   final String subtitle;
 
@@ -334,16 +313,8 @@ class SubDestinationItem extends GetView<SearchCityController> {
         crossAxisAlignment: .start,
         mainAxisAlignment: .center,
         children: [
-          Text(
-            title,
-            style: CustomTextstyle.normal400Text12.copyWith(
-              color: AppColors.text_icon_blue,
-            ),
-          ),
-          Text(
-            subtitle,
-            style: CustomTextstyle.normal400Text12.copyWith(fontSize: 10),
-          ),
+          Text(title, style: CustomTextstyle.normalBlue12),
+          Text(subtitle, style: CustomTextstyle.normal400Text10),
         ],
       ),
     );

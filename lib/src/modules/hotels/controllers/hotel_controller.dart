@@ -1,18 +1,22 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:smt_application/routes/app_pages.dart';
 import 'package:smt_application/src/modules/hotels/controllers/calendar_controller.dart';
 import 'package:smt_application/src/modules/hotels/models/hotel_recent_search_model.dart';
+import 'package:smt_application/src/modules/hotels/models/popular_destination_model.dart';
 import 'package:smt_application/src/modules/hotels/models/price_model.dart';
 import 'package:smt_application/src/modules/hotels/models/room_model.dart';
-import 'package:smt_application/src/modules/hotels/models/select_dates_model.dart';
+import 'package:smt_application/src/modules/hotels/repo/hotel_repositories.dart';
 import 'package:smt_application/src/modules/hotels/views/room_guest_bottomsheet.dart';
 import 'package:smt_application/src/modules/hotels/views/room_price_bottomsheet.dart';
 import 'package:smt_application/src/modules/hotels/widgets/hotel_constants.dart';
 import 'package:smt_application/utils/app_colors.dart';
-import 'package:smt_application/utils/app_constants.dart';
 
 class HotelController extends GetxController {
+  HotelController({required this.hotelRepositories});
+  final HotelRepositories hotelRepositories;
+  RxBool isLoading = false.obs;
+  RxBool hasError = false.obs;
+  RxString errorMsg = ''.obs;
   RxInt length = 1.obs;
   RxInt adultCount = 1.obs;
   RxInt children = 0.obs;
@@ -35,30 +39,126 @@ class HotelController extends GetxController {
   RxBool is4Star = false.obs;
   RxBool isFullRefundable = false.obs;
   RxList<HotelRecentSearchModel> recentSearch = <HotelRecentSearchModel>[].obs;
-  final Rx<SelectDatesModel> selectedDates = const SelectDatesModel().obs;
-  final today = DateTime.now().obs;
 
-  RxString country = HotelConstants.hotelSearchCountryName.obs;
-
-  String get dateIn {
-    final checkIn = selectedDates.value.checkInDate;
-
-    return DateFormat('dd MMM, yyyy').format(checkIn ?? today.value);
+  RxList<PopularDestinationModel> popularList = <PopularDestinationModel>[].obs;
+  @override
+  void onInit() {
+    super.onInit();
+    fetchPopularDestination();
+    priceList.assignAll(
+      priceRanges.map((range) => PriceModel(price: range)).toList(),
+    );
   }
 
-  String get dateOut {
-    final checkOut = selectedDates.value.checkOutDate;
+  Future<void> fetchPopularDestination() async {
+    isLoading(true);
+    hasError(false);
+    errorMsg('');
+    try {
+      final content = await hotelRepositories.fetchPopularDestination();
+      popularList.assignAll(content);
+    } on HotelRepositoriesException catch (e) {
+      hasError(true);
+      errorMsg(e.toString());
+    } catch (e) {
+      hasError(true);
+      errorMsg(e.toString());
+    } finally {
+      isLoading(false);
+    }
+  }
 
-    return DateFormat('dd MMM, yyyy')
-        .format(checkOut ?? today.value.add(const Duration(days: 1)));
+  RxString country = 'India'.obs;
+  void toggle4Star() {
+    is4Star.value = !is4Star.value;
+  }
+
+  void toggleFullRefundable() {
+    isFullRefundable.value = !isFullRefundable.value;
+  }
+
+  void updateGuestCounts() {
+    int adultsSum = 0;
+    int childrenSum = 0;
+
+    for (var room in roomList) {
+      adultsSum += room.adults.value;
+      childrenSum += room.children.value;
+    }
+
+    totalAdults.value = adultsSum.toString();
+    totalChildren.value = childrenSum.toString();
+  }
+
+  void increaseChildren(int index) {
+    if (roomList[index].children.value < 7) {
+      roomList[index].children.value++;
+      final childAges = roomList[index].childAges;
+      if (childAges.length < roomList[index].children.value) {
+        childAges.add('Under 1');
+      }
+    }
+    updateBottomSheetHeight();
+    updateGuestCounts();
+  }
+
+  void selectPrice(String value) {
+    if (value.isNotEmpty) {
+      selectedPrice.value = value;
+    }
+  }
+
+  void confirmRoomAndGuests() {
+    updateGuestCounts();
+    roomList.refresh();
+    Get.back();
+  }
+
+  void decreaseChildren(int index) {
+    if (roomList[index].children.value > 0) {
+      roomList[index].children.value--;
+      if (roomList[index].childAges.isNotEmpty) {
+        roomList[index].childAges.removeLast();
+      }
+    }
+    updateBottomSheetHeight();
+    updateGuestCounts();
+  }
+
+  void updateChildAge(int roomIndex, int childIndex, String age) {
+    final childAges = roomList[roomIndex].childAges;
+    if (childIndex < childAges.length) {
+      childAges[childIndex] = age;
+      childAges.refresh();
+    }
+  }
+
+  void increaseAdult(int index) {
+    if (roomList[index].adults.value < 7) {
+      roomList[index].adults.value++;
+    }
+    updateGuestCounts();
+  }
+
+  void decreaseAdult(int index) {
+    if (roomList[index].adults.value > 1) {
+      roomList[index].adults.value--;
+    }
+    updateGuestCounts();
   }
 
   void addRecentSearch() {
-    final checkIn = selectedDates.value.checkInDate ?? dateOnly(today.value);
+    final calendarController = Get.find<CalendarController>();
+
+    final checkIn =
+        calendarController.selectedDates.value.checkInDate ??
+        calendarController.dateOnly(DateTime.now());
 
     final checkOut =
-        selectedDates.value.checkOutDate ??
-        dateOnly(today.value.add(const Duration(days: 1)));
+        calendarController.selectedDates.value.checkOutDate ??
+        calendarController.dateOnly(
+          DateTime.now().add(const Duration(days: 1)),
+        );
 
     final recentCheckIn = DateFormat('dd MMM').format(checkIn);
     final fullCheckInDay = DateFormat('EEEE').format(checkIn);
@@ -91,116 +191,40 @@ class HotelController extends GetxController {
     );
   }
 
-  Future<void> openCalendar({required bool isCheckIn}) async {
-    final calendarController = Get.find<CalendarController>();
-
-    calendarController.prepareCalendar(
-      initialDates: selectedDates.value,
-      isCheckIn: isCheckIn,
-    );
-
-    final result = await Get.toNamed(Routes.calendar);
-
-    if (result is SelectDatesModel) {
-      selectedDates.value = result;
-    }
-  }
-
-  DateTime dateOnly(DateTime date) => DateTime(date.year, date.month, date.day);
-
-  void toggle4Star() {
-    is4Star.value = !is4Star.value;
-  }
-
-  void toggleFullRefundable() {
-    isFullRefundable.value = !isFullRefundable.value;
-  }
-
-  void updateGuestCounts() {
-    int adultsSum = 0;
-    int childrenSum = 0;
-
-    for (var room in roomList) {
-      adultsSum += room.adults.value;
-      childrenSum += room.children.value;
-    }
-
-    totalAdults.value = adultsSum.toString();
-    totalChildren.value = childrenSum.toString();
-  }
-
-  void increaseChildren(int index) {
-    if (roomList[index].children.value < 7) {
-      roomList[index].children.value++;
-    }
-    updateGuestCounts();
-  }
-
-  void selectPrice(value) {
-    if (value != null) {
-      selectedPrice.value = value;
-    }
-  }
-
-  void confirmRoomAndGuests() {
-    updateGuestCounts();
-    roomList.refresh();
-    Get.back();
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    priceList.assignAll(
-      priceRanges.map((range) => PriceModel(price: range)).toList(),
-    );
-  }
-
-  void decreaseChildren(index) {
-    if (roomList[index].children.value > 1) {
-      roomList[index].children.value--;
-    }
-    updateGuestCounts();
-  }
-
-  void increaseAdult(int index) {
-    if (roomList[index].adults.value < 7) {
-      roomList[index].adults.value++;
-    }
-    updateGuestCounts();
-  }
-
-  void decreaseAdult(int index) {
-    if (roomList[index].adults.value > 1) {
-      roomList[index].adults.value--;
-    }
-    updateGuestCounts();
-  }
-
   void addRoom() {
     roomList.add(RoomModel());
-    if (roomList.length == 2) {
-      height.value = Get.height * 0.60;
-    }
-    if (roomList.length > 2) {
-      height.value = Get.height * 0.75;
-    }
+    updateBottomSheetHeight();
   }
 
   void removeRoom(int index) {
     if (index != 0) {
       roomList.removeAt(index);
-      if (roomList.length == 2) {
-        height.value = Get.height * 0.60;
-      }
-      if (roomList.length < 2) {
-        height.value = Get.height * 0.40;
-      }
+      updateBottomSheetHeight();
     }
   }
 
+  void updateBottomSheetHeight() {
+    double bottomSheetHeight;
+    if (roomList.length >= 3) {
+      bottomSheetHeight = 0.75;
+    } else if (roomList.length == 2) {
+      bottomSheetHeight = 0.60;
+    } else {
+      bottomSheetHeight = 0.40;
+    }
+
+    int ageRows = 0;
+    for (final room in roomList) {
+      ageRows += (room.children.value / 3).ceil();
+    }
+    bottomSheetHeight += ageRows * 0.09;
+    if (bottomSheetHeight > 0.88) {
+      bottomSheetHeight = 0.88;
+    }
+    height.value = Get.height * bottomSheetHeight;
+  }
+
   void getRoomBottomSheet() {
-    print("Bottom Sheet Tapped=====================");
     Get.bottomSheet(
       RoomGuestBottomsheet(),
       isDismissible: true,
@@ -210,7 +234,6 @@ class HotelController extends GetxController {
   }
 
   void getPriceBottomSheet() {
-    print("Bottom Sheet Tapped=====================");
     Get.bottomSheet(
       RoomPriceBottomsheet(),
       isDismissible: true,

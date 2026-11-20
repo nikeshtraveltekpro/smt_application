@@ -33,7 +33,7 @@ extension BodyScreen on BodyScreens {
       case BodyScreens.home:
         return AppConstants.home;
       case BodyScreens.trip:
-        return AppConstants.my_trips;
+        return AppConstants.myTrips;
 
       case BodyScreens.sniggy:
         return AppConstants.sniggy;

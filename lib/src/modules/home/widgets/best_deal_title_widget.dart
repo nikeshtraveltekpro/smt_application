@@ -12,12 +12,12 @@ class BestDealTitleWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 20.0),
       child: Row(
         children: [
-          Text(AppConstants.best_deal, style: CustomTextstyle.boldText15),
+          Text(AppConstants.bestDeal, style: CustomTextstyle.boldText15),
           SizedBox(width: 10),
           Container(
             width: AppSize.s34,
             decoration: BoxDecoration(
-              border: Border.all(width: 1, color: AppColors.light_blue_1),
+              border: Border.all(width: 1, color: AppColors.lightBlue1),
             ),
           ),
         ],

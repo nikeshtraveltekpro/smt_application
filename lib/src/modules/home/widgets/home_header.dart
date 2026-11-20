@@ -29,7 +29,7 @@ class HomeHeader extends GetView<HomeController> {
                     height: AppSize.s40,
                     width: AppSize.s40,
                     decoration: BoxDecoration(
-                      color: AppColors.bottom_bg.withValues(alpha: 0.4),
+                      color: AppColors.bottomBg.withValues(alpha: 0.4),
                       shape: .circle,
                       border: Border.all(
                         width: 1,
@@ -96,10 +96,10 @@ class HomeHeader extends GetView<HomeController> {
                                     child: GestureDetector(
                                       onTap: () {
                                         if (index == 2) {
-                                          print(
-                                            "===================tapped===============",
-                                          );
                                           Get.toNamed(Routes.hotel);
+                                        }
+                                        if (index == 0) {
+                                          Get.toNamed(Routes.flights);
                                         }
                                       },
                                       child: CategoryCard(

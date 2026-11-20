@@ -29,7 +29,7 @@ class RoomGuestBottomsheet extends GetView<HotelController> {
               child: Container(
                 height: 3,
                 width: 50.5,
-                color: AppColors.dark_blue,
+                color: AppColors.textIconBlue,
               ),
             ),
             SizedBox(height: 15),
@@ -113,12 +113,7 @@ class IncreaseRoomWidget extends StatelessWidget {
                 ),
               ],
             ),
-            Text(
-              HotelConstants.addRoom,
-              style: CustomTextstyle.bold500Text15.copyWith(
-                color: AppColors.red,
-              ),
-            ),
+            Text(HotelConstants.addRoom, style: CustomTextstyle.addRoomRed15),
           ],
         ),
       ),
@@ -169,10 +164,7 @@ class CommonRoomWidget extends GetView<HotelController> {
           crossAxisAlignment: .start,
 
           children: [
-            Text(
-              "Room ${count}",
-              style: CustomTextstyle.bold600Text15.copyWith(fontSize: 14),
-            ),
+            Text("Room $count", style: CustomTextstyle.boldText14Blue),
             SizedBox(height: 6),
             AddRemoveRowWidget(
               title: HotelConstants.adultsTitle,
@@ -190,7 +182,101 @@ class CommonRoomWidget extends GetView<HotelController> {
               onAdd: () => controller.increaseChildren(index),
               onSub: () => controller.decreaseChildren(index),
             ),
-            
+            Obx(
+              () => controller.roomList[index].children.value == 0
+                  ? const SizedBox.shrink()
+                  : Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          final itemWidth = (constraints.maxWidth - 16) / 3;
+                          return Wrap(
+                            spacing: 8,
+                            runSpacing: 10,
+                            children: List.generate(
+                              controller.roomList[index].children.value,
+                              (childIndex) => SizedBox(
+                                width: itemWidth,
+                                child: Column(
+                                  crossAxisAlignment: .start,
+                                  children: [
+                                    Text(
+                                      'Child ${childIndex + 1} Age',
+                                      style: CustomTextstyle.childAgeLabel,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Container(
+                                      height: 52,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                          color: AppColors.grey2.withValues(
+                                            alpha: 0.18,
+                                          ),
+                                        ),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 16,
+                                      ),
+                                      child: Obx(() {
+                                        final selectedAge = controller
+                                            .roomList[index]
+                                            .childAges[childIndex];
+                                        return DropdownButtonHideUnderline(
+                                          child: DropdownButton<String>(
+                                            value: selectedAge,
+                                            isExpanded: true,
+                                            isDense: true,
+                                            icon: const SizedBox.shrink(),
+                                            style: CustomTextstyle
+                                                .normal400Text12
+                                                .copyWith(fontSize: 14),
+                                            items:
+                                                [
+                                                      'Under 1',
+                                                      for (
+                                                        int age = 1;
+                                                        age <= 12;
+                                                        age++
+                                                      )
+                                                        '$age',
+                                                    ]
+                                                    .map(
+                                                      (age) =>
+                                                          DropdownMenuItem<
+                                                            String
+                                                          >(
+                                                            value: age,
+                                                            child: Text(age),
+                                                          ),
+                                                    )
+                                                    .toList(),
+                                            onChanged: (age) {
+                                              if (age != null) {
+                                                controller.updateChildAge(
+                                                  index,
+                                                  childIndex,
+                                                  age,
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        );
+                                      }),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+            ),
+
             isIndexZero ? SizedBox(height: 0) : RemoveRoomWidgets(index: index),
             SizedBox(height: 10),
             DividerBorderWidget(),
@@ -209,9 +295,7 @@ class DividerBorderWidget extends StatelessWidget {
     return Container(
       height: 1,
       width: .infinity,
-      decoration: BoxDecoration(
-        color: AppColors.grey_2.withValues(alpha: 0.14),
-      ),
+      decoration: BoxDecoration(color: AppColors.grey2.withValues(alpha: 0.14)),
     );
   }
 }
@@ -265,10 +349,7 @@ class AddRemoveRowWidget extends GetView<HotelController> {
         Column(
           crossAxisAlignment: .start,
           children: [
-            Text(
-              title,
-              style: CustomTextstyle.bold600Text15.copyWith(fontSize: 13),
-            ),
+            Text(title, style: CustomTextstyle.recentHotelCity),
             Text(subTitle, style: CustomTextstyle.normal400Text12),
           ],
         ),
@@ -279,7 +360,7 @@ class AddRemoveRowWidget extends GetView<HotelController> {
           width: 32,
           alignment: .center,
           decoration: BoxDecoration(borderRadius: .circular(8)),
-          child: Obx(() => Text("${total}")),
+          child: Obx(() => Text("$total")),
         ),
         IconWidget(isAdd: true, onAdd: onAdd),
       ],
@@ -315,7 +396,7 @@ class IconWidget extends StatelessWidget {
                     height: 10.62,
                     decoration: BoxDecoration(
                       borderRadius: .circular(2),
-                      color: AppColors.grey_2,
+                      color: AppColors.grey2,
                     ),
                   ),
                   MinusIconWidget(),
@@ -327,7 +408,7 @@ class IconWidget extends StatelessWidget {
                 height: 1.5,
                 decoration: BoxDecoration(
                   borderRadius: .circular(2),
-                  color: AppColors.grey_2,
+                  color: AppColors.grey2,
                 ),
               ),
       ),
@@ -346,7 +427,7 @@ class MinusIconWidget extends StatelessWidget {
       height: 1.5,
       decoration: BoxDecoration(
         borderRadius: .circular(2),
-        color: AppColors.grey_2,
+        color: AppColors.grey2,
       ),
     );
   }

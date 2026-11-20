@@ -8,6 +8,7 @@ import 'package:smt_application/utils/app_colors.dart';
 import 'package:smt_application/utils/app_constants.dart';
 import 'package:smt_application/utils/app_sizes.dart';
 import 'package:smt_application/utils/custom_textstyle.dart';
+
 class OfferRowChoice extends GetView<HomeController> {
   const new({super.key, required this.controller});
 
@@ -24,14 +25,14 @@ class OfferRowChoice extends GetView<HomeController> {
           Row(
             children: [
               Text(
-                AppConstants.existing_offers,
+                AppConstants.existingOffers,
                 style: CustomTextstyle.boldText15,
               ),
               SizedBox(width: 10),
               Container(
                 width: AppSize.s34,
                 decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: AppColors.light_blue_1),
+                  border: Border.all(width: 1, color: AppColors.lightBlue1),
                 ),
               ),
             ],
@@ -46,7 +47,7 @@ class OfferRowChoice extends GetView<HomeController> {
               scrollDirection: .horizontal,
               child: Row(
                 spacing: 8,
-                children: offerFilters.values.map((name) {
+                children: OfferFilters.values.map((name) {
                   return GestureDetector(
                     onTap: () {
                       controller.selectOffer(name.title);
@@ -59,7 +60,7 @@ class OfferRowChoice extends GetView<HomeController> {
                         border: Border.all(width: 1, color: AppColors.white),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.shadow_blue,
+                            color: AppColors.shadowBlue,
                             offset: const Offset(0, 1.94),
                             blurRadius: 12.62,
                           ),
@@ -75,9 +76,7 @@ class OfferRowChoice extends GetView<HomeController> {
                           child: Text(
                             name.title,
                             style: selected
-                                ? CustomTextstyle.boldText12.copyWith(
-                                    color: AppColors.red,
-                                  )
+                                ? CustomTextstyle.selectedOfferRed12
                                 : CustomTextstyle.boldText12,
                           ),
                         );

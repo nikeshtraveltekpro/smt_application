@@ -7,7 +7,9 @@ class SearchCityController extends GetxController {
   SearchCityController({required this.hotelController});
 
   final HotelController hotelController;
+
   final TextEditingController searchController = TextEditingController();
+
   final RxString searchQuery = ''.obs;
 
   final RxList<CityDestinationModel> recentCitySearches =
@@ -49,23 +51,31 @@ class SearchCityController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
     filteredDestinations.assignAll(popularDestinations);
+
+    searchController.addListener(() {
+      onSearchChanged(searchController.text);
+    });
   }
 
   void onSearchChanged(String value) {
     searchQuery.value = value;
+
     if (value.trim().isEmpty) {
       filteredDestinations.assignAll(popularDestinations);
-    } else {
-      final query = value.toLowerCase();
-      filteredDestinations.assignAll(
-        popularDestinations.where(
-          (item) =>
-              item.title.toLowerCase().contains(query) ||
-              item.subtitle.toLowerCase().contains(query),
-        ),
-      );
+      return;
     }
+
+    final query = value.trim().toLowerCase();
+
+    filteredDestinations.assignAll(
+      popularDestinations.where(
+        (item) =>
+            item.title.toLowerCase().contains(query) ||
+            item.subtitle.toLowerCase().contains(query),
+      ),
+    );
   }
 
   void clearRecentSearches() {
@@ -83,12 +93,18 @@ class SearchCityController extends GetxController {
 
   void selectDestination(CityDestinationModel destination) {
     recentCitySearches.removeWhere((item) => item.title == destination.title);
+
     recentCitySearches.insert(0, destination);
 
     hotelController.selectedCity.value = destination.subtitle;
-    hotelController.addRecentSearch();
 
     Get.back();
+  }
+
+  void clearSearch() {
+    searchController.clear();
+    searchQuery.value = '';
+    filteredDestinations.assignAll(popularDestinations);
   }
 
   @override

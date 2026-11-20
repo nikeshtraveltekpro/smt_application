@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:smt_application/generated/assets.dart';
 import 'package:smt_application/utils/app_colors.dart';
 import 'package:smt_application/utils/common_asset_image.dart';

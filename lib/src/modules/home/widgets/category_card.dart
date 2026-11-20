@@ -13,10 +13,10 @@ class CategoryCard extends StatelessWidget {
       width: AppSize.s80,
       decoration: BoxDecoration(
         color: AppColors.white,
-        border: Border.all(color: AppColors.bottom_bg, width: 0.97),
+        border: Border.all(color: AppColors.bottomBg, width: 0.97),
         boxShadow: [
           BoxShadow(
-            color: AppColors.shadow_blue,
+            color: AppColors.shadowBlue,
             offset: Offset(0, 1.94),
             blurRadius: AppSize.s12_62,
             spreadRadius: 0,

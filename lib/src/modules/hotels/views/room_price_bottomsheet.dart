@@ -28,7 +28,7 @@ class RoomPriceBottomsheet extends GetView<HotelController> {
             child: Container(
               height: 3,
               width: 50.5,
-              color: AppColors.dark_blue,
+              color: AppColors.darkBlue,
             ),
           ),
           Expanded(
@@ -93,7 +93,7 @@ class PriceRadioChoiceCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: isSelected ? AppColors.red : AppColors.grey_2,
+                    color: isSelected ? AppColors.red : AppColors.grey2,
                     width: 1.25,
                   ),
                 ),

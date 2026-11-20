@@ -13,6 +13,8 @@ abstract class Routes {
   static const hotel = _Paths.hotel;
   static const hotelSearchCity = _Paths.hotelSearchCity;
   static const calendar = _Paths.calendar;
+  static const flights = _Paths.flights;
+  static const searchFlights = _Paths.searchFlights;
 }
 
 abstract class _Paths {
@@ -23,7 +25,9 @@ abstract class _Paths {
   static const account = '/account';
   static const trip = '/trip';
   static const wishlist = '/wishlist';
-  static const hotel = '/hotel';
+  static const hotel = '/hotels';
   static const calendar = '/calendar';
+  static const flights = '/flights';
+  static const searchFlights = '/searchFlights';
   static const hotelSearchCity = '/search_hotel_city';
 }

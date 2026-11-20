@@ -170,7 +170,7 @@ List<HomeOfferModel> buildOffers() {
       image: 'https://images.pexels.com/photos/30356959/pexels-photo-30356959.jpeg?_gl=1*170qhtp*_ga*Mzk0MjExNjk0LjE3OTQ0ODk0Mzc.*_ga_8JE65Q40S6*czE3OTQ0ODk0MzYkbzEkZzAkdDE3OTQ0ODk0MzYkajYwJGwwJGgw',
       title: "Summer Escape Sale – Flat 20% Off on Hotels",
       promoCode: 'SMTTRAIN',
-      categoryId: AppConstants.all_offer,
+      categoryId: AppConstants.allOffer,
     ),
     HomeOfferModel(
       id: 2,

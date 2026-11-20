@@ -3,12 +3,17 @@ import 'package:smt_application/src/modules/accounts/bindings/account_binding.da
 import 'package:smt_application/src/modules/accounts/views/account_view.dart';
 import 'package:smt_application/src/modules/dashboard/bindings/dashboard_binding.dart';
 import 'package:smt_application/src/modules/dashboard/views/dashboard_view.dart';
+import 'package:smt_application/src/modules/flights/bindings/flights_binding.dart';
+import 'package:smt_application/src/modules/flights/views/common_search_screen.dart';
+import 'package:smt_application/src/modules/flights/views/flights_view.dart';
 import 'package:smt_application/src/modules/home/bindings/home_binding.dart';
 import 'package:smt_application/src/modules/home/views/home_view.dart';
 import 'package:smt_application/src/modules/hotels/bindings/hotels_binding.dart';
+import 'package:smt_application/src/modules/hotels/bindings/search_city_binding.dart';
+import 'package:smt_application/src/modules/hotels/bindings/calendar_binding.dart';
 import 'package:smt_application/src/modules/hotels/views/calendar/calendar_screen.dart';
 import 'package:smt_application/src/modules/hotels/views/hotel_view.dart';
-import 'package:smt_application/src/modules/hotels/views/search_city_view.dart';
+import 'package:smt_application/src/modules/hotels/views/hotel_search_city_view.dart';
 import 'package:smt_application/src/modules/sniggy/bindings/sniggy_binding.dart';
 import 'package:smt_application/src/modules/sniggy/views/sniggy_view.dart';
 import 'package:smt_application/src/modules/trip/bindings/trip_binding.dart';
@@ -59,7 +64,25 @@ class AppPages {
       page: () => const HotelView(),
       binding: HotelBinding(),
     ),
-    GetPage(name: _Paths.hotelSearchCity, page: () => const SearchCityView()),
-    GetPage(name: _Paths.calendar, page: () => const CalendarView()),
+    GetPage(
+      name: _Paths.flights,
+      page: () => const FlightsView(),
+      binding: FlightsBinding(),
+    ),
+    GetPage(
+      name: _Paths.searchFlights,
+      page: () => const CommonSearchScreen(),
+      binding: FlightsBinding(),
+    ),
+    GetPage(
+      name: Routes.hotelSearchCity,
+      page: () => const HotelSearchCityView(),
+      binding: SearchCityBinding(),
+    ),
+    GetPage(
+      name: _Paths.calendar,
+      page: () => const CalendarView(),
+      binding: CalendarBinding(),
+    ),
   ];
 }

@@ -76,7 +76,7 @@ class BestDealCard extends StatelessWidget {
                   height: 2,
                   width: 2,
                   decoration: BoxDecoration(
-                    color: AppColors.grey_2,
+                    color: AppColors.grey2,
                     shape: BoxShape.circle,
                   ),
                 ),

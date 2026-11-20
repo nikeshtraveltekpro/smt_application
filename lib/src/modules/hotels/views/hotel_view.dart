@@ -4,8 +4,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:smt_application/generated/assets.dart';
 import 'package:smt_application/routes/app_pages.dart';
+import 'package:smt_application/src/modules/hotels/controllers/calendar_controller.dart';
 import 'package:smt_application/src/modules/hotels/enums/category_enum.dart';
+import 'package:smt_application/src/modules/hotels/widgets/hotel_popular_destination_shimmer.dart';
 import 'package:smt_application/src/modules/hotels/widgets/hotel_constants.dart';
+import 'package:smt_application/src/modules/hotels/widgets/snackbar.dart';
 import 'package:smt_application/utils/app_colors.dart';
 import 'package:smt_application/utils/app_sizes.dart';
 import 'package:smt_application/utils/common_asset_image.dart';
@@ -24,11 +27,11 @@ class HotelView extends GetView<HotelController> {
         physics: BouncingScrollPhysics(),
         child: Column(
           children: [
-            SizedBox(height: 35),
-            HotelAppBar(),
+            SizedBox(height: 40),
+            CommonAppBar(screenName: HotelConstants.hotelSearchTitle),
             SizedBox(height: 15),
 
-            HotelHeaderCategories(),
+            CommonHeaderCategories(),
             SizedBox(height: AppSize.s19),
             HotelSearchWidget(),
             HotelSearchButton(),
@@ -74,25 +77,50 @@ class HotelPopularDestinationWidget extends GetView<HotelController> {
         ),
         SizedBox(height: AppSize.s10),
 
-        SingleChildScrollView(
-          scrollDirection: .horizontal,
-          physics: BouncingScrollPhysics(),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Row(
-              children: List.generate(5, (index) {
-                return PopularDestinationCard();
-              }),
+        Obx(() {
+          if (controller.isLoading.value) {
+            return const HotelPopularDestinationShimmer();
+          }
+          if (controller.hasError.value) {
+            return SizedBox(
+              height: 139,
+              child: Center(child: Text(controller.errorMsg.value)),
+            );
+          }
+
+          return SingleChildScrollView(
+            scrollDirection: .horizontal,
+            physics: BouncingScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Row(
+                children: List.generate(controller.popularList.length, (index) {
+                  final popular = controller.popularList[index];
+                  return PopularDestinationCard(
+                    image: popular.image,
+                    country: popular.countryName,
+                    city: popular.city,
+                  );
+                }),
+              ),
             ),
-          ),
-        ),
+          );
+        }),
       ],
     );
   }
 }
 
 class PopularDestinationCard extends GetView<HotelController> {
-  const new({super.key});
+  const new({
+    super.key,
+    required this.image,
+    required this.country,
+    required this.city,
+  });
+  final String image;
+  final String country;
+  final String city;
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +131,7 @@ class PopularDestinationCard extends GetView<HotelController> {
         width: 139.53488159179688,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: AppColors.white, width: 2),
           boxShadow: [
             BoxShadow(
               color: AppColors.black,
@@ -120,7 +149,7 @@ class PopularDestinationCard extends GetView<HotelController> {
               child: Image.network(
                 height: 139.53488159179688,
                 width: 139.53488159179688,
-                "https://www.annees-de-pelerinage.com/wp-content/uploads/2018/09/tirta-empul-water-temple-hindu-bali-indonesia.jpg",
+                image,
                 fit: .cover,
               ),
             ),
@@ -130,14 +159,8 @@ class PopularDestinationCard extends GetView<HotelController> {
               child: Column(
                 crossAxisAlignment: .start,
                 children: [
-                  Text(
-                    HotelConstants.destinationCountry,
-                    style: CustomTextstyle.bold500Text12White,
-                  ),
-                  Text(
-                    HotelConstants.destinationCity,
-                    style: CustomTextstyle.bold600Text18White,
-                  ),
+                  Text(country, style: CustomTextstyle.bold500Text12White),
+                  Text(city, style: CustomTextstyle.bold600Text18White),
                 ],
               ),
             ),
@@ -153,33 +176,81 @@ class RefundableBannerWidget extends GetView<HotelController> {
 
   @override
   Widget build(BuildContext context) {
+    final descriptionParts = HotelConstants.refundableHotelsDescription.split(
+      '100%',
+    );
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15.5),
-        height: 117,
-        width: .infinity,
-        decoration: BoxDecoration(
-          color: AppColors.banner_dark_blue,
-          borderRadius: .circular(16),
-        ),
-        child: Column(
-          crossAxisAlignment: .start,
-          mainAxisAlignment: .spaceEvenly,
-          children: [
-            Text(
-              HotelConstants.refundableHotelsTitle,
-              style: CustomTextstyle.bold600Text16,
-            ),
-            Text(
-              HotelConstants.refundableHotelsDescription,
-              style: CustomTextstyle.bold500Text10,
-            ),
-            Text(
-              HotelConstants.refundableHotelsExtraDescription,
-              style: CustomTextstyle.normalText8,
-            ),
-          ],
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: SizedBox(
+          height: 117,
+          width: .infinity,
+          child: Stack(
+            children: [
+              Container(color: AppColors.bannerDarkBlue),
+              Positioned(
+                left: 229,
+                top: -1.5,
+                width: 122,
+                height: 120,
+                child: CommonAssetImage(
+                  image: Assets.hotelBannerBg,
+                  fit: BoxFit.fill,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 15.5,
+                ),
+                child: Column(
+                  crossAxisAlignment: .start,
+                  mainAxisAlignment: .spaceEvenly,
+                  children: [
+                    Text(
+                      HotelConstants.refundableHotelsTitle,
+                      style: CustomTextstyle.refundableBannerTitle,
+                    ),
+                    SizedBox(
+                      width: 228,
+                      height: 30,
+                      child: Text.rich(
+                        TextSpan(
+                          children: [
+                            if (descriptionParts.length > 1) ...[
+                              TextSpan(text: descriptionParts.first),
+                              TextSpan(
+                                text: '100%',
+                                style: TextStyle(
+                                  color: AppColors.red,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              TextSpan(
+                                text: descriptionParts.sublist(1).join('100%'),
+                              ),
+                            ] else
+                              TextSpan(
+                                text:
+                                    HotelConstants.refundableHotelsDescription,
+                              ),
+                          ],
+                        ),
+                        style: CustomTextstyle.refundableBannerDescription,
+                        maxLines: 2,
+                        overflow: TextOverflow.clip,
+                      ),
+                    ),
+                    Text(
+                      HotelConstants.refundableHotelsExtraDescription,
+                      style: CustomTextstyle.normalText8,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -187,15 +258,15 @@ class RefundableBannerWidget extends GetView<HotelController> {
 }
 
 class HotelRecentSearch extends GetView<HotelController> {
-  const new({super.key});
+  const HotelRecentSearch({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: Column(
-        mainAxisAlignment: .start,
-        crossAxisAlignment: .start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -204,90 +275,91 @@ class HotelRecentSearch extends GetView<HotelController> {
               style: CustomTextstyle.bold600Text15,
             ),
           ),
-          SingleChildScrollView(
-            scrollDirection: .horizontal,
-            physics: BouncingScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10, left: 20),
-              child: Row(
-                mainAxisAlignment: .start,
-                crossAxisAlignment: .start,
-                children: List.generate(controller.recentSearch.length, (
-                  index,
-                ) {
-                  final recentSearchItem = controller.recentSearch[index];
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 12),
-                    child: Align(
-                      alignment: .centerLeft,
+
+          Obx(() {
+            if (controller.recentSearch.isEmpty) {
+              return const Padding(
+                padding: EdgeInsets.only(left: 20, top: 15),
+                child: Text('No recent searches'),
+              );
+            }
+
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10, left: 20),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List.generate(controller.recentSearch.length, (
+                    index,
+                  ) {
+                    final recentSearchItem = controller.recentSearch[index];
+
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 12),
                       child: Container(
-                        padding: .symmetric(horizontal: 15, vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 10,
+                        ),
                         height: 76,
                         width: 164,
                         decoration: BoxDecoration(
                           border: Border.all(
                             width: 1,
-                            color: AppColors.grey_2.withValues(alpha: 0.14),
+                            color: AppColors.grey2.withValues(alpha: 0.14),
                           ),
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Column(
-                          crossAxisAlignment: .start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               recentSearchItem.city,
-                              style: CustomTextstyle.bold600Text15.copyWith(
-                                fontSize: 13,
-                              ),
+                              style: CustomTextstyle.recentHotelCity,
                               maxLines: 1,
-                              overflow: .ellipsis,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            Row(
-                              mainAxisAlignment: .start,
 
+                            Row(
                               children: [
                                 Text(
                                   recentSearchItem.fullCheckIn,
-
                                   style: CustomTextstyle.normal400Text12,
-                                  maxLines: 1,
-                                  overflow: .ellipsis,
                                 ),
                                 Text(
-                                  " - ",
+                                  ' - ',
                                   style: CustomTextstyle.normal400Text12,
                                 ),
                                 Text(
                                   recentSearchItem.fullCheckOut,
                                   style: CustomTextstyle.normal400Text12,
-                                  maxLines: 1,
-                                  overflow: .ellipsis,
                                 ),
                               ],
                             ),
+
                             Row(
-                              mainAxisAlignment: .start,
                               children: [
                                 Text(
                                   recentSearchItem.rooms,
                                   style: CustomTextstyle.normal500Text12,
-                                  maxLines: 1,
-                                  overflow: .ellipsis,
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 5),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 5,
+                                  ),
                                   child: Container(
                                     height: 4,
                                     width: 4,
                                     decoration: BoxDecoration(
-                                      shape: .circle,
-                                      color: AppColors.grey_2,
+                                      shape: BoxShape.circle,
+                                      color: AppColors.grey2,
                                     ),
                                   ),
                                 ),
                                 Text(
                                   recentSearchItem.guests,
-
                                   style: CustomTextstyle.normal500Text12,
                                 ),
                               ],
@@ -295,12 +367,12 @@ class HotelRecentSearch extends GetView<HotelController> {
                           ],
                         ),
                       ),
-                    ),
-                  );
-                }),
+                    );
+                  }),
+                ),
               ),
-            ),
-          ),
+            );
+          }),
         ],
       ),
     );
@@ -336,56 +408,61 @@ class HotelSearchButton extends GetView<HotelController> {
 }
 
 class HotelSearchWidget extends GetView<HotelController> {
-  const new({super.key});
+  const HotelSearchWidget({super.key});
+
   final bool isSelected = true;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-
       child: Container(
         height: 281,
-        width: .infinity,
+        width: double.infinity,
         decoration: BoxDecoration(
           border: Border.all(
             width: 1,
-            color: AppColors.grey_2.withValues(alpha: 0.14),
+            color: AppColors.grey2.withValues(alpha: 0.14),
           ),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
-          mainAxisAlignment: .start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            CommonSearchWidget(
-              onTap: () {
-                print(
-                  "=======================Search Tapped===================",
-                );
-                Get.toNamed(Routes.hotelSearchCity);
-              },
-              image: Assets.hotel,
-              title: HotelConstants.hotelSearchLocationTitle,
-              subTitle: controller.selectedCity.value,
-              extraTitle: HotelConstants.hotelSearchCountryName,
-            ),
-            Divider(
-              height: 1,
-              thickness: 1,
-              color: AppColors.grey_2.withValues(alpha: 0.14),
+            Obx(
+              () => CommonSearchWidget(
+                onTap: () {
+                  Get.toNamed(Routes.hotelSearchCity);
+                },
+                image: Assets.hotel,
+                title: HotelConstants.hotelSearchLocationTitle,
+                subTitle: controller.selectedCity.value,
+                extraTitle: controller.country.value,
+              ),
             ),
 
-            HotelSearchCheckInOutWidget(),
             Divider(
               height: 1,
               thickness: 1,
-              color: AppColors.grey_2.withValues(alpha: 0.14),
+              color: AppColors.grey2.withValues(alpha: 0.14),
             ),
+
+            const HotelSearchCheckInOutWidget(),
+
+            Divider(
+              height: 1,
+              thickness: 1,
+              color: AppColors.grey2.withValues(alpha: 0.14),
+            ),
+
             HomeRoomAndPriceWidget(),
+
             Divider(
               height: 1,
               thickness: 1,
-              color: AppColors.grey_2.withValues(alpha: 0.14),
+              color: AppColors.grey2.withValues(alpha: 0.14),
             ),
+
             HotelQuickFiltersWidget(isSelected: isSelected),
           ],
         ),
@@ -401,15 +478,19 @@ class HotelQuickFiltersWidget extends GetView<HotelController> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 12.0, top: 12),
+      padding: const EdgeInsets.only(left: 12.0),
       child: Column(
         crossAxisAlignment: .start,
-        mainAxisAlignment: .start,
+        mainAxisAlignment: .spaceEvenly,
         children: [
+          SizedBox(height: 12),
+
           Text(HotelConstants.quickFiltersTitle),
+          SizedBox(height: 6),
 
           Row(
             mainAxisAlignment: .start,
+
             children: [
               Obx(
                 () => CommonToggleWidget(
@@ -422,10 +503,7 @@ class HotelQuickFiltersWidget extends GetView<HotelController> {
 
               Text(
                 HotelConstants.fourStars,
-                style: CustomTextstyle.bold500Text15.copyWith(
-                  color: AppColors.textGreyColor,
-                  fontSize: 13,
-                ),
+                style: CustomTextstyle.hotelFilterLabel13,
               ),
               SizedBox(width: 14),
 
@@ -440,10 +518,7 @@ class HotelQuickFiltersWidget extends GetView<HotelController> {
 
               Text(
                 HotelConstants.fullRefundable,
-                style: CustomTextstyle.bold500Text15.copyWith(
-                  color: AppColors.textGreyColor,
-                  fontSize: 13,
-                ),
+                style: CustomTextstyle.hotelFilterLabel13,
               ),
             ],
           ),
@@ -467,7 +542,7 @@ class CommonToggleWidget extends GetView<HotelController> {
         height: 17.454544067382812,
         padding: const EdgeInsets.all(1.46),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.red : AppColors.grey_2,
+          color: isSelected ? AppColors.red : AppColors.grey200,
           borderRadius: BorderRadius.circular(30),
         ),
         child: Align(
@@ -510,7 +585,7 @@ class HomeRoomAndPriceWidget extends GetView<HotelController> {
           VerticalDivider(
             width: 1,
             thickness: 1,
-            color: AppColors.grey_2.withValues(alpha: 0.14),
+            color: AppColors.grey2.withValues(alpha: 0.14),
           ),
 
           Expanded(
@@ -532,7 +607,7 @@ class HomeRoomAndPriceWidget extends GetView<HotelController> {
   }
 }
 
-class HotelSearchCheckInOutWidget extends GetView<HotelController> {
+class HotelSearchCheckInOutWidget extends GetView<CalendarController> {
   const HotelSearchCheckInOutWidget({super.key});
 
   @override
@@ -559,7 +634,7 @@ class HotelSearchCheckInOutWidget extends GetView<HotelController> {
             VerticalDivider(
               width: 1,
               thickness: 1,
-              color: AppColors.grey_2.withValues(alpha: 0.14),
+              color: AppColors.grey2.withValues(alpha: 0.14),
             ),
 
             Expanded(
@@ -624,23 +699,14 @@ class CommonSearchWidget extends GetView<HotelController> {
                 mainAxisAlignment: .center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: CustomTextstyle.normal400Text12.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.textGreyColor,
-                    ),
-                  ),
+                  Text(title, style: CustomTextstyle.normal500Text12),
 
                   Text(subTitle, style: style ?? CustomTextstyle.bold600Text15),
 
                   if (extraTitle != null && extraTitle!.isNotEmpty)
                     Text(
                       extraTitle!,
-                      style: CustomTextstyle.normal400Text12.copyWith(
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.textGreyColor,
-                      ),
+                      style: CustomTextstyle.normal500Text12,
                       overflow: .ellipsis,
                       maxLines: 1,
                     ),
@@ -654,9 +720,9 @@ class CommonSearchWidget extends GetView<HotelController> {
   }
 }
 
-class HotelAppBar extends GetView<HotelController> {
-  const new({super.key});
-
+class CommonAppBar extends GetView<HotelController> {
+  const new({super.key, required this.screenName});
+  final String screenName;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -667,67 +733,112 @@ class HotelAppBar extends GetView<HotelController> {
         crossAxisAlignment: .center,
         children: [
           GestureDetector(
-            onTap: () => Get.back(),
+            onTap: () => Get.offNamedUntil(Routes.home, (routes) => false),
+
             child: CommonAssetImage(image: Assets.arrowLeft),
           ),
           SizedBox(width: 14),
-          Text(
-            HotelConstants.hotelSearchTitle,
-            style: CustomTextstyle.boldText16,
-          ),
+          Text(screenName, style: CustomTextstyle.boldText16),
         ],
       ),
     );
   }
 }
 
-class HotelHeaderCategories extends GetView<HotelController> {
+class CommonHeaderCategories extends GetView<HotelController> {
   const new({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-
-      child: Row(
-        mainAxisAlignment: .spaceBetween,
-        children: CategoryEnum.values.map((item) {
-          return HotelHeaderCategoriesCard(item: item);
-        }).toList(),
+      child: Container(
+        width: double.infinity,
+        height: 54,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+        ),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              for (
+                var index = 0;
+                index < CategoryEnum.values.length;
+                index++
+              ) ...[
+                if (index > 0) const SizedBox(width: 5),
+                CommonHeaderCategoriesCard(item: CategoryEnum.values[index]),
+              ],
+            ],
+          ),
+        ),
       ),
     );
   }
 }
 
-class HotelHeaderCategoriesCard extends GetView<HotelController> {
+class CommonHeaderCategoriesCard extends GetView<HotelController> {
   const new({super.key, required this.item});
   final CategoryEnum item;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 56,
-      child: Column(
-        children: [
-          Expanded(
-            child: CommonAssetImage(
-              image: item.icon,
-              height: 18,
-              width: 18,
-              color: item.title == HotelConstants.hotels
+    return InkWell(
+      onTap: () {
+        if (item == CategoryEnum.hotels) {
+          if (Get.currentRoute != Routes.hotel) {
+            Get.toNamed(Routes.hotel);
+          }
+          return;
+        }
+        if (item == CategoryEnum.flights) {
+          if (Get.currentRoute != Routes.flights) {
+            Get.toNamed(Routes.flights);
+          }
+          return;
+        }
+        AppSnackbar.showInfo(item.title, 'This category is coming soon.');
+      },
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        width: 56,
+        height: 54,
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: '/${item.title.toLowerCase()}' == Get.currentRoute
                   ? AppColors.red
-                  : AppColors.blue,
+                  : Colors.transparent,
+              width: 2,
             ),
           ),
-          Expanded(
-            child: Text(item.title, style: CustomTextstyle.normalText12),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(8, 6, 8, 6),
+          child: Column(
+            mainAxisAlignment: .center,
+            children: [
+              CommonAssetImage(
+                image: item.icon,
+                height: 18,
+                width: 18,
+                color: '/${item.title.toLowerCase()}' == '${Get.currentRoute}'
+                    ? AppColors.red
+                    : AppColors.blue,
+              ),
+              const SizedBox(height: 6),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  item.title,
+                  maxLines: 1,
+                  style: CustomTextstyle.normalText12.copyWith(height: 1),
+                ),
+              ),
+            ],
           ),
-          if (item.title == HotelConstants.hotels)
-            Align(
-              alignment: .center,
-              child: Container(width: 22, height: 2, color: AppColors.red),
-            ),
-        ],
+        ),
       ),
     );
   }

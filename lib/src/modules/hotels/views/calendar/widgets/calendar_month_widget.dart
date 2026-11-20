@@ -3,8 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:smt_application/src/modules/hotels/controllers/calendar_controller.dart';
 import 'package:smt_application/src/modules/hotels/views/calendar/widgets/calendar_date_cell.dart';
 
-import '../../../controllers/hotel_controller.dart';
-
 class CalendarMonthWidget extends StatelessWidget {
   final DateTime month;
   final CalendarController controller;

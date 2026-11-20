@@ -45,7 +45,7 @@ class OfferCardWidget extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  AppConstants.code_smttrain,
+                  AppConstants.codeSmttrain,
                   style: CustomTextstyle.normalText10,
                 ),
               ),

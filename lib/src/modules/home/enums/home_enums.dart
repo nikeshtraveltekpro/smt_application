@@ -1,19 +1,19 @@
 import 'package:smt_application/utils/app_constants.dart';
 
-enum offerFilters { allOffers, flights, trains, hotels, buses }
+enum OfferFilters { allOffers, flights, trains, hotels, buses }
 
-extension OfferFiltersX on offerFilters {
+extension OfferFiltersX on OfferFilters {
   String get title {
     switch (this) {
-      case offerFilters.allOffers:
-        return AppConstants.all_offer;
-      case offerFilters.flights:
+      case OfferFilters.allOffers:
+        return AppConstants.allOffer;
+      case OfferFilters.flights:
         return AppConstants.flight;
-      case offerFilters.trains:
+      case OfferFilters.trains:
         return AppConstants.train;
-      case offerFilters.hotels:
+      case OfferFilters.hotels:
         return AppConstants.hotels;
-      case offerFilters.buses:
+      case OfferFilters.buses:
         return AppConstants.buses;
     }
   }
