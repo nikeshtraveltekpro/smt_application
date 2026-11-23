@@ -1,12 +1,14 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:smt_application/src/modules/flights/models/flight_destination_model.dart';
+import 'package:smt_application/src/modules/flights/models/flight_popular_routes_model.dart';
 import 'package:smt_application/src/modules/flights/models/flight_recent_search_model.dart';
 import 'package:smt_application/src/modules/flights/widgets/flight_constants.dart';
+import 'package:smt_application/src/modules/hotels/widgets/snackbar.dart';
 
 class FlightsController extends GetxController {
   RxInt selectedTripTypeIndex = 0.obs;
-
+  RxBool isOneWay = true.obs;
   RxString selectedFromCity = FlightConstants.searchFromCityName.obs;
   RxString selectedFromCode = "DEL".obs;
   RxString selectedFromAirport = FlightConstants.searchFromAirportName.obs;
@@ -30,9 +32,58 @@ class FlightsController extends GetxController {
   RxBool istoggleDirectFlight = false.obs;
   String get shortDate => DateFormat("dd MMM").format(dateOnly(today));
 
+  RxList<FlightPopularRoutesModel> popularRoutes = <FlightPopularRoutesModel>[
+    FlightPopularRoutesModel(
+      fromCity: 'Dubai',
+      toCity: 'Ahmedabad',
+      fromCityCode: 'DXB',
+      toCityCode: 'AMD',
+    ),
+    FlightPopularRoutesModel(
+      fromCity: 'Ahmedabad',
+      toCity: 'Mumbai',
+      fromCityCode: 'AMD',
+      toCityCode: 'BOM',
+    ),
+    FlightPopularRoutesModel(
+      fromCity: 'Ahmedabad',
+      toCity: 'Delhi',
+      fromCityCode: 'AMD',
+      toCityCode: 'DEL',
+    ),
+    FlightPopularRoutesModel(
+      fromCity: 'Ahmedabad',
+      toCity: 'London',
+      fromCityCode: 'AMD',
+      toCityCode: 'LHR',
+    ),
+    FlightPopularRoutesModel(
+      fromCity: 'Ahmedabad',
+      toCity: 'Singapore',
+      fromCityCode: 'AMD',
+      toCityCode: 'SIN',
+    ),
+    FlightPopularRoutesModel(
+      fromCity: 'Mumbai',
+      toCity: 'Dubai',
+      fromCityCode: 'BOM',
+      toCityCode: 'DXB',
+    ),
+    FlightPopularRoutesModel(
+      fromCity: 'Bengaluru',
+      toCity: 'Ahmedabad',
+      fromCityCode: 'BLR',
+      toCityCode: 'AMD',
+    ),
+  ].obs;
+
   DateTime today = DateTime.now();
   void toggleDirectFlight() {
     istoggleDirectFlight.value = !istoggleDirectFlight.value;
+  }
+
+  void setTripWay(bool oneWay) {
+    isOneWay.value = oneWay;
   }
 
   void addRecentSearch() {
@@ -142,5 +193,11 @@ class FlightsController extends GetxController {
     selectedToCity.value = tempCity;
     selectedToCode.value = tempCode;
     selectedToAirport.value = tempAirport;
+    if (selectedFromCity.value != FlightConstants.searchSelectCity) {
+      AppSnackbar.showSwapInfo(
+        "Location Swapped",
+        "From ${selectedToCity.value} to ${selectedFromCity.value}",
+      );
+    }
   }
 }

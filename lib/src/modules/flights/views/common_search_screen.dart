@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:smt_application/src/modules/flights/controllers/flights_controller.dart';
 import 'package:smt_application/src/modules/flights/controllers/search_airport_controller.dart';
 import 'package:smt_application/src/modules/flights/models/flight_destination_model.dart';
+import 'package:smt_application/src/modules/hotels/widgets/snackbar.dart';
 import 'package:smt_application/utils/app_colors.dart';
 import 'package:smt_application/generated/assets.dart';
 import 'package:smt_application/src/modules/hotels/widgets/hotel_constants.dart';
@@ -138,7 +139,7 @@ class RecentSearchItem extends GetView<FlightsController> {
           return GestureDetector(
             onTap: () {
               controller.addRecentSearch();
-              searchController.selectFlightDestination(destination);
+              searchController.selectRecentFlightDestination(destination);
             },
             child: SizedBox(
               height: 48,
@@ -189,7 +190,18 @@ class PopularDestinationsWidget extends GetView<SearchAirportController> {
           return PopularDestinationItem(
             city: destination.city,
             country: destination.airport,
-            onTap: () => controller.selectFlightDestination(destinations),
+            onTap: () {
+              bool isAdded = controller.selectFlightDestination(destination);
+
+              if (!isAdded) {
+                AppSnackbar.showInfo(
+                  "Already Selected ${destination.city}",
+                  "Please Select Different or Another Airport",
+                );
+                return;
+              }
+              Get.back();
+            },
           );
         }),
       );

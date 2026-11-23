@@ -689,7 +689,7 @@ class CommonSearchWidget extends GetView<HotelController> {
               image: image,
               height: 20,
               width: 20,
-              color: AppColors.blue,
+              color: AppColors.textIconBlue,
             ),
 
             const SizedBox(width: 8),
@@ -825,7 +825,7 @@ class CommonHeaderCategoriesCard extends GetView<HotelController> {
                 width: 18,
                 color: '/${item.title.toLowerCase()}' == '${Get.currentRoute}'
                     ? AppColors.red
-                    : AppColors.blue,
+                    : AppColors.textIconBlue,
               ),
               const SizedBox(height: 6),
               FittedBox(

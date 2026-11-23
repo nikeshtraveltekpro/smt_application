@@ -16,6 +16,10 @@ class AppColors {
     36,
     0.72,
   );
+  static const Color textGreen = Color(0xff358892);
+  static const Color gradientWhite = Color(0xffFAFEFF);
+  static const Color gradientBlue = Color(0xffDFF0F6);
+
   static const Color exclusiveFlightBannerOverlayEnd = Color.fromRGBO(
     14,
     22,

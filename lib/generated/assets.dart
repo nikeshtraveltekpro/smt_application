@@ -10,8 +10,11 @@ class Assets {
   static const String selectedAccount = 'assets/images/selected_account.svg';
   static const String calendar = "assets/images/calender.svg";
   static const String bus = 'assets/images/bus.svg';
+  static const String blankPlaceholder = 'assets/images/blank_placeholder.svg';
   static const String price = 'assets/images/price.svg';
   static const String room = 'assets/images/room.svg';
+  static const String planeUp = 'assets/images/plane_up.svg';
+  static const String greenTick = 'assets/images/green_tick.svg';
   static const String hotelIcon = 'assets/images/hotel_icon.svg';
   static const String hotelBannerBg = 'assets/images/hotel_banner_bg.svg';
   static const String time = 'assets/images/time.svg';

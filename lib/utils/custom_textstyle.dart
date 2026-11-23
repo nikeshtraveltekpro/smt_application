@@ -20,6 +20,11 @@ class CustomTextstyle {
     fontWeight: FontWeight.w600,
     color: AppColors.textIconBlue,
   );
+  static final bold600Text15Grey = GoogleFonts.poppins(
+    fontSize: 15,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textGreyColor,
+  );
   static final normal400Text12Red = GoogleFonts.poppins(
     fontSize: 12,
     fontWeight: FontWeight.w400,
@@ -64,6 +69,11 @@ class CustomTextstyle {
     fontSize: 10,
     fontWeight: FontWeight.w500,
     color: AppColors.white,
+  );
+  static final bold500Text12 = GoogleFonts.poppins(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    color: AppColors.textGreyColor,
   );
   static final bold500Text15 = GoogleFonts.poppins(
     fontSize: 15,
@@ -167,6 +177,11 @@ class CustomTextstyle {
     fontSize: 14,
     fontWeight: FontWeight.w600,
     color: AppColors.textIconBlue,
+  );
+  static final boldText12Green = GoogleFonts.poppins(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    color: AppColors.textGreen,
   );
   static final boldText12 = GoogleFonts.poppins(
     fontSize: 12,

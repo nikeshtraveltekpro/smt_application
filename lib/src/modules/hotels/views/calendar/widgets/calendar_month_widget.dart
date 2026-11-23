@@ -13,7 +13,6 @@ class CalendarMonthWidget extends StatelessWidget {
     required this.controller,
   });
 
-  // Weekday names.
   final List<String> weekdays = const [
     'Sun',
     'Mon',
@@ -47,7 +46,6 @@ class CalendarMonthWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Column(
         children: [
-          // MONTH TITLE
           Padding(
             padding: const EdgeInsets.only(bottom: 16),
             child: Text(
@@ -60,7 +58,6 @@ class CalendarMonthWidget extends StatelessWidget {
             ),
           ),
 
-          // WEEKDAY NAMES
           Row(
             children: weekdays.map((day) {
               return Expanded(
@@ -80,7 +77,6 @@ class CalendarMonthWidget extends StatelessWidget {
 
           const SizedBox(height: 10),
 
-          // CALENDAR DATES
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -90,7 +86,6 @@ class CalendarMonthWidget extends StatelessWidget {
               childAspectRatio: 1,
             ),
             itemBuilder: (context, index) {
-              // Empty spaces before the first day.
               if (index < startingWeekday) {
                 return const SizedBox();
               }

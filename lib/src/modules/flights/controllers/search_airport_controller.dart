@@ -56,17 +56,30 @@ class SearchAirportController extends GetxController {
     });
   }
 
-  void selectFlightDestination(List<FlightDestinationModel> destination) {
-    final code = airportCode(destination[0].airport);
+  bool selectFlightDestination(FlightDestinationModel destination) {
     if (isSelectingFrom.value) {
-      flightController.selectedFromCity.value = destination[0].city;
-      flightController.selectedFromAirport.value = destination[0].airport;
-      flightController.selectedFromCode.value = code;
+      if (flightController.selectedToCity.value == destination.city) {
+        return false;
+      }
+      flightController.selectedFromCity.value = destination.city;
+      flightController.selectedFromAirport.value = destination.airport;
+      return true;
     } else {
-      flightController.selectedToCity.value = destination[1].city;
-      flightController.selectedToAirport.value = destination[1].airport;
-      flightController.selectedToCode.value = code;
+      if (flightController.selectedFromCity.value == destination.city) {
+        return false;
+      }
+      flightController.selectedToCity.value = destination.city;
+      flightController.selectedToAirport.value = destination.airport;
+
+      return true;
     }
+  }
+
+  void selectRecentFlightDestination(List<FlightDestinationModel> destination) {
+    flightController.selectedFromCity.value = destination[0].city;
+    flightController.selectedFromAirport.value = destination[0].airport;
+    flightController.selectedToCity.value = destination[1].city;
+    flightController.selectedToAirport.value = destination[1].airport;
 
     Get.back();
   }
@@ -84,25 +97,11 @@ class SearchAirportController extends GetxController {
 
     flightController.selectedFromCity.value = searchDetail.fromCity.city;
     flightController.selectedFromAirport.value = searchDetail.fromCity.airport;
-    flightController.selectedFromCode.value = airportCode(
-      searchDetail.fromCity.airport,
-    );
+
     flightController.selectedToCity.value = searchDetail.toCity.city;
     flightController.selectedToAirport.value = searchDetail.toCity.airport;
-    flightController.selectedToCode.value = airportCode(
-      searchDetail.toCity.airport,
-    );
 
     Get.back();
-  }
-
-  String airportCode(String airport) {
-    final start = airport.lastIndexOf('(');
-    final end = airport.lastIndexOf(')');
-    if (start < 0 || end <= start + 1) {
-      return '';
-    }
-    return airport.substring(start + 1, end);
   }
 
   @override

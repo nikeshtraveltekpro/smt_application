@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smt_application/generated/assets.dart';
 import 'package:smt_application/src/modules/home/controllers/home_controller.dart';
 import 'package:smt_application/utils/common_asset_image.dart';
 import 'package:smt_application/src/modules/home/widgets/shimmer/home_sub_category_shimmer.dart';

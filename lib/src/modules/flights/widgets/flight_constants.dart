@@ -9,12 +9,11 @@ class FlightConstants {
   static const String buses = "Buses";
   static const String cars = "Cars";
   static const String holidays = "Holidays";
-  static const String searchFromCityName = "New Delhi";
-  static const String searchFromAirportName =
-      "DEL, Indira Gandhi International Airport";
-  static const String searchToAirportName =
-      "AMD, Sardar Vallabhbhai International Airport";
-  static const String searchToCityName = "Ahmedabad";
+  static const String searchFromCityName = searchSelectCity;
+  static const String searchSelectCity = "Select city or airport";
+  static const String searchFromAirportName = "";
+  static const String searchToAirportName = "";
+  static const String searchToCityName = searchSelectCity;
   // Trip Type Tabs
   static const String oneWay = "One Way";
   static const String roundTrip = "Round Trip";

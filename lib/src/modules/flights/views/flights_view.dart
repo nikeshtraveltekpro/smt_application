@@ -3,12 +3,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:smt_application/generated/assets.dart';
 import 'package:smt_application/routes/app_pages.dart';
+import 'package:smt_application/src/modules/flights/models/flight_popular_routes_model.dart';
 import 'package:smt_application/src/modules/flights/views/flight_bottom_sheet.dart';
 import 'package:smt_application/src/modules/flights/widgets/flight_constants.dart';
+import 'package:smt_application/src/modules/hotels/controllers/calendar_controller.dart';
 import 'package:smt_application/src/modules/hotels/views/hotel_view.dart';
-import 'package:smt_application/src/modules/hotels/widgets/hotel_constants.dart';
 import 'package:smt_application/utils/app_colors.dart';
 import 'package:smt_application/utils/common_asset_image.dart';
 import 'package:smt_application/utils/custom_textstyle.dart';
@@ -34,7 +36,13 @@ class FlightsView extends GetView<FlightsController> {
             SizedBox(height: 19),
             FlightWaySelectionWidget(),
             SizedBox(height: 10),
-            FlightSearchWidget(controller: controller),
+            Obx(
+              () => FlightSearchWidget(
+                controller: controller,
+                isOneWay: controller.isOneWay.value,
+              ),
+            ),
+
             SizedBox(height: 15),
 
             FlightSearchButton(),
@@ -50,8 +58,137 @@ class FlightsView extends GetView<FlightsController> {
             ExclusiveFlightBenefitsBanner(
               backgroundImage: 'https://thumbs.dreamstime.com/b/spiral-galaxy-space-bright-stars-illustration-abstract-astronomical-science-background-star-universe-cosmos-wallpaper-planet-159295517.jpg?w=768',
             ),
+
+            SizedBox(height: 15),
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [AppColors.gradientBlue, AppColors.gradientWhite],
+                  begin: .topLeft,
+                  end: .bottomRight,
+                ),
+              ),
+              padding: const EdgeInsets.only(top: 20, left: 20),
+              width: .infinity,
+              height: 341,
+              child: Column(
+                crossAxisAlignment: .start,
+                children: [
+                  Container(
+                    padding: .only(right: 36),
+                    height: 59,
+                    width: .infinity,
+                    child: Column(
+                      crossAxisAlignment: .start,
+
+                      children: [
+                        Text(
+                          FlightConstants.popularRoutes,
+                          style: CustomTextstyle.bold600Text15,
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          FlightConstants.popularRoutesSubtitle,
+                          style: CustomTextstyle.bold500Text12,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 12),
+                  SizedBox(
+                    height: 225,
+                    child: GridView.builder(
+                      itemCount: controller.popularRoutes.length,
+
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 12,
+                        crossAxisSpacing: 12,
+                        mainAxisExtent: 322,
+                      ),
+                      scrollDirection: .horizontal,
+                      itemBuilder: (context, index) {
+                        final popularItem = controller.popularRoutes[index];
+                        return PopularRoutesItemWidgets(
+                          popularItem: popularItem,
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            CommonAssetImage(image: Assets.blankPlaceholder),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class PopularRoutesItemWidgets extends StatelessWidget {
+  const new({super.key, required this.popularItem});
+
+  final FlightPopularRoutesModel popularItem;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        borderRadius: .circular(12),
+        color: AppColors.white,
+        border: Border.all(
+          width: 1,
+          color: AppColors.grey.withValues(alpha: 0.5),
+        ),
+      ),
+      width: 322,
+      height: 67,
+      child: Row(
+        mainAxisAlignment: .start,
+        children: [
+          Container(
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: AppColors.lightBlue1.withValues(alpha: 0.2),
+              borderRadius: .circular(13),
+            ),
+            width: 45,
+            height: 45,
+            child: CommonAssetImage(
+              width: 22.5,
+              height: 22.5,
+              image: Assets.planeUp,
+              color: AppColors.textIconBlue,
+            ),
+          ),
+          SizedBox(width: 10),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 13.5),
+              child: Column(
+                crossAxisAlignment: .start,
+
+                children: [
+                  Text(
+                    '${popularItem.fromCity} to ${popularItem.toCity}',
+                    style: CustomTextstyle.boldText14Blue,
+                    overflow: .ellipsis,
+                    maxLines: 1,
+                  ),
+                  Text(
+                    '${popularItem.fromCityCode} -> ${popularItem.toCityCode}',
+                    style: CustomTextstyle.boldText12Green,
+                    overflow: .ellipsis,
+                    maxLines: 1,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -256,26 +393,30 @@ class BenefitPill extends StatelessWidget {
 }
 
 class FlightSearchWidget extends StatelessWidget {
-  const new({super.key, required this.controller});
+  FlightSearchWidget({
+    super.key,
+    required this.controller,
+    required this.isOneWay,
+  });
 
   final FlightsController controller;
+  final bool isOneWay;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: .symmetric(horizontal: 20),
       child: Container(
         height: 404,
-        width: double.infinity,
+        width: .infinity,
         decoration: BoxDecoration(
           border: Border.all(
             width: 1,
             color: AppColors.grey2.withValues(alpha: 0.14),
           ),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: .circular(16),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Stack(
               children: [
@@ -287,14 +428,14 @@ class FlightSearchWidget extends StatelessWidget {
                           Get.toNamed(Routes.searchFlights, arguments: true);
                         },
                         image: Assets.flightFrom,
+
                         title: FlightConstants.from,
                         subTitle: controller.selectedFromCity.value,
                         extraTitle: controller.selectedFromAirport.value,
                       ),
                     ),
-
                     Padding(
-                      padding: const EdgeInsets.only(top: 5),
+                      padding: .only(top: 5),
                       child: Divider(
                         height: 1,
                         thickness: 1,
@@ -341,21 +482,17 @@ class FlightSearchWidget extends StatelessWidget {
                 ),
               ],
             ),
-
             Divider(
               height: 1,
               thickness: 1,
               color: AppColors.grey2.withValues(alpha: 0.14),
             ),
-
-            const HotelSearchCheckInOutWidget(),
-
+            FlightSearchCheckInOutWidget(),
             Divider(
               height: 1,
               thickness: 1,
               color: AppColors.grey2.withValues(alpha: 0.14),
             ),
-
             Obx(
               () => CommonFlightSearchWidget(
                 onTap: () {
@@ -371,13 +508,72 @@ class FlightSearchWidget extends StatelessWidget {
                 extraTitle: controller.selectedCabinClass.value,
               ),
             ),
-
             Divider(
               height: 1,
               thickness: 1,
               color: AppColors.grey2.withValues(alpha: 0.14),
             ),
             FlightSpecialFaresFiltersWidget(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class FlightSearchCheckInOutWidget extends GetView<CalendarController> {
+  FlightSearchCheckInOutWidget({super.key});
+  final flightController = Get.find<FlightsController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => IntrinsicHeight(
+        child: Row(
+          children: [
+            Expanded(
+              child: CommonSearchWidget(
+                image: Assets.calendar,
+                title: FlightConstants.departure,
+                subTitle: controller.dateIn,
+                extraTitle: DateFormat('EEEE').format(
+                  controller.selectedDates.value.checkInDate ??
+                      controller.today.value,
+                ),
+                onTap: () {
+                  controller.openCalendar(isCheckIn: true);
+                },
+              ),
+            ),
+            VerticalDivider(
+              width: 1,
+              thickness: 1,
+              color: AppColors.grey2.withValues(alpha: 0.14),
+            ),
+            flightController.isOneWay.value
+                ? Expanded(
+                    child: CommonSearchWidget(
+                      image: Assets.calendar,
+                      title: FlightConstants.arrival,
+                      subTitle: FlightConstants.addArrival,
+                      style: CustomTextstyle.bold600Text15Grey,
+                    ),
+                  )
+                : Expanded(
+                    child: CommonSearchWidget(
+                      image: Assets.calendar,
+
+                      title: FlightConstants.arrival,
+                      subTitle: controller.dateOut,
+                      extraTitle: DateFormat('EEEE').format(
+                        controller.selectedDates.value.checkOutDate ??
+                            controller.today.value,
+                      ),
+                      onTap: () {
+                        controller.openCalendar(isCheckIn: false);
+                      },
+                    ),
+                  ),
           ],
         ),
       ),
@@ -416,7 +612,7 @@ class CommonFlightSearchWidget extends GetView<FlightsController> {
               image: image,
               height: 20,
               width: 20,
-              color: AppColors.blue,
+              color: AppColors.textIconBlue,
             ),
 
             const SizedBox(width: 8),
@@ -447,12 +643,13 @@ class CommonFlightSearchWidget extends GetView<FlightsController> {
   }
 }
 
-class FlightWaySelectionWidget extends StatelessWidget {
-  const new({super.key});
+class FlightWaySelectionWidget extends GetView<FlightsController> {
+  FlightWaySelectionWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20),
       child: Container(
         padding: .symmetric(horizontal: 6, vertical: 5),
         height: 40,
@@ -461,17 +658,23 @@ class FlightWaySelectionWidget extends StatelessWidget {
           borderRadius: .circular(47),
           color: AppColors.greyF3F4F6,
         ),
-        child: Row(
-          mainAxisAlignment: .spaceEvenly,
-          children: [
-            CommonFlightWayWidgets(
-              title: FlightConstants.oneWay,
-              isOneway: true,
-            ),
-            SizedBox(width: 15),
-
-            CommonFlightWayWidgets(title: FlightConstants.roundTrip),
-          ],
+        child: Obx(
+          () => Row(
+            mainAxisAlignment: .spaceEvenly,
+            children: [
+              CommonFlightWayWidgets(
+                title: FlightConstants.oneWay,
+                isOneway: controller.isOneWay.value,
+                onTap: () => controller.isOneWay.value = true,
+              ),
+              SizedBox(width: 15),
+              CommonFlightWayWidgets(
+                title: FlightConstants.roundTrip,
+                isOneway: !controller.isOneWay.value,
+                onTap: () => controller.isOneWay.value = false,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -479,26 +682,37 @@ class FlightWaySelectionWidget extends StatelessWidget {
 }
 
 class CommonFlightWayWidgets extends StatelessWidget {
-  const new({super.key, required this.title, this.isOneway = false});
+  CommonFlightWayWidgets({
+    super.key,
+    required this.title,
+    this.isOneway = false,
+    this.onTap,
+  });
+
   final String title;
   final bool isOneway;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        height: 30,
-        width: .infinity,
-        decoration: BoxDecoration(
-          borderRadius: .circular(47),
-          color: AppColors.white,
-        ),
-        child: Center(
-          child: Text(
-            title,
-            style: isOneway
-                ? CustomTextstyle.mediumText12.copyWith(color: AppColors.red)
-                : CustomTextstyle.mediumText12,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        child: Container(
+          height: 30,
+          width: .infinity,
+          decoration: BoxDecoration(
+            borderRadius: .circular(47),
+            color: isOneway ? AppColors.white : Colors.transparent,
+          ),
+          child: Center(
+            child: Text(
+              title,
+              style: isOneway
+                  ? CustomTextstyle.mediumText12.copyWith(color: AppColors.red)
+                  : CustomTextstyle.mediumText12,
+            ),
           ),
         ),
       ),
@@ -631,12 +845,14 @@ class SpecialFaresChip extends StatelessWidget {
                     ? CustomTextstyle.poppins600Text12
                     : CustomTextstyle.poppins500Text12,
               ),
+              SizedBox(width: 4),
               isFairSelected
                   ? SizedBox.shrink()
                   : CommonAssetImage(
                       image: Assets.iButton,
                       height: 14,
                       width: 14,
+                      color: AppColors.textIconBlue,
                     ),
             ],
           ),
