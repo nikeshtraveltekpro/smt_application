@@ -14,7 +14,7 @@ class OfferCardWidget extends StatelessWidget {
     return Container(
       width: AppSize.s280,
       height: 141,
-      margin: EdgeInsets.only(right: 10),
+      margin: const EdgeInsets.only(right: 10),
       child: Stack(
         children: [
           ClipRRect(

@@ -21,14 +21,14 @@ class TopFlightsCard extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: AppColors.greyBgShadow.withValues(alpha: 0.1),
-            offset: Offset(1, 1.97),
+            offset: const Offset(1, 1.97),
             blurRadius: 2,
 
             spreadRadius: 3,
           ),
           BoxShadow(
             color: AppColors.greyBgShadow.withValues(alpha: 0.2),
-            offset: Offset(-1, -1.97),
+            offset: const Offset(-1, -1.97),
             blurRadius: 2,
             spreadRadius: 3,
           ),

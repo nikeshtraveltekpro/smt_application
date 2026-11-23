@@ -24,7 +24,7 @@ class HomeRepositoryException implements Exception {
 class HomeRepository {
   Future<HomeContentModel> fetchHomeContent() async {
     try {
-      await Future.delayed(Duration(seconds: 3));
+      await Future.delayed(const Duration(seconds: 3));
       return await buildHomeContent();
     } catch (e) {
       throw HomeRepositoryException(msg: e.toString());
@@ -87,81 +87,81 @@ class HomeRepository {
   }
 }
 
-// List<HomeTopFlightsModel> buildTopFlights() {
-//   return [
-//     HomeTopFlightsModel(
-//       id: 1,
-//       title: 'Dubai',
-//       image: 'https://res.cloudinary.com/dtljonz0f/image/upload/c_auto,ar_4:3,w_1200,g_auto/f_auto/q_auto/v1/shutterstock_2414539851_ss_non-editorial_dcx0bm?_a=BAVHyiGg0',
-//       subtitle: 'From Thiruvananthapuram',
-//     ),
-//     HomeTopFlightsModel(
-//       id: 2,
-//       title: 'Toronto',
-//       image: 'https://cdn.getyourguide.com/image/format=avif%2Cfit=cover%2Cgravity=auto%2Cquality=60%2Cwidth=1600%2Cheight=900/dam/BCC-2024-EXPLORER-TORONTO-FUN-THINGS-TO-DO-IN-TORONTO-HEADER_DESKTOP.jpg',
-//       subtitle: 'From New Delhi',
-//     ),
-//     HomeTopFlightsModel(
-//       id: 3,
-//       title: 'Dubai',
-//       image: 'https://res.cloudinary.com/dtljonz0f/image/upload/c_auto,ar_4:3,w_1200,g_auto/f_auto/q_auto/v1/shutterstock_2414539851_ss_non-editorial_dcx0bm?_a=BAVHyiGg0',
-//       subtitle: 'From New Delhi',
-//     ),
-//     HomeTopFlightsModel(
-//       id: 4,
-//       title: 'San Francisco',
-//       image: 'https://cdn.britannica.com/13/77413-050-95217C0B/Golden-Gate-Bridge-San-Francisco.jpg',
-//       subtitle: 'From New Delhi',
-//     ),
-//     HomeTopFlightsModel(
-//       id: 5,
-//       title: 'San Francisco',
-//       image: 'https://cdn.britannica.com/13/77413-050-95217C0B/Golden-Gate-Bridge-San-Francisco.jpg',
-//       subtitle: 'From New Delhi',
-//     ),
-//     HomeTopFlightsModel(
-//       id: 6,
-//       title: 'Dubai',
-//       image: 'https://res.cloudinary.com/dtljonz0f/image/upload/c_auto,ar_4:3,w_1200,g_auto/f_auto/q_auto/v1/shutterstock_2414539851_ss_non-editorial_dcx0bm?_a=BAVHyiGg0',
-//       subtitle: 'From Thiruvananthapuram',
-//     ),
-//   ];
-// }
 
-// List<HomeHotelDealModel> buildHotelDeals() {
-//   return [
-//     HomeHotelDealModel(
-//       id: 1,
-//       rating: 4.5,
-//       title: 'Le Meridien Dubai Hotel & Conference Centre',
-//       image: 'https://hblimg.mmtcdn.com/content/hubble/img/desttvimg/mmt/destination/t_trp/m_Bali_tv_destination_img_1_l_771_1158.jpg?im=Resize=(400,268)',
-//       location: 'Airport Road',
-//       review: '10k',
-//       price: '532',
-//       taxAmount: '587',
-//     ),
-//     HomeHotelDealModel(
-//       id: 2,
-//       title: 'Le Meridien Dubai Hotel & Conference Centre',
-//       image: 'https://hblimg.mmtcdn.com/content/hubble/img/desttvimg/mmt/destination/t_trp/m_Bali_tv_destination_img_1_l_771_1158.jpg?im=Resize=(400,268)',
-//       location: 'Airport Road',
-//       rating: 4.5,
-//       review: '10k',
-//       price: '532',
-//       taxAmount: '587',
-//     ),
-//     HomeHotelDealModel(
-//       id: 3,
-//       title: 'Le Meridien Dubai Hotel & Conference Centre',
-//       image: 'https://hblimg.mmtcdn.com/content/hubble/img/desttvimg/mmt/destination/t_trp/m_Bali_tv_destination_img_1_l_771_1158.jpg?im=Resize=(400,268)',
-//       location: 'Airport Road',
-//       rating: 4.5,
-//       review: '10k',
-//       price: '532',
-//       taxAmount: '587',
-//     ),
-//   ];
-// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 List<HomeOfferModel> buildOffers() {
   return [

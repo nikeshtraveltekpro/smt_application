@@ -51,7 +51,8 @@ class Assets {
   static const String visa = 'assets/images/visa.svg';
   static const String iButton = 'assets/images/i_button.svg';
   static const String emptyScroll = 'assets/images/empty_scroll.svg';
-
+  static const String bannerLink =
+      'https://thumbs.dreamstime.com/b/spiral-galaxy-space-bright-stars-illustration-abstract-astronomical-science-background-star-universe-cosmos-wallpaper-planet-159295517.jpg?w=768';
   static const String popularDestination =
       'assets/json/propular_destination.json';
   static const String homeHotelDeals =

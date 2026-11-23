@@ -13,7 +13,7 @@ class DynamicBannerCard extends GetView<HomeController> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
-        decoration: BoxDecoration(color: AppColors.white),
+        decoration: const BoxDecoration(color: AppColors.white),
         child: Column(
           children: [
             Stack(
@@ -38,7 +38,7 @@ class DynamicBannerCard extends GetView<HomeController> {
                           style: CustomTextstyle.bold700Text14,
                         ),
                       ),
-                      SizedBox(height: 5.15),
+                      const SizedBox(height: 5.15),
                       Row(
                         mainAxisAlignment: .start,
                         children: [
@@ -49,12 +49,12 @@ class DynamicBannerCard extends GetView<HomeController> {
                           ),
 
                           dynamicBannerItem.promoCode == null
-                              ? SizedBox()
+                              ? const SizedBox()
                               : Container(
-                                  margin: .symmetric(horizontal: 2.51),
+                                  margin: const .symmetric(horizontal: 2.51),
                                   height: 13,
                                   width: 40,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     color: AppColors.white,
                                   ),
                                   child: Center(

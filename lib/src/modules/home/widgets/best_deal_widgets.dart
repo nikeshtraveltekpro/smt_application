@@ -11,12 +11,12 @@ class BestDealWidgets extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Obx(
       () => SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
 
         scrollDirection: Axis.horizontal,
         child: Row(
           children: controller.isLoading.value
-              ? List.generate(3, (index) => HomeBestDealShimmer())
+              ? List.generate(3, (index) => const HomeBestDealShimmer())
               : controller.homeHotelDeal.map((item) {
                   return BestDealCard(item: item);
                 }).toList(),

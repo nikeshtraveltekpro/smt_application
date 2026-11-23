@@ -16,16 +16,16 @@ class CalendarDateCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      // Check whether this date is check-in.
+
       final isCheckIn = controller.isCheckInDate(date);
 
-      // Check whether this date is check-out.
+
       final isCheckOut = controller.isCheckOutDate(date);
 
-      // Check whether this date is between check-in and checkout.
+
       final isInRange = controller.isDateInRange(date);
 
-      // Check whether this date is in the past.
+
       final isPast = controller.isPastDate(date);
 
       final isSelected = isCheckIn || isCheckOut;

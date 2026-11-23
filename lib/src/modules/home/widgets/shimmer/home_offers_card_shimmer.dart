@@ -16,7 +16,7 @@ class HomeOffersCardShimmer extends GetView<HomeController> {
       child: Container(
         width: AppSize.s280,
         height: 141,
-        margin: EdgeInsets.only(right: 12),
+        margin: const EdgeInsets.only(right: 12),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:smt_application/generated/assets.dart';
 import 'package:smt_application/utils/app_colors.dart';
 import 'package:smt_application/utils/common_asset_image.dart';
@@ -25,20 +26,44 @@ class AppSnackbar {
     );
   }
 
+  static final RxString titleObs = "".obs;
+  static final RxString messageObs = "".obs;
   static void showSwapInfo(String title, String message) {
+    titleObs.value = title;
+    messageObs.value = message;
     if (Get.isSnackbarOpen) {
-      Get.closeCurrentSnackbar();
+      return;
     }
 
     Get.snackbar(
-      title,
-      message,
+      '',
+      '',
+      titleText: Obx(
+        () => Text(
+          titleObs.value,
+          style: GoogleFonts.poppins(
+            color: AppColors.white,
+            fontWeight: .w500,
+            fontSize: 16,
+          ),
+        ),
+      ),
+      messageText: Obx(
+        () => Text(
+          messageObs.value,
+          style: GoogleFonts.poppins(
+            color: AppColors.white,
+            fontWeight: .w400,
+            fontSize: 12,
+          ),
+        ),
+      ),
       snackPosition: SnackPosition.TOP,
       backgroundColor: AppColors.textIconBlue,
       colorText: AppColors.white,
 
-      icon: Padding(
-        padding: const EdgeInsets.only(top: 16, left: 12, bottom: 16, right: 7),
+      icon: const Padding(
+        padding: EdgeInsets.only(top: 16, left: 12, bottom: 16, right: 7),
 
         child: CommonAssetImage(image: Assets.greenTick, height: 34, width: 34),
       ),

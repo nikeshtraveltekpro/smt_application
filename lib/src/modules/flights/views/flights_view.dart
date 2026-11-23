@@ -1,16 +1,17 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:smt_application/generated/assets.dart';
 import 'package:smt_application/routes/app_pages.dart';
+import 'package:smt_application/src/modules/flights/controllers/flight_calendar_controller.dart';
+import 'package:smt_application/src/modules/flights/controllers/search_airport_controller.dart';
+import 'package:smt_application/src/modules/flights/models/flight_destination_model.dart';
 import 'package:smt_application/src/modules/flights/models/flight_popular_routes_model.dart';
 import 'package:smt_application/src/modules/flights/views/flight_bottom_sheet.dart';
 import 'package:smt_application/src/modules/flights/widgets/flight_constants.dart';
-import 'package:smt_application/src/modules/hotels/controllers/calendar_controller.dart';
 import 'package:smt_application/src/modules/hotels/views/hotel_view.dart';
+import 'package:smt_application/src/modules/hotels/widgets/snackbar.dart';
 import 'package:smt_application/utils/app_colors.dart';
 import 'package:smt_application/utils/common_asset_image.dart';
 import 'package:smt_application/utils/custom_textstyle.dart';
@@ -21,107 +22,101 @@ class FlightsView extends GetView<FlightsController> {
   const FlightsView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      body: SingleChildScrollView(
-        scrollDirection: .vertical,
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            SizedBox(height: 40),
-            CommonAppBar(screenName: 'Flight Screen'),
-            SizedBox(height: 15),
-
-            CommonHeaderCategories(),
-            SizedBox(height: 19),
-            FlightWaySelectionWidget(),
-            SizedBox(height: 10),
-            Obx(
-              () => FlightSearchWidget(
-                controller: controller,
-                isOneWay: controller.isOneWay.value,
-              ),
-            ),
-
-            SizedBox(height: 15),
-
-            FlightSearchButton(),
-
-            Obx(() {
-              if (controller.recentSearch.isEmpty) {
-                return const SizedBox.shrink();
-              }
-              return FlightRecentSearch();
-            }),
-            SizedBox(height: 20),
-
-            ExclusiveFlightBenefitsBanner(
-              backgroundImage: 'https://thumbs.dreamstime.com/b/spiral-galaxy-space-bright-stars-illustration-abstract-astronomical-science-background-star-universe-cosmos-wallpaper-planet-159295517.jpg?w=768',
-            ),
-
-            SizedBox(height: 15),
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [AppColors.gradientBlue, AppColors.gradientWhite],
-                  begin: .topLeft,
-                  end: .bottomRight,
-                ),
-              ),
-              padding: const EdgeInsets.only(top: 20, left: 20),
-              width: .infinity,
-              height: 341,
-              child: Column(
-                crossAxisAlignment: .start,
-                children: [
-                  Container(
-                    padding: .only(right: 36),
-                    height: 59,
-                    width: .infinity,
-                    child: Column(
-                      crossAxisAlignment: .start,
-
-                      children: [
-                        Text(
-                          FlightConstants.popularRoutes,
-                          style: CustomTextstyle.bold600Text15,
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          FlightConstants.popularRoutesSubtitle,
-                          style: CustomTextstyle.bold500Text12,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 12),
-                  SizedBox(
-                    height: 225,
-                    child: GridView.builder(
-                      itemCount: controller.popularRoutes.length,
-
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 12,
-                        crossAxisSpacing: 12,
-                        mainAxisExtent: 322,
-                      ),
-                      scrollDirection: .horizontal,
-                      itemBuilder: (context, index) {
-                        final popularItem = controller.popularRoutes[index];
-                        return PopularRoutesItemWidgets(
-                          popularItem: popularItem,
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            CommonAssetImage(image: Assets.blankPlaceholder),
-          ],
+    return Column(
+      children: [
+        FlightWaySelectionWidget(),
+        const SizedBox(height: 10),
+        Obx(
+          () => FlightSearchWidget(
+            controller: controller,
+            isOneWay: controller.isOneWay.value,
+          ),
         ),
+
+        const SizedBox(height: 15),
+
+        const FlightSearchButton(),
+
+        Obx(() {
+          if (controller.recentSearch.isEmpty) {
+            return const SizedBox.shrink();
+          }
+          return FlightRecentSearch();
+        }),
+        const SizedBox(height: 20),
+
+        const ExclusiveFlightBenefitsBanner(backgroundImage: Assets.bannerLink),
+
+        const SizedBox(height: 15),
+        PopularRoutesWidget(controller: controller),
+
+        const CommonAssetImage(image: Assets.blankPlaceholder),
+      ],
+    );
+  }
+}
+
+class PopularRoutesWidget extends StatelessWidget {
+  const new({super.key, required this.controller});
+
+  final FlightsController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [AppColors.gradientBlue, AppColors.gradientWhite],
+          begin: .topLeft,
+          end: .bottomRight,
+        ),
+      ),
+      padding: const EdgeInsets.only(top: 20, left: 20),
+      width: .infinity,
+      height: 341,
+      child: Column(
+        crossAxisAlignment: .start,
+        children: [
+          Container(
+            padding: const .only(right: 36),
+            height: 59,
+            width: .infinity,
+            child: Column(
+              crossAxisAlignment: .start,
+
+              children: [
+                Text(
+                  FlightConstants.popularRoutes,
+                  style: CustomTextstyle.bold600Text15,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  FlightConstants.popularRoutesSubtitle,
+                  style: CustomTextstyle.bold500Text12,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            height: 225,
+            child: GridView.builder(
+              itemCount: controller.popularRoutes.length,
+
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                mainAxisSpacing: 12,
+                crossAxisSpacing: 12,
+                mainAxisExtent: 322,
+              ),
+              scrollDirection: .horizontal,
+              itemBuilder: (context, index) {
+                final popularItem = controller.popularRoutes[index];
+                return PopularRoutesItemWidgets(popularItem: popularItem);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -135,7 +130,7 @@ class PopularRoutesItemWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: .circular(12),
         color: AppColors.white,
@@ -157,14 +152,14 @@ class PopularRoutesItemWidgets extends StatelessWidget {
             ),
             width: 45,
             height: 45,
-            child: CommonAssetImage(
+            child: const CommonAssetImage(
               width: 22.5,
               height: 22.5,
               image: Assets.planeUp,
               color: AppColors.textIconBlue,
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 13.5),
@@ -195,7 +190,11 @@ class PopularRoutesItemWidgets extends StatelessWidget {
 }
 
 class FlightRecentSearch extends GetView<FlightsController> {
-  const FlightRecentSearch({super.key});
+  FlightRecentSearch({super.key});
+  SearchAirportController get searchController =>
+      Get.isRegistered<SearchAirportController>()
+      ? Get.find<SearchAirportController>()
+      : Get.put(SearchAirportController());
 
   @override
   Widget build(BuildContext context) {
@@ -232,56 +231,58 @@ class FlightRecentSearch extends GetView<FlightsController> {
                     index,
                   ) {
                     final recentSearchItem = controller.recentSearch[index];
+                    final totalTravellers = recentSearchItem.travellers;
+                    String traveller = "Travellers";
+                    if (totalTravellers <= 1) {
+                      traveller = "Traveller";
+                    }
+                    final List<FlightDestinationModel> destination = [
+                      FlightDestinationModel(
+                        city: recentSearchItem.fromCity.city,
+                        airport: recentSearchItem.fromCity.airport,
+                      ),
+                      FlightDestinationModel(
+                        city: recentSearchItem.toCity.city,
+                        airport: recentSearchItem.toCity.airport,
+                      ),
+                    ];
+                    return GestureDetector(
+                      onTap: () => searchController
+                          .selectRecentFlightDestination(destination, false),
 
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 12),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 10,
-                        ),
-                        height: 54,
-                        width: 206,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 1,
-                            color: AppColors.grey2.withValues(alpha: 0.14),
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 12),
+                        child: Container(
+                          padding: const EdgeInsets.only(left: 15, top: 10),
+                          height: 54,
+                          width: 206,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1,
+                              color: AppColors.grey2.withValues(alpha: 0.14),
+                            ),
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    recentSearchItem.fromCity.city,
-                                    style: CustomTextstyle.recentHotelCity,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  "${recentSearchItem.fromCity.city} - ${recentSearchItem.toCity.city}",
+                                  style: CustomTextstyle.recentHotelCity,
                                 ),
-                                Flexible(
-                                  child: Text(
-                                    "- ${recentSearchItem.toCity.city}",
-                                    style: CustomTextstyle.recentHotelCity,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
-
-                            Flexible(
-                              child: Text(
-                                "${recentSearchItem.departureDate} • ${recentSearchItem.travellers} Travellers • ${recentSearchItem.travelClass}",
-                                style: CustomTextstyle.normal400Text12,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
                               ),
-                            ),
-                          ],
+
+                              Flexible(
+                                child: Text(
+                                  "${recentSearchItem.departureDate} • ${recentSearchItem.travellers} $traveller • ${recentSearchItem.travelClass}",
+                                  style: CustomTextstyle.normal400Text12,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -297,7 +298,7 @@ class FlightRecentSearch extends GetView<FlightsController> {
 }
 
 class ExclusiveFlightBenefitsBanner extends GetView<FlightsController> {
-  ExclusiveFlightBenefitsBanner({
+  const ExclusiveFlightBenefitsBanner({
     super.key,
     required this.backgroundImage,
     this.title = FlightConstants.exclusiveFlightBenefitsTitle,
@@ -315,7 +316,7 @@ class ExclusiveFlightBenefitsBanner extends GetView<FlightsController> {
       child: Container(
         width: double.infinity,
         height: 120,
-        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
@@ -326,14 +327,14 @@ class ExclusiveFlightBenefitsBanner extends GetView<FlightsController> {
               ),
 
               Padding(
-                padding: EdgeInsets.fromLTRB(18, 10, 18, 10),
+                padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
                 child: Column(
                   crossAxisAlignment: .start,
                   mainAxisSize: .min,
                   children: [
                     Text(
                       title,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: .w600,
                         fontSize: 16,
@@ -341,7 +342,7 @@ class ExclusiveFlightBenefitsBanner extends GetView<FlightsController> {
                         color: AppColors.white,
                       ),
                     ),
-                    SizedBox(height: 12),
+                    const SizedBox(height: 12),
                     Wrap(
                       spacing: 4.56,
                       runSpacing: 4.56,
@@ -361,7 +362,7 @@ class ExclusiveFlightBenefitsBanner extends GetView<FlightsController> {
 }
 
 class BenefitPill extends StatelessWidget {
-  BenefitPill({required this.label});
+  const BenefitPill({required this.label});
 
   final String label;
 
@@ -372,12 +373,13 @@ class BenefitPill extends StatelessWidget {
       child: Container(
         width: 101,
         height: 19,
-        padding: EdgeInsets.fromLTRB(10.65, 2.65, 10.65, 2.65),
+        padding: const EdgeInsets.fromLTRB(10.65, 2.65, 10.65, 2.65),
         decoration: BoxDecoration(
           color: AppColors.white.withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(26.62),
+
           border: Border.all(
-            color: AppColors.white.withValues(alpha: 0.2),
+            color: AppColors.grey.withValues(alpha: 0.2),
             width: 1,
           ),
         ),
@@ -405,7 +407,7 @@ class FlightSearchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: .symmetric(horizontal: 20),
+      padding: const .symmetric(horizontal: 20),
       child: Container(
         height: 404,
         width: .infinity,
@@ -422,37 +424,106 @@ class FlightSearchWidget extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Obx(
-                      () => CommonFlightSearchWidget(
-                        onTap: () {
-                          Get.toNamed(Routes.searchFlights, arguments: true);
-                        },
-                        image: Assets.flightFrom,
+                    Obx(() {
+                      final showAlert =
+                          controller.isSelectedFrom.value &&
+                          controller.selectedFromCity.value ==
+                              FlightConstants.searchSelectCity;
 
-                        title: FlightConstants.from,
-                        subTitle: controller.selectedFromCity.value,
-                        extraTitle: controller.selectedFromAirport.value,
-                      ),
-                    ),
-                    Padding(
-                      padding: .only(top: 5),
-                      child: Divider(
+                      return showAlert
+                          ? AlertCommonFlightSearchWidget(
+                              onTap: () {
+                                Get.toNamed(
+                                  Routes.searchFlights,
+                                  arguments: true,
+                                );
+                              },
+                              image: Assets.flightFrom,
+                              borderRadius: const BorderRadius.only(
+                                topLeft: .circular(12),
+                                topRight: .circular(12),
+                              ),
+                              title: FlightConstants.from,
+                              subTitle: controller.selectedFromCity.value,
+                              extraTitle: controller.selectedFromAirport.value,
+                            )
+                          : CommonFlightSearchWidget(
+                              onTap: () {
+                                Get.toNamed(
+                                  Routes.searchFlights,
+                                  arguments: true,
+                                );
+                              },
+                              image: Assets.flightFrom,
+
+                              title: FlightConstants.from,
+                              subTitle: controller.selectedFromCity.value,
+                              extraTitle: controller.selectedFromAirport.value,
+                            );
+                    }),
+                    Obx(() {
+                      final showAlert =
+                          controller.isSelectedFrom.value &&
+                              controller.selectedFromCity.value ==
+                                  FlightConstants.searchSelectCity ||
+                          controller.isSelectedTo.value &&
+                              controller.selectedToCity.value ==
+                                  FlightConstants.searchSelectCity;
+                      return Divider(
                         height: 1,
                         thickness: 1,
-                        color: AppColors.grey2.withValues(alpha: 0.14),
-                      ),
-                    ),
-                    Obx(
-                      () => CommonFlightSearchWidget(
-                        onTap: () {
-                          Get.toNamed(Routes.searchFlights, arguments: false);
-                        },
-                        image: Assets.flightTo,
-                        title: FlightConstants.to,
-                        subTitle: controller.selectedToCity.value,
-                        extraTitle: controller.selectedToAirport.value,
-                      ),
-                    ),
+                        color: showAlert
+                            ? Colors.red
+                            : AppColors.grey2.withValues(alpha: 0.14),
+                      );
+                    }),
+
+                    Obx(() {
+                      final showAlert =
+                          controller.isSelectedTo.value &&
+                          controller.selectedToCity.value ==
+                              FlightConstants.searchSelectCity;
+
+                      return showAlert
+                          ? AlertCommonFlightSearchWidget(
+                              onTap: () {
+                                Get.toNamed(
+                                  Routes.searchFlights,
+                                  arguments: false,
+                                );
+                              },
+                              border: .fromLTRB(
+                                left: BorderSide(
+                                  color: AppColors.red,
+                                  width: 1,
+                                ),
+                                right: BorderSide(
+                                  color: AppColors.red,
+                                  width: 1,
+                                ),
+                                bottom: BorderSide(
+                                  color: AppColors.red,
+                                  width: 1,
+                                ),
+                              ),
+                              image: Assets.flightTo,
+                              title: FlightConstants.to,
+                              subTitle: controller.selectedToCity.value,
+                              extraTitle: controller.selectedToAirport.value,
+                            )
+                          : CommonFlightSearchWidget(
+                              onTap: () {
+                                Get.toNamed(
+                                  Routes.searchFlights,
+                                  arguments: false,
+                                );
+                              },
+                              image: Assets.flightTo,
+                              title: FlightConstants.to,
+                              subTitle: controller.selectedToCity.value,
+                              extraTitle: controller.selectedToAirport.value,
+                            );
+                    }),
                   ],
                 ),
                 Positioned(
@@ -461,7 +532,7 @@ class FlightSearchWidget extends StatelessWidget {
                   child: GestureDetector(
                     onTap: controller.onSwapTap,
                     child: Container(
-                      padding: .symmetric(horizontal: 7, vertical: 5),
+                      padding: const .symmetric(horizontal: 7, vertical: 5),
                       height: 32,
                       width: 32,
                       decoration: BoxDecoration(
@@ -472,7 +543,7 @@ class FlightSearchWidget extends StatelessWidget {
                           width: 1,
                         ),
                       ),
-                      child: CommonAssetImage(
+                      child: const CommonAssetImage(
                         image: Assets.arrowUpDown,
                         width: 20,
                         height: 16,
@@ -487,7 +558,7 @@ class FlightSearchWidget extends StatelessWidget {
               thickness: 1,
               color: AppColors.grey2.withValues(alpha: 0.14),
             ),
-            FlightSearchCheckInOutWidget(),
+            FlightDepartureArrivalWidget(),
             Divider(
               height: 1,
               thickness: 1,
@@ -497,7 +568,7 @@ class FlightSearchWidget extends StatelessWidget {
               () => CommonFlightSearchWidget(
                 onTap: () {
                   Get.bottomSheet(
-                    TravellersClassBottomsheet(),
+                    const TravellersClassBottomsheet(),
                     isScrollControlled: true,
                   );
                 },
@@ -513,7 +584,7 @@ class FlightSearchWidget extends StatelessWidget {
               thickness: 1,
               color: AppColors.grey2.withValues(alpha: 0.14),
             ),
-            FlightSpecialFaresFiltersWidget(),
+            const FlightSpecialFaresFiltersWidget(),
           ],
         ),
       ),
@@ -521,63 +592,68 @@ class FlightSearchWidget extends StatelessWidget {
   }
 }
 
-class FlightSearchCheckInOutWidget extends GetView<CalendarController> {
-  FlightSearchCheckInOutWidget({super.key});
-  final flightController = Get.find<FlightsController>();
+class FlightDepartureArrivalWidget extends GetView<FlightCalendarController> {
+  FlightDepartureArrivalWidget({super.key});
+
+  final FlightsController flightController = Get.find<FlightsController>();
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => IntrinsicHeight(
+    return Obx(() {
+      final departureDate =
+          controller.selectedDepartureDate.value ?? DateTime.now();
+      final normalizedDeparture = controller.normalizeDate(departureDate);
+      final arrivalDate =
+          controller.selectedReturnDate.value ??
+          normalizedDeparture.add(const Duration(days: 1));
+
+      return IntrinsicHeight(
         child: Row(
           children: [
             Expanded(
               child: CommonSearchWidget(
                 image: Assets.calendar,
                 title: FlightConstants.departure,
-                subTitle: controller.dateIn,
-                extraTitle: DateFormat('EEEE').format(
-                  controller.selectedDates.value.checkInDate ??
-                      controller.today.value,
-                ),
+                subTitle: DateFormat('dd MMM yyyy').format(normalizedDeparture),
+                extraTitle: DateFormat('EEEE').format(normalizedDeparture),
                 onTap: () {
-                  controller.openCalendar(isCheckIn: true);
+                  controller.openCalendar(isDeparture: true);
                 },
               ),
             ),
+
             VerticalDivider(
               width: 1,
               thickness: 1,
               color: AppColors.grey2.withValues(alpha: 0.14),
             ),
-            flightController.isOneWay.value
-                ? Expanded(
-                    child: CommonSearchWidget(
-                      image: Assets.calendar,
-                      title: FlightConstants.arrival,
-                      subTitle: FlightConstants.addArrival,
-                      style: CustomTextstyle.bold600Text15Grey,
-                    ),
-                  )
-                : Expanded(
-                    child: CommonSearchWidget(
-                      image: Assets.calendar,
 
-                      title: FlightConstants.arrival,
-                      subTitle: controller.dateOut,
-                      extraTitle: DateFormat('EEEE').format(
-                        controller.selectedDates.value.checkOutDate ??
-                            controller.today.value,
-                      ),
-                      onTap: () {
-                        controller.openCalendar(isCheckIn: false);
-                      },
-                    ),
-                  ),
+            Expanded(
+              child: CommonSearchWidget(
+                image: Assets.calendar,
+                title: FlightConstants.arrival,
+                subTitle: flightController.isOneWay.value
+                    ? FlightConstants.addArrival
+                    : DateFormat('dd MMM yyyy').format(arrivalDate),
+                extraTitle: flightController.isOneWay.value
+                    ? ''
+                    : DateFormat('EEEE').format(arrivalDate),
+                style: flightController.isOneWay.value
+                    ? CustomTextstyle.bold600Text15Grey
+                    : null,
+                onTap: () {
+                  if (flightController.isOneWay.value) {
+                    AppSnackbar.showInfo("Notice", "Supported In Round Trip");
+                  } else {
+                    controller.openCalendar(isDeparture: false);
+                  }
+                },
+              ),
+            ),
           ],
         ),
-      ),
-    );
+      );
+    });
   }
 }
 
@@ -603,40 +679,143 @@ class CommonFlightSearchWidget extends GetView<FlightsController> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        child: Row(
-          crossAxisAlignment: .center,
-          children: [
-            CommonAssetImage(
-              image: image,
-              height: 20,
-              width: 20,
-              color: AppColors.textIconBlue,
-            ),
+      child: SizedBox(
+        height: 73,
 
-            const SizedBox(width: 8),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          child: Row(
+            crossAxisAlignment: .center,
+            children: [
+              CommonAssetImage(
+                image: image,
+                height: 20,
+                width: 20,
+                color: AppColors.textIconBlue,
+              ),
 
-            Expanded(
-              child: Column(
-                mainAxisAlignment: .center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title, style: CustomTextstyle.normal500Text12),
+              const SizedBox(width: 8),
 
-                  Text(subTitle, style: style ?? CustomTextstyle.bold600Text15),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: .center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title, style: CustomTextstyle.normal500Text12),
 
-                  if (extraTitle != null && extraTitle!.isNotEmpty)
                     Text(
-                      extraTitle!,
-                      style: CustomTextstyle.normal400Text12,
-                      overflow: .ellipsis,
-                      maxLines: 1,
+                      subTitle,
+                      style: style ?? CustomTextstyle.bold600Text15,
                     ),
+
+                    if (extraTitle != null && extraTitle!.isNotEmpty)
+                      Text(
+                        extraTitle!,
+                        style: CustomTextstyle.normal400Text12,
+                        overflow: .ellipsis,
+                        maxLines: 1,
+                      ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AlertCommonFlightSearchWidget extends GetView<FlightsController> {
+  const AlertCommonFlightSearchWidget({
+    super.key,
+    required this.image,
+    required this.title,
+    required this.subTitle,
+    this.extraTitle,
+    this.style,
+    this.onTap,
+    this.borderRadius,
+    this.border,
+  });
+
+  final String image;
+  final String title;
+  final String subTitle;
+  final String? extraTitle;
+  final TextStyle? style;
+  final void Function()? onTap;
+  final BorderRadiusGeometry? borderRadius;
+  final BoxBorder? border;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 78,
+        decoration: BoxDecoration(
+          color: AppColors.red.withValues(alpha: 0.08),
+          borderRadius:
+              borderRadius ??
+              const BorderRadius.only(topLeft: Radius.circular(0)),
+          border:
+              border ??
+              .fromLTRB(
+                left: BorderSide(color: AppColors.red, width: 1),
+                right: BorderSide(color: AppColors.red, width: 1),
+                top: BorderSide(color: AppColors.red, width: 1),
+              ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          child: Column(
+            mainAxisAlignment: .spaceBetween,
+            crossAxisAlignment: .start,
+            children: [
+              Row(
+                crossAxisAlignment: .center,
+                children: [
+                  CommonAssetImage(
+                    image: image,
+                    height: 20,
+                    width: 20,
+                    color: AppColors.textIconBlue,
+                  ),
+
+                  const SizedBox(width: 8),
+
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: .center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(title, style: CustomTextstyle.normal500Text12),
+
+                        Text(
+                          subTitle,
+                          style: style ?? CustomTextstyle.bold600Text15Grey,
+                        ),
+
+                        if (extraTitle != null && extraTitle!.isNotEmpty)
+                          Text(
+                            extraTitle!,
+                            style: CustomTextstyle.normal400Text12,
+                            overflow: .ellipsis,
+                            maxLines: 1,
+                          ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
-            ),
-          ],
+              Text(
+                "Please select a destination city or airport",
+                style: CustomTextstyle.normal400Text12Red,
+                overflow: .ellipsis,
+                maxLines: 1,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -649,9 +828,9 @@ class FlightWaySelectionWidget extends GetView<FlightsController> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
-        padding: .symmetric(horizontal: 6, vertical: 5),
+        padding: const .symmetric(horizontal: 6, vertical: 5),
         height: 40,
         width: .infinity,
         decoration: BoxDecoration(
@@ -667,7 +846,7 @@ class FlightWaySelectionWidget extends GetView<FlightsController> {
                 isOneway: controller.isOneWay.value,
                 onTap: () => controller.isOneWay.value = true,
               ),
-              SizedBox(width: 15),
+              const SizedBox(width: 15),
               CommonFlightWayWidgets(
                 title: FlightConstants.roundTrip,
                 isOneway: !controller.isOneWay.value,
@@ -732,10 +911,10 @@ class FlightSpecialFaresFiltersWidget extends GetView<FlightsController> {
           crossAxisAlignment: .start,
           mainAxisAlignment: .spaceEvenly,
           children: [
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
 
-            Text(FlightConstants.specialFares),
-            SizedBox(height: 6),
+            const Text(FlightConstants.specialFares),
+            const SizedBox(height: 6),
 
             SizedBox(
               height: 29,
@@ -755,7 +934,7 @@ class FlightSpecialFaresFiltersWidget extends GetView<FlightsController> {
                 );
               }),
             ),
-            SizedBox(height: 9),
+            const SizedBox(height: 9),
 
             Row(
               children: [
@@ -765,7 +944,7 @@ class FlightSpecialFaresFiltersWidget extends GetView<FlightsController> {
                     onTap: controller.toggleDirectFlight,
                   ),
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
 
                 Text(
                   FlightConstants.directFlightOnly,
@@ -827,7 +1006,7 @@ class SpecialFaresChip extends StatelessWidget {
         child: Container(
           clipBehavior: .none,
           alignment: .center,
-          padding: .symmetric(horizontal: 14, vertical: 6),
+          padding: const .symmetric(horizontal: 14, vertical: 6),
           decoration: BoxDecoration(
             border: Border.all(
               color: isFairSelected ? AppColors.red : AppColors.textGreyColor,
@@ -845,10 +1024,10 @@ class SpecialFaresChip extends StatelessWidget {
                     ? CustomTextstyle.poppins600Text12
                     : CustomTextstyle.poppins500Text12,
               ),
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
               isFairSelected
-                  ? SizedBox.shrink()
-                  : CommonAssetImage(
+                  ? const SizedBox.shrink()
+                  : const CommonAssetImage(
                       image: Assets.iButton,
                       height: 14,
                       width: 14,

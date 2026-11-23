@@ -14,7 +14,7 @@ class CategoryCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         border: Border.all(color: AppColors.bottomBg, width: 0.97),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: AppColors.shadowBlue,
             offset: Offset(0, 1.94),
@@ -26,9 +26,9 @@ class CategoryCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          SizedBox(height: AppSize.s16s),
+          const SizedBox(height: AppSize.s16s),
           CommonAssetImage(image: categoryItem.icon, height: 20, width: 20),
-          SizedBox(height: AppSize.s7),
+          const SizedBox(height: AppSize.s7),
           Text(categoryItem.title),
         ],
       ),

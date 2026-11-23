@@ -31,6 +31,8 @@ class FlightsController extends GetxController {
   RxBool isMoreThan9Travellers = false.obs;
   RxBool istoggleDirectFlight = false.obs;
   String get shortDate => DateFormat("dd MMM").format(dateOnly(today));
+  RxBool isSelectedFrom = false.obs;
+  RxBool isSelectedTo = false.obs;
 
   RxList<FlightPopularRoutesModel> popularRoutes = <FlightPopularRoutesModel>[
     FlightPopularRoutesModel(
@@ -86,32 +88,46 @@ class FlightsController extends GetxController {
     isOneWay.value = oneWay;
   }
 
+  void checkTripEmpty() {
+    isSelectedFrom.value =
+        selectedFromCity.value == FlightConstants.searchSelectCity;
+    isSelectedTo.value =
+        selectedToCity.value == FlightConstants.searchSelectCity;
+  }
+
   void addRecentSearch() {
-    recentSearch.removeWhere((element) {
-      return element.fromCity.city == selectedFromCity.value &&
-          element.toCity.city == selectedToCity.value &&
-          element.departureDate == shortDate &&
-          element.travellers == totalTravellers &&
-          element.travelClass == selectedCabinClass.value;
-    });
-    recentSearch.insert(
-      0,
-      FlightRecentSearchModel(
-        fromCity: FlightDestinationModel(
-          city: selectedFromCity.value,
-          airport: selectedFromAirport.value,
+    if (selectedToCity.value != FlightConstants.searchSelectCity &&
+        selectedFromCity.value != FlightConstants.searchSelectCity) {
+      recentSearch.removeWhere((element) {
+        return element.fromCity.city == selectedFromCity.value &&
+            element.toCity.city == selectedToCity.value &&
+            element.departureDate == shortDate &&
+            element.travellers == totalTravellers &&
+            element.travelClass == selectedCabinClass.value;
+      });
+      recentSearch.insert(
+        0,
+        FlightRecentSearchModel(
+          fromCity: FlightDestinationModel(
+            city: selectedFromCity.value,
+            airport: selectedFromAirport.value,
+          ),
+          toCity: FlightDestinationModel(
+            city: selectedToCity.value,
+            airport: selectedToAirport.value,
+          ),
+          departureDate: shortDate,
+          travellers: totalTravellers,
+          travelClass: selectedCabinClass.value,
         ),
-        toCity: FlightDestinationModel(
-          city: selectedToCity.value,
-          airport: selectedToAirport.value,
-        ),
-        departureDate: shortDate,
-        travellers: totalTravellers,
-        travelClass: selectedCabinClass.value,
-      ),
-    );
-    if (recentSearch.length > 5) {
-      recentSearch.removeLast();
+      );
+      if (recentSearch.length > 5) {
+        recentSearch.removeLast();
+      }
+    } else {
+      checkTripEmpty();
+
+      AppSnackbar.showInfo("Field Are Empty", "Please Fill All Details");
     }
   }
 

@@ -7,6 +7,6 @@ class HomeCategoryShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CommonShimmer(height: AppSize.s89, width: AppSize.s80);
+    return const CommonShimmer(height: AppSize.s89, width: AppSize.s80);
   }
 }

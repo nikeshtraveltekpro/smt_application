@@ -9,7 +9,7 @@ class CalendarView extends GetView<CalendarController> {
 
   @override
   Widget build(BuildContext context) {
-    // Generate 12 months starting from the current month.
+
     final startDate = controller.calendarStartDate;
 
     final months = List.generate(controller.totalCalendarMonths, (index) {
@@ -19,7 +19,7 @@ class CalendarView extends GetView<CalendarController> {
     return Scaffold(
       backgroundColor: Colors.white,
 
-      // TOP APP BAR
+
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -42,10 +42,10 @@ class CalendarView extends GetView<CalendarController> {
         ),
       ),
 
-      // CALENDAR AND BOTTOM SUMMARY
+
       body: Column(
         children: [
-          // SCROLLABLE MONTHS
+
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.zero,
@@ -59,7 +59,7 @@ class CalendarView extends GetView<CalendarController> {
             ),
           ),
 
-          // FIXED BOTTOM SUMMARY
+
           _buildBottomSection(),
         ],
       ),
@@ -87,7 +87,7 @@ class CalendarView extends GetView<CalendarController> {
 
         return Column(
           children: [
-            // DATE SUMMARY
+
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
               decoration: BoxDecoration(
@@ -97,7 +97,7 @@ class CalendarView extends GetView<CalendarController> {
               ),
               child: Row(
                 children: [
-                  // CHECK-IN
+
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +121,7 @@ class CalendarView extends GetView<CalendarController> {
                     ),
                   ),
 
-                  // TOTAL NIGHTS
+
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 9,
@@ -141,7 +141,7 @@ class CalendarView extends GetView<CalendarController> {
                     ),
                   ),
 
-                  // CHECK-OUT
+
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -170,7 +170,7 @@ class CalendarView extends GetView<CalendarController> {
 
             const SizedBox(height: 10),
 
-            // CONTINUE BUTTON
+
             SizedBox(
               width: double.infinity,
               height: 46,

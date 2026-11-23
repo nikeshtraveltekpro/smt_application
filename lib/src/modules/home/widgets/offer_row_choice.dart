@@ -28,7 +28,7 @@ class OfferRowChoice extends GetView<HomeController> {
                 AppConstants.existingOffers,
                 style: CustomTextstyle.boldText15,
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Container(
                 width: AppSize.s34,
                 decoration: BoxDecoration(
@@ -37,12 +37,12 @@ class OfferRowChoice extends GetView<HomeController> {
               ),
             ],
           ),
-          SizedBox(height: 14),
+          const SizedBox(height: 14),
           SizedBox(
             height: 30,
             width: .infinity,
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               clipBehavior: .none,
               scrollDirection: .horizontal,
               child: Row(
@@ -54,14 +54,14 @@ class OfferRowChoice extends GetView<HomeController> {
                     },
                     child: Container(
                       height: 30,
-                      padding: EdgeInsets.symmetric(horizontal: 9.33),
+                      padding: const EdgeInsets.symmetric(horizontal: 9.33),
                       decoration: BoxDecoration(
                         color: AppColors.white,
                         border: Border.all(width: 1, color: AppColors.white),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: AppColors.shadowBlue,
-                            offset: const Offset(0, 1.94),
+                            offset: Offset(0, 1.94),
                             blurRadius: 12.62,
                           ),
                         ],
@@ -87,26 +87,26 @@ class OfferRowChoice extends GetView<HomeController> {
               ),
             ),
           ),
-          SizedBox(height: 14),
+          const SizedBox(height: 14),
           Obx(
             () => SizedBox(
               height: 160,
               width: .infinity,
               child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 scrollDirection: .horizontal,
                 child: Row(
                   children: controller.isLoading.value
                       ? List.generate(
                           3,
-                          (index) => Padding(
+                          (index) => const Padding(
                             padding: EdgeInsets.only(right: 8),
                             child: HomeOffersCardShimmer(),
                           ),
                         )
                       : controller.filterOffer.map((item) {
                           return Padding(
-                            padding: EdgeInsets.only(right: 8),
+                            padding: const EdgeInsets.only(right: 8),
                             child: OfferCardWidget(
                               image: item.image,
                               title: item.title,

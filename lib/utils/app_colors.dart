@@ -8,6 +8,7 @@ class AppColors {
   static const Color grey = Color(0xffD9D9D9);
   static const Color red = Color(0xffD74D44);
   static const Color textIconBlue = Color(0xff022F5D);
+  static const Color greyLight7 = Color(0xff9EA2AE);
   static const Color bannerDarkBlue = Color(0xff101828);
   static const Color exclusiveFlightBanner = Color(0xff0E1624);
   static const Color exclusiveFlightBannerOverlayMid = Color.fromRGBO(

@@ -18,11 +18,11 @@ class HotelSearchCityView extends GetView<SearchCityController> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 8),
-              CitySearchBar(),
-              SizedBox(height: 18),
-              LocationNearMeWidget(),
-              SizedBox(height: 15),
+              const SizedBox(height: 8),
+              const CitySearchBar(),
+              const SizedBox(height: 18),
+              const LocationNearMeWidget(),
+              const SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -34,22 +34,22 @@ class HotelSearchCityView extends GetView<SearchCityController> {
                           HotelConstants.recentSearchTitle,
                           style: CustomTextstyle.bold600Text15,
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Text(
                           HotelConstants.clear,
                           style: CustomTextstyle.clearRecentSearch,
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
-                    RecentSearchItem(),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 10),
+                    const RecentSearchItem(),
+                    const SizedBox(height: 15),
                     Text(
                       HotelConstants.popularDestinationsTitle,
                       style: CustomTextstyle.bold600Text15,
                     ),
-                    SizedBox(height: 10),
-                    PopularDestinationsWidget(),
+                    const SizedBox(height: 10),
+                    const PopularDestinationsWidget(),
                   ],
                 ),
               ),
@@ -72,9 +72,9 @@ class CitySearchBar extends GetView<SearchCityController> {
         children: [
           GestureDetector(
             onTap: () => Get.back(),
-            child: CommonAssetImage(image: Assets.arrowLeft),
+            child: const CommonAssetImage(image: Assets.arrowLeft),
           ),
-          SizedBox(width: 14.5),
+          const SizedBox(width: 14.5),
           Expanded(
             child: SizedBox(
               height: 44,
@@ -83,7 +83,7 @@ class CitySearchBar extends GetView<SearchCityController> {
                   hintText: HotelConstants.searchByCityAndProperty,
                   hintStyle: CustomTextstyle.normal400Text12,
 
-                  contentPadding: EdgeInsets.symmetric(
+                  contentPadding: const EdgeInsets.symmetric(
                     horizontal: 15,
                     vertical: 10,
                   ),
@@ -96,7 +96,7 @@ class CitySearchBar extends GetView<SearchCityController> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: .circular(52),
-                    borderSide: BorderSide(color: AppColors.textIconBlue),
+                    borderSide: const BorderSide(color: AppColors.textIconBlue),
                   ),
                 ),
               ),
@@ -118,7 +118,7 @@ class LocationNearMeWidget extends GetView<SearchCityController> {
       child: Container(
         height: 65,
         width: .infinity,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         decoration: BoxDecoration(
           color: AppColors.white,
           border: Border.symmetric(
@@ -130,8 +130,8 @@ class LocationNearMeWidget extends GetView<SearchCityController> {
         ),
         child: Row(
           children: [
-            CommonAssetImage(image: Assets.locationCursor),
-            SizedBox(width: 10),
+            const CommonAssetImage(image: Assets.locationCursor),
+            const SizedBox(width: 10),
             Text(
               HotelConstants.propertiesNearMe,
               style: CustomTextstyle.normalText14,
@@ -166,7 +166,7 @@ class RecentSearchItem extends GetView<SearchCityController> {
               width: double.infinity,
               child: Row(
                 children: [
-                  CommonAssetImage(image: Assets.time),
+                  const CommonAssetImage(image: Assets.time),
                   const SizedBox(width: 10),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -232,7 +232,7 @@ class PopularDestinationGroup extends GetView<SearchCityController> {
       children: [
         PopularDestinationItem(city: city, country: country, onTap: () {}),
         Padding(
-          padding: EdgeInsets.only(left: 9),
+          padding: const EdgeInsets.only(left: 9),
           child: IntrinsicHeight(
             child: Row(
               crossAxisAlignment: .stretch,
@@ -241,7 +241,7 @@ class PopularDestinationGroup extends GetView<SearchCityController> {
                   width: 1,
                   color: AppColors.grey2.withValues(alpha: 0.4),
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: .start,
@@ -283,7 +283,7 @@ class PopularDestinationItem extends GetView<SearchCityController> {
         height: 42,
         child: Row(
           children: [
-            CommonAssetImage(image: Assets.hotelIcon),
+            const CommonAssetImage(image: Assets.hotelIcon),
             const SizedBox(width: 10),
             Expanded(
               child: Column(

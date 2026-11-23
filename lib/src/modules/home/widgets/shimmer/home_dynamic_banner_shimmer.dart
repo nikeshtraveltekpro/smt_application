@@ -6,10 +6,10 @@ class HomeDynamicBannerShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CommonShimmer(
+    return const CommonShimmer(
       height: 112,
       width: double.infinity,
-      padding: const EdgeInsetsGeometry.only(left: 20),
+      padding: EdgeInsetsGeometry.only(left: 20),
     );
   }
 }

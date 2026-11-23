@@ -16,9 +16,9 @@ class HomeHeader extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        CommonAssetImage(image: Assets.screenBg),
+        const CommonAssetImage(image: Assets.screenBg),
         Padding(
-          padding: EdgeInsets.only(left: 20, right: 20, top: 51.26),
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 51.26),
           child: Column(
             children: [
               Row(
@@ -44,13 +44,13 @@ class HomeHeader extends GetView<HomeController> {
                           child: Container(
                             height: 9,
                             width: 9,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: AppColors.red,
                               shape: .circle,
                             ),
                           ),
                         ),
-                        Center(
+                        const Center(
                           child: CommonAssetImage(
                             image: Assets.bell,
                             height: 21,
@@ -62,7 +62,7 @@ class HomeHeader extends GetView<HomeController> {
                   ),
                 ],
               ),
-              SizedBox(height: AppSize.s19),
+              const SizedBox(height: AppSize.s19),
               SizedBox(
                 height: AppSize.s89,
                 width: .infinity,
@@ -73,8 +73,8 @@ class HomeHeader extends GetView<HomeController> {
                         () => controller.isLoading.value
                             ? ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) => Padding(
-                                  padding: const EdgeInsets.only(left: 5),
+                                itemBuilder: (context, index) => const Padding(
+                                  padding: EdgeInsets.only(left: 5),
                                   child: HomeCategoryShimmer(),
                                 ),
                                 itemCount: 4,
@@ -99,7 +99,7 @@ class HomeHeader extends GetView<HomeController> {
                                           Get.toNamed(Routes.hotel);
                                         }
                                         if (index == 0) {
-                                          Get.toNamed(Routes.flights);
+                                          Get.toNamed(Routes.trip);
                                         }
                                       },
                                       child: CategoryCard(

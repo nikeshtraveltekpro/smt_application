@@ -22,7 +22,7 @@ class RoomPriceBottomsheet extends GetView<HotelController> {
         mainAxisAlignment: .start,
         crossAxisAlignment: .start,
         children: [
-          BottomSheetTitle(title: HotelConstants.pricePerNightTitle),
+          const BottomSheetTitle(title: HotelConstants.pricePerNightTitle),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Container(
@@ -87,7 +87,7 @@ class PriceRadioChoiceCard extends StatelessWidget {
             children: [
               Container(
                 width: 20,
-                padding: .all(3.8),
+                padding: const .all(3.8),
 
                 height: 20,
                 decoration: BoxDecoration(
@@ -101,14 +101,14 @@ class PriceRadioChoiceCard extends StatelessWidget {
                     ? Container(
                         height: 10,
                         width: 10,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: AppColors.red,
                         ),
                       )
                     : null,
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Text(currentPrice, style: CustomTextstyle.bold400Text14),
             ],
           ),

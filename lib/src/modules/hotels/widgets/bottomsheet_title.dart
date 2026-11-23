@@ -19,13 +19,13 @@ class BottomSheetTitle extends StatelessWidget {
           Container(
             height: 25,
             width: 25,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: .circle,
               color: AppColors.lighBlue,
             ),
             child: GestureDetector(
               onTap: () => Get.back(),
-              child: CommonAssetImage(
+              child: const CommonAssetImage(
                 image: Assets.cross,
                 height: 8,
                 width: 8,

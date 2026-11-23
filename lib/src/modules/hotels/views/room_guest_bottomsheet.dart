@@ -23,7 +23,7 @@ class RoomGuestBottomsheet extends GetView<HotelController> {
           mainAxisAlignment: .start,
           crossAxisAlignment: .start,
           children: [
-            BottomSheetTitle(title: HotelConstants.addRoomsAndGuestsTitle),
+            const BottomSheetTitle(title: HotelConstants.addRoomsAndGuestsTitle),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
@@ -32,7 +32,7 @@ class RoomGuestBottomsheet extends GetView<HotelController> {
                 color: AppColors.textIconBlue,
               ),
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Expanded(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -40,7 +40,7 @@ class RoomGuestBottomsheet extends GetView<HotelController> {
               ),
             ),
             IncreaseRoomWidget(controller: controller),
-            ContinueButtonWidget(),
+            const ContinueButtonWidget(),
           ],
         ),
       ),
@@ -94,7 +94,7 @@ class IncreaseRoomWidget extends StatelessWidget {
               alignment: .center,
               children: [
                 Container(
-                  padding: EdgeInsets.only(top: 10, left: 6.5),
+                  padding: const EdgeInsets.only(top: 10, left: 6.5),
                   width: 1.5,
                   height: 10.62,
                   decoration: BoxDecoration(
@@ -103,7 +103,7 @@ class IncreaseRoomWidget extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 10, left: 6.5),
+                  padding: const EdgeInsets.only(top: 10, left: 6.5),
                   width: 10.62,
                   height: 1.5,
                   decoration: BoxDecoration(
@@ -165,7 +165,7 @@ class CommonRoomWidget extends GetView<HotelController> {
 
           children: [
             Text("Room $count", style: CustomTextstyle.boldText14Blue),
-            SizedBox(height: 6),
+            const SizedBox(height: 6),
             AddRemoveRowWidget(
               title: HotelConstants.adultsTitle,
               subTitle: HotelConstants.adultsAgeSubtitle,
@@ -173,7 +173,7 @@ class CommonRoomWidget extends GetView<HotelController> {
               onAdd: () => controller.increaseAdult(index),
               onSub: () => controller.decreaseAdult(index),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
 
             AddRemoveRowWidget(
               title: HotelConstants.childrenTitle,
@@ -277,9 +277,9 @@ class CommonRoomWidget extends GetView<HotelController> {
                     ),
             ),
 
-            isIndexZero ? SizedBox(height: 0) : RemoveRoomWidgets(index: index),
-            SizedBox(height: 10),
-            DividerBorderWidget(),
+            isIndexZero ? const SizedBox(height: 0) : RemoveRoomWidgets(index: index),
+            const SizedBox(height: 10),
+            const DividerBorderWidget(),
           ],
         ),
       ),
@@ -313,7 +313,7 @@ class RemoveRoomWidgets extends GetView<HotelController> {
         child: Row(
           mainAxisAlignment: .end,
           children: [
-            MinusIconWidget(),
+            const MinusIconWidget(),
             Padding(
               padding: const EdgeInsets.only(left: 5),
               child: Text(
@@ -353,7 +353,7 @@ class AddRemoveRowWidget extends GetView<HotelController> {
             Text(subTitle, style: CustomTextstyle.normal400Text12),
           ],
         ),
-        Spacer(),
+        const Spacer(),
         IconWidget(onSub: onSub),
         Container(
           height: 32,
@@ -391,7 +391,7 @@ class IconWidget extends StatelessWidget {
                 alignment: .center,
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 10, left: 6.5),
+                    padding: const EdgeInsets.only(top: 10, left: 6.5),
                     width: 1.5,
                     height: 10.62,
                     decoration: BoxDecoration(
@@ -399,11 +399,11 @@ class IconWidget extends StatelessWidget {
                       color: AppColors.grey2,
                     ),
                   ),
-                  MinusIconWidget(),
+                  const MinusIconWidget(),
                 ],
               )
             : Container(
-                padding: EdgeInsets.only(top: 10, left: 6.5),
+                padding: const EdgeInsets.only(top: 10, left: 6.5),
                 width: 10.62,
                 height: 1.5,
                 decoration: BoxDecoration(
@@ -422,7 +422,7 @@ class MinusIconWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 10, left: 6.5),
+      padding: const EdgeInsets.only(top: 10, left: 6.5),
       width: 10.62,
       height: 1.5,
       decoration: BoxDecoration(

@@ -13,7 +13,7 @@ class HomeSubCategoryShimmer extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Container(
-          padding: EdgeInsets.only(top: 2, left: 2),
+          padding: const EdgeInsets.only(top: 2, left: 2),
           height: 152,
           width: .infinity,
           decoration: BoxDecoration(

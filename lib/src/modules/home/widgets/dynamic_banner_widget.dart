@@ -24,7 +24,7 @@ class DynamicBannerWidget extends GetView<HomeController> {
                         const HomeDynamicBannerShimmer(),
                   )
                 : PageView.builder(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     controller: controller.bannerPageController,
                     itemCount: controller.homeDynamicBanner.length,
                     onPageChanged: controller.onSwapBanner,

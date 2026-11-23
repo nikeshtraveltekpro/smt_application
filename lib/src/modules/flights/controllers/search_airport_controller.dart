@@ -14,23 +14,23 @@ class SearchAirportController extends GetxController {
       flightController.recentSearch;
 
   final List<FlightDestinationModel> flightDestinations = [
-    FlightDestinationModel(
+    const FlightDestinationModel(
       city: 'Ahmedabad',
       airport: 'Sardar Vallabhbhai Patel International Airport (AMD)',
     ),
-    FlightDestinationModel(
+    const FlightDestinationModel(
       city: 'Mumbai',
       airport: 'Chhatrapati Shivaji Maharaj International Airport (BOM)',
     ),
-    FlightDestinationModel(
+    const FlightDestinationModel(
       city: 'New Delhi',
       airport: 'Indira Gandhi International Airport (DEL)',
     ),
-    FlightDestinationModel(
+    const FlightDestinationModel(
       city: 'Bengaluru',
       airport: 'Kempegowda International Airport (BLR)',
     ),
-    FlightDestinationModel(
+    const FlightDestinationModel(
       city: 'Goa',
       airport: 'Manohar International Airport (GOX)',
     ),
@@ -75,13 +75,16 @@ class SearchAirportController extends GetxController {
     }
   }
 
-  void selectRecentFlightDestination(List<FlightDestinationModel> destination) {
+  void selectRecentFlightDestination(
+    List<FlightDestinationModel> destination,
+    bool goBack,
+  ) {
     flightController.selectedFromCity.value = destination[0].city;
     flightController.selectedFromAirport.value = destination[0].airport;
     flightController.selectedToCity.value = destination[1].city;
     flightController.selectedToAirport.value = destination[1].airport;
 
-    Get.back();
+    if (goBack) return Get.back();
   }
 
   void selectDestination(FlightRecentSearchModel searchDetail) {
@@ -100,8 +103,6 @@ class SearchAirportController extends GetxController {
 
     flightController.selectedToCity.value = searchDetail.toCity.city;
     flightController.selectedToAirport.value = searchDetail.toCity.airport;
-
-    Get.back();
   }
 
   @override

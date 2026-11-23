@@ -14,7 +14,7 @@ class TravellersClassBottomsheet extends GetView<FlightsController> {
   Widget build(BuildContext context) {
     return Container(
       width: .infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: .vertical(top: .circular(28)),
       ),
@@ -22,18 +22,18 @@ class TravellersClassBottomsheet extends GetView<FlightsController> {
         mainAxisSize: .min,
         crossAxisAlignment: .start,
         children: [
-          BottomSheetTitle(title: FlightConstants.selectTravellersAndClass),
+          const BottomSheetTitle(title: FlightConstants.selectTravellersAndClass),
           Padding(
-            padding: .symmetric(horizontal: 20),
+            padding: const .symmetric(horizontal: 20),
             child: Container(
               height: 3,
               width: 50.5,
               color: AppColors.textIconBlue,
             ),
           ),
-          SizedBox(height: 18),
+          const SizedBox(height: 18),
           Padding(
-            padding: .symmetric(horizontal: 20),
+            padding: const .symmetric(horizontal: 20),
             child: Column(
               crossAxisAlignment: .start,
               children: [
@@ -41,7 +41,7 @@ class TravellersClassBottomsheet extends GetView<FlightsController> {
                   FlightConstants.travellers,
                   style: CustomTextstyle.boldText14Blue,
                 ),
-                SizedBox(height: 14),
+                const SizedBox(height: 14),
                 AddRemoveRowWidget(
                   title: FlightConstants.adults,
                   subTitle: FlightConstants.adultsAge,
@@ -49,7 +49,7 @@ class TravellersClassBottomsheet extends GetView<FlightsController> {
                   onAdd: controller.increaseAdults,
                   onSub: controller.decreaseAdults,
                 ),
-                SizedBox(height: 14),
+                const SizedBox(height: 14),
                 AddRemoveRowWidget(
                   title: FlightConstants.children,
                   subTitle: FlightConstants.childrenAge,
@@ -57,7 +57,7 @@ class TravellersClassBottomsheet extends GetView<FlightsController> {
                   onAdd: controller.increaseChildren,
                   onSub: controller.decreaseChildren,
                 ),
-                SizedBox(height: 14),
+                const SizedBox(height: 14),
                 AddRemoveRowWidget(
                   title: FlightConstants.infants,
                   subTitle: FlightConstants.infantsAge,
@@ -65,15 +65,15 @@ class TravellersClassBottomsheet extends GetView<FlightsController> {
                   onAdd: controller.increaseInfants,
                   onSub: controller.decreaseInfants,
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Obx(
                   () => GestureDetector(
                     onTap: () => controller.isMoreThan9Travellers.toggle(),
                     child: Container(
                       width: .infinity,
-                      padding: .symmetric(horizontal: 14, vertical: 12),
+                      padding: const .symmetric(horizontal: 14, vertical: 12),
                       decoration: BoxDecoration(
-                        color: Color(0xFFF3F3FA),
+                        color: const Color(0xFFF3F3FA),
                         borderRadius: .circular(10),
                       ),
                       child: Row(
@@ -96,7 +96,7 @@ class TravellersClassBottomsheet extends GetView<FlightsController> {
                               ),
                             ),
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Text(
                             FlightConstants.moreThan9Travellers,
                             style: CustomTextstyle.normalText12.copyWith(
@@ -109,14 +109,14 @@ class TravellersClassBottomsheet extends GetView<FlightsController> {
                     ),
                   ),
                 ),
-                SizedBox(height: 18),
-                DividerBorderWidget(),
-                SizedBox(height: 18),
+                const SizedBox(height: 18),
+                const DividerBorderWidget(),
+                const SizedBox(height: 18),
                 Text(
                   FlightConstants.cabinClass,
                   style: CustomTextstyle.boldText14Blue,
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Obx(
                   () => Column(
                     children: controller.cabinClasses.map((cabin) {
@@ -126,7 +126,7 @@ class TravellersClassBottomsheet extends GetView<FlightsController> {
                         onTap: () =>
                             controller.selectedCabinClass.value = cabin,
                         child: Padding(
-                          padding: .symmetric(vertical: 8),
+                          padding: const .symmetric(vertical: 8),
                           child: Row(
                             children: [
                               Container(
@@ -148,7 +148,7 @@ class TravellersClassBottomsheet extends GetView<FlightsController> {
                                         child: Container(
                                           height: 10,
                                           width: 10,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             shape: .circle,
                                             color: AppColors.red,
                                           ),
@@ -156,7 +156,7 @@ class TravellersClassBottomsheet extends GetView<FlightsController> {
                                       )
                                     : null,
                               ),
-                              SizedBox(width: 12),
+                              const SizedBox(width: 12),
                               Text(
                                 cabin,
                                 style: CustomTextstyle.normalText12.copyWith(
@@ -174,11 +174,11 @@ class TravellersClassBottomsheet extends GetView<FlightsController> {
               ],
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           GestureDetector(
             onTap: () => Get.back(),
             child: Padding(
-              padding: .symmetric(vertical: 14, horizontal: 20),
+              padding: const .symmetric(vertical: 14, horizontal: 20),
               child: Container(
                 height: 48,
                 width: .infinity,

@@ -226,7 +226,7 @@ class HotelController extends GetxController {
 
   void getRoomBottomSheet() {
     Get.bottomSheet(
-      RoomGuestBottomsheet(),
+      const RoomGuestBottomsheet(),
       isDismissible: true,
       isScrollControlled: true,
       backgroundColor: AppColors.transparent,
@@ -235,7 +235,7 @@ class HotelController extends GetxController {
 
   void getPriceBottomSheet() {
     Get.bottomSheet(
-      RoomPriceBottomsheet(),
+      const RoomPriceBottomsheet(),
       isDismissible: true,
       isScrollControlled: true,
       backgroundColor: AppColors.transparent,

@@ -27,7 +27,7 @@ class TextformfieldWidget extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(52),
-          borderSide: BorderSide(color: AppColors.textIconBlue),
+          borderSide: const BorderSide(color: AppColors.textIconBlue),
         ),
       ),
     );

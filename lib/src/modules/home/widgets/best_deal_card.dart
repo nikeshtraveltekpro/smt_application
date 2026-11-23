@@ -44,12 +44,12 @@ class BestDealCard extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CommonAssetImage(
+                        const CommonAssetImage(
                           image: Assets.star,
                           height: 6,
                           width: 6,
                         ),
-                        SizedBox(width: 3),
+                        const SizedBox(width: 3),
                         Text(
                           "${item.rating}",
                           style: CustomTextstyle.normalText9,
@@ -60,34 +60,34 @@ class BestDealCard extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: AppSize.s8),
+            const SizedBox(height: AppSize.s8),
             Text(item.title ?? " ", style: CustomTextstyle.boldText14Blue),
-            SizedBox(height: 3),
+            const SizedBox(height: 3),
             Row(
               children: [
-                CommonAssetImage(image: Assets.location, height: 12, width: 12),
-                SizedBox(width: 5),
+                const CommonAssetImage(image: Assets.location, height: 12, width: 12),
+                const SizedBox(width: 5),
                 Text(
                   item.location ?? " ",
                   style: CustomTextstyle.normal400Text12,
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Container(
                   height: 2,
                   width: 2,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: AppColors.grey2,
                     shape: BoxShape.circle,
                   ),
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Text(
                   "${item.review} reviews",
                   style: CustomTextstyle.normal400Text12,
                 ),
               ],
             ),
-            SizedBox(height: 7),
+            const SizedBox(height: 7),
             Row(
               children: [
                 Row(
@@ -96,14 +96,14 @@ class BestDealCard extends StatelessWidget {
                       item.price ?? " ",
                       style: CustomTextstyle.boldText14Blue,
                     ),
-                    SizedBox(width: 3),
+                    const SizedBox(width: 3),
                     Text(
                       AppConstants.nights,
                       style: CustomTextstyle.normal400Text8,
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Text(
                   "+₹${item.taxAmount} taxes",
                   style: CustomTextstyle.normal400Text12,

@@ -14,18 +14,18 @@ class HomeSubCategory extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Obx(
       () => controller.isLoading.value
-          ? HomeSubCategoryShimmer()
+          ? const HomeSubCategoryShimmer()
           : controller.hasError.value
           ? Center(child: Text("Error : ${controller.errorMsg.value}"))
           : Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
-                padding: EdgeInsets.only(top: 2, left: 2),
+                padding: const EdgeInsets.only(top: 2, left: 2),
                 height: 152,
                 width: .infinity,
                 decoration: BoxDecoration(
                   color: AppColors.white,
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: AppColors.shadowBlue,
                       offset: Offset(0, 1.94),
@@ -60,7 +60,7 @@ class HomeSubCategory extends GetView<HomeController> {
                               height: 18,
                               width: 18,
                             ),
-                            SizedBox(height: AppSize.s11),
+                            const SizedBox(height: AppSize.s11),
                             Text(
                               item.title,
                               textAlign: TextAlign.center,

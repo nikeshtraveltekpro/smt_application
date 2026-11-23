@@ -1,10 +1,10 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
+
 
 part of 'home_hotel_deal_model.dart';
 
-// **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
+
+
+
 
 _HomeHotelDealModel _$HomeHotelDealModelFromJson(Map<String, dynamic> json) =>
     _HomeHotelDealModel(

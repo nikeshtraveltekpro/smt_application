@@ -85,18 +85,18 @@ extension BodyScreen on BodyScreens {
   Widget get screens {
     switch (this) {
       case BodyScreens.home:
-        return HomeView();
+        return const HomeView();
       case BodyScreens.trip:
-        return TripView();
+        return const TripView();
 
       case BodyScreens.sniggy:
-        return SniggyView();
+        return const SniggyView();
 
       case BodyScreens.wishlist:
-        return WishlistView();
+        return const WishlistView();
 
       case BodyScreens.account:
-        return AccountView();
+        return const AccountView();
     }
   }
 }

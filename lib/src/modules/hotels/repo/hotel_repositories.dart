@@ -16,7 +16,7 @@ class HotelRepositoriesException implements Exception {
 class HotelRepositories {
   Future<List<PopularDestinationModel>> fetchPopularDestination() async {
     try {
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
       return await buildPopulerDestination();
     } on HotelRepositoriesException {
       rethrow;

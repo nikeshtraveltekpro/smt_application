@@ -25,21 +25,21 @@ class CalendarMonthWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // First date of this month.
+
     final firstDay = DateTime(month.year, month.month, 1);
 
-    // Last date of this month.
+
     final lastDay = DateTime(month.year, month.month + 1, 0);
 
-    // Number of days in this month.
+
     final totalDays = lastDay.day;
 
-    // Weekday of the first day.
-    // Dart: Monday = 1, Sunday = 7.
-    // We convert it to Sunday = 0.
+
+
+
     final startingWeekday = firstDay.weekday % 7;
 
-    // Empty spaces before the first date.
+
     final totalCells = startingWeekday + totalDays;
 
     return Padding(
@@ -90,10 +90,10 @@ class CalendarMonthWidget extends StatelessWidget {
                 return const SizedBox();
               }
 
-              // Calculate actual date number.
+
               final dayNumber = index - startingWeekday + 1;
 
-              // Create DateTime for this calendar cell.
+
               final date = DateTime(month.year, month.month, dayNumber);
 
               return CalendarDateCell(date: date, controller: controller);

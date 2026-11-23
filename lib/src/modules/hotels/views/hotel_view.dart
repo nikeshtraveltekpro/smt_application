@@ -17,37 +17,40 @@ import 'package:smt_application/utils/custom_textstyle.dart';
 import '../controllers/hotel_controller.dart';
 
 class HotelView extends GetView<HotelController> {
-  const HotelView({super.key});
+  const HotelView({super.key, this.showHeader = true});
+  final bool showHeader;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
       body: SingleChildScrollView(
         scrollDirection: .vertical,
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            SizedBox(height: 40),
-            CommonAppBar(screenName: HotelConstants.hotelSearchTitle),
-            SizedBox(height: 15),
-
-            CommonHeaderCategories(),
-            SizedBox(height: AppSize.s19),
-            HotelSearchWidget(),
-            HotelSearchButton(),
+            if (showHeader) ...[
+              const SizedBox(height: 40),
+              const CommonAppBar(screenName: HotelConstants.hotelSearchTitle),
+              const SizedBox(height: 15),
+              const CommonHeaderCategories(),
+              const SizedBox(height: AppSize.s19),
+            ],
+            const HotelSearchWidget(),
+            const HotelSearchButton(),
             Obx(() {
               if (controller.recentSearch.isEmpty) {
                 return const SizedBox.shrink();
               }
-              return HotelRecentSearch();
+              return const HotelRecentSearch();
             }),
-            SizedBox(height: AppSize.s20),
+            const SizedBox(height: AppSize.s20),
 
-            RefundableBannerWidget(),
-            HotelPopularDestinationWidget(),
-            SizedBox(height: AppSize.s34),
+            const RefundableBannerWidget(),
+            const HotelPopularDestinationWidget(),
+            const SizedBox(height: AppSize.s34),
 
-            SizedBox(
+            const SizedBox(
               width: .infinity,
               child: CommonAssetImage(image: Assets.emptyScroll),
             ),
@@ -66,7 +69,7 @@ class HotelPopularDestinationWidget extends GetView<HotelController> {
     return Column(
       crossAxisAlignment: .start,
       children: [
-        SizedBox(height: AppSize.s20),
+        const SizedBox(height: AppSize.s20),
 
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -75,7 +78,7 @@ class HotelPopularDestinationWidget extends GetView<HotelController> {
             style: CustomTextstyle.bold600Text15,
           ),
         ),
-        SizedBox(height: AppSize.s10),
+        const SizedBox(height: AppSize.s10),
 
         Obx(() {
           if (controller.isLoading.value) {
@@ -90,7 +93,7 @@ class HotelPopularDestinationWidget extends GetView<HotelController> {
 
           return SingleChildScrollView(
             scrollDirection: .horizontal,
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Row(
@@ -132,7 +135,7 @@ class PopularDestinationCard extends GetView<HotelController> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: AppColors.white, width: 2),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: AppColors.black,
               blurRadius: 3,
@@ -189,7 +192,7 @@ class RefundableBannerWidget extends GetView<HotelController> {
           child: Stack(
             children: [
               Container(color: AppColors.bannerDarkBlue),
-              Positioned(
+              const Positioned(
                 left: 229,
                 top: -1.5,
                 width: 122,
@@ -220,7 +223,7 @@ class RefundableBannerWidget extends GetView<HotelController> {
                           children: [
                             if (descriptionParts.length > 1) ...[
                               TextSpan(text: descriptionParts.first),
-                              TextSpan(
+                              const TextSpan(
                                 text: '100%',
                                 style: TextStyle(
                                   color: AppColors.red,
@@ -231,7 +234,7 @@ class RefundableBannerWidget extends GetView<HotelController> {
                                 text: descriptionParts.sublist(1).join('100%'),
                               ),
                             ] else
-                              TextSpan(
+                              const TextSpan(
                                 text:
                                     HotelConstants.refundableHotelsDescription,
                               ),
@@ -352,7 +355,7 @@ class HotelRecentSearch extends GetView<HotelController> {
                                   child: Container(
                                     height: 4,
                                     width: 4,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: AppColors.grey2,
                                     ),
@@ -455,7 +458,7 @@ class HotelSearchWidget extends GetView<HotelController> {
               color: AppColors.grey2.withValues(alpha: 0.14),
             ),
 
-            HomeRoomAndPriceWidget(),
+            const HomeRoomAndPriceWidget(),
 
             Divider(
               height: 1,
@@ -483,10 +486,10 @@ class HotelQuickFiltersWidget extends GetView<HotelController> {
         crossAxisAlignment: .start,
         mainAxisAlignment: .spaceEvenly,
         children: [
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
 
-          Text(HotelConstants.quickFiltersTitle),
-          SizedBox(height: 6),
+          const Text(HotelConstants.quickFiltersTitle),
+          const SizedBox(height: 6),
 
           Row(
             mainAxisAlignment: .start,
@@ -499,13 +502,13 @@ class HotelQuickFiltersWidget extends GetView<HotelController> {
                 ),
               ),
 
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
 
               Text(
                 HotelConstants.fourStars,
                 style: CustomTextstyle.hotelFilterLabel13,
               ),
-              SizedBox(width: 14),
+              const SizedBox(width: 14),
 
               Obx(
                 () => CommonToggleWidget(
@@ -514,7 +517,7 @@ class HotelQuickFiltersWidget extends GetView<HotelController> {
                 ),
               ),
 
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
 
               Text(
                 HotelConstants.fullRefundable,
@@ -689,7 +692,7 @@ class CommonSearchWidget extends GetView<HotelController> {
               image: image,
               height: 20,
               width: 20,
-              color: AppColors.textIconBlue,
+              color: AppColors.blue,
             ),
 
             const SizedBox(width: 8),
@@ -735,9 +738,9 @@ class CommonAppBar extends GetView<HotelController> {
           GestureDetector(
             onTap: () => Get.offNamedUntil(Routes.home, (routes) => false),
 
-            child: CommonAssetImage(image: Assets.arrowLeft),
+            child: const CommonAssetImage(image: Assets.arrowLeft),
           ),
-          SizedBox(width: 14),
+          const SizedBox(width: 14),
           Text(screenName, style: CustomTextstyle.boldText16),
         ],
       ),
@@ -746,7 +749,14 @@ class CommonAppBar extends GetView<HotelController> {
 }
 
 class CommonHeaderCategories extends GetView<HotelController> {
-  const new({super.key});
+  const new({
+    super.key,
+    this.selectedCategory,
+    this.onCategorySelected,
+  });
+
+  final CategoryEnum? selectedCategory;
+  final ValueChanged<CategoryEnum>? onCategorySelected;
 
   @override
   Widget build(BuildContext context) {
@@ -755,8 +765,8 @@ class CommonHeaderCategories extends GetView<HotelController> {
       child: Container(
         width: double.infinity,
         height: 54,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
         ),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -768,7 +778,11 @@ class CommonHeaderCategories extends GetView<HotelController> {
                 index++
               ) ...[
                 if (index > 0) const SizedBox(width: 5),
-                CommonHeaderCategoriesCard(item: CategoryEnum.values[index]),
+                CommonHeaderCategoriesCard(
+                  item: CategoryEnum.values[index],
+                  selectedCategory: selectedCategory,
+                  onCategorySelected: onCategorySelected,
+                ),
               ],
             ],
           ),
@@ -779,13 +793,33 @@ class CommonHeaderCategories extends GetView<HotelController> {
 }
 
 class CommonHeaderCategoriesCard extends GetView<HotelController> {
-  const new({super.key, required this.item});
+  const new({
+    super.key,
+    required this.item,
+    this.selectedCategory,
+    this.onCategorySelected,
+  });
+
   final CategoryEnum item;
+  final CategoryEnum? selectedCategory;
+  final ValueChanged<CategoryEnum>? onCategorySelected;
 
   @override
   Widget build(BuildContext context) {
+    final isSelected = selectedCategory == null
+        ? '/${item.title.toLowerCase()}' == Get.currentRoute
+        : selectedCategory == item;
+
     return InkWell(
       onTap: () {
+        if (onCategorySelected != null) {
+          if (item == CategoryEnum.hotels || item == CategoryEnum.flights) {
+            onCategorySelected!(item);
+          } else {
+            AppSnackbar.showInfo(item.title, 'This category is coming soon.');
+          }
+          return;
+        }
         if (item == CategoryEnum.hotels) {
           if (Get.currentRoute != Routes.hotel) {
             Get.toNamed(Routes.hotel);
@@ -793,8 +827,8 @@ class CommonHeaderCategoriesCard extends GetView<HotelController> {
           return;
         }
         if (item == CategoryEnum.flights) {
-          if (Get.currentRoute != Routes.flights) {
-            Get.toNamed(Routes.flights);
+          if (Get.currentRoute != Routes.trip) {
+            Get.toNamed(Routes.trip);
           }
           return;
         }
@@ -807,9 +841,7 @@ class CommonHeaderCategoriesCard extends GetView<HotelController> {
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
-              color: '/${item.title.toLowerCase()}' == Get.currentRoute
-                  ? AppColors.red
-                  : Colors.transparent,
+              color: isSelected ? AppColors.red : Colors.transparent,
               width: 2,
             ),
           ),
@@ -823,9 +855,7 @@ class CommonHeaderCategoriesCard extends GetView<HotelController> {
                 image: item.icon,
                 height: 18,
                 width: 18,
-                color: '/${item.title.toLowerCase()}' == '${Get.currentRoute}'
-                    ? AppColors.red
-                    : AppColors.textIconBlue,
+                color: isSelected ? AppColors.red : AppColors.blue,
               ),
               const SizedBox(height: 6),
               FittedBox(

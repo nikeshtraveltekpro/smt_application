@@ -15,12 +15,12 @@ class OfferBannerWidget extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Obx(
       () => controller.isLoading.value
-          ? OfferBannerShimmer()
+          ? const OfferBannerShimmer()
           : Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Container(
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     colors: [AppColors.blue, AppColors.lightBlue],
                     begin: AlignmentGeometry.centerLeft,
                     end: AlignmentDirectional.centerEnd,
@@ -33,7 +33,7 @@ class OfferBannerWidget extends GetView<HomeController> {
                 child: Stack(
                   clipBehavior: .none,
                   children: [
-                    Positioned(
+                    const Positioned(
                       right: 20,
                       child: CommonAssetImage(image: Assets.femaleBackground),
                     ),

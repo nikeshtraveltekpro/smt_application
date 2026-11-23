@@ -1,8 +1,8 @@
 class HotelConstants {
-  // App Bar
+
   static const String hotelSearchTitle = "Hotel Search";
 
-  // Travel Categories
+
   static const String flights = "Flights";
   static const String trains = "Trains";
   static const String hotels = "Hotels";
@@ -13,7 +13,7 @@ class HotelConstants {
   static const String room1Children1Total = '1';
   static const String propertiesNearMe = "Properties near me";
 
-  // Location
+
   static const String hotelSearchLocationTitle =
       "City, Property name or Location";
   static const String hotelSearchCityName = "New Delhi";
@@ -21,7 +21,7 @@ class HotelConstants {
   static const String hotelRecentSearchFullName = "Ahmedabad, Gujarat, India";
   static const String hotelRecentSearchCity = "Ahmedabad";
 
-  // Check-in & Check-out
+
   static const String checkInTitle = "Check-in";
   static const String checkInDate = "08 Apr, 2026";
   static const String checkInDay = "Saturday";
@@ -30,13 +30,13 @@ class HotelConstants {
   static const String checkOutDate = "08 Apr, 2026";
   static const String checkOutDay = "Sunday";
 
-  // Rooms & Guests
+
   static const String roomsAndGuestsTitle = "Rooms & Guests";
   static const String addRoomsAndGuestsTitle = "Add Rooms & Guests";
   static const String roomCount = "1 Room";
   static const String guestCount = "2 Adults";
 
-  // Add Room & Guest Bottom Sheet
+
   static const String addRoomAndGuestTitle = "Add Room & Guest";
   static const String roomTitle = "Room";
   static const String room1 = "Room 1";
@@ -52,19 +52,19 @@ class HotelConstants {
   static const String addRoom = "Add Room";
   static const String continueButton = "Continue";
 
-  // Price
+
   static const String pricePerNightTitle = "Price per Night";
   static const String selectPrice = "Select Price";
 
-  // Quick Filters
+
   static const String quickFiltersTitle = "Quick Filters:";
   static const String fourStars = "4 Stars +";
   static const String fullRefundable = "Full Refundable";
 
-  // Search Button
+
   static const String searchHotelsButton = "Search Hotels";
 
-  // Recent Searches
+
   static const String recentSearchesTitle = "Recent Searches";
   static const String recentSearchTitle = "Recent Search";
   static const String recentSearchCity = "Ahmedabad";
@@ -74,7 +74,7 @@ class HotelConstants {
   static const String recentSearchGuestsRoom = "1 Room";
   static const String recentSearchTotalGuests = "2 Guest";
 
-  // Promotional Banner
+
   static const String refundableHotelsTitle = "Refundable Hotels";
   static const String searchByCityAndProperty =
       "Search by City or Property Name";
@@ -83,7 +83,7 @@ class HotelConstants {
   static const String refundableHotelsExtraDescription =
       "Last minute Emergency, Personal Emergency, Plan Changed";
 
-  // Popular Destinations
+
   static const String popularDestinationsTitle = "Popular Destinations";
   static const String destinationCountry = "Indonesia";
   static const String destinationCity = "Bali";

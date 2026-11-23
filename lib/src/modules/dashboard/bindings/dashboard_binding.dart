@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:smt_application/src/modules/home/bindings/home_binding.dart';
+import 'package:smt_application/src/modules/trip/bindings/trip_binding.dart';
 
 import '../controllers/dashboard_controller.dart';
 
@@ -8,5 +9,6 @@ class DashboardBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<DashboardController>(() => DashboardController());
     HomeBinding().dependencies();
+    TripBinding().dependencies();
   }
 }

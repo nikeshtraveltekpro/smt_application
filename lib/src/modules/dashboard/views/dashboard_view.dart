@@ -56,11 +56,11 @@ class DashboardView extends GetView<DashboardController> {
                         items: BodyScreens.values.map((item) {
                           if (item == BodyScreens.sniggy) {
                             return BottomNavigationBarItem(
-                              icon: Padding(
+                              icon: const Padding(
                                 padding: .symmetric(vertical: 4),
                                 child: SizedBox(height: 20, width: 20),
                               ),
-                              activeIcon: Padding(
+                              activeIcon: const Padding(
                                 padding: .symmetric(vertical: 4),
                                 child: SizedBox(height: 20, width: 20),
                               ),
@@ -69,7 +69,7 @@ class DashboardView extends GetView<DashboardController> {
                           }
                           return BottomNavigationBarItem(
                             icon: Padding(
-                              padding: .symmetric(vertical: 4),
+                              padding: const .symmetric(vertical: 4),
                               child: SvgPicture.asset(
                                 item.icon,
                                 height: 20,
@@ -78,7 +78,7 @@ class DashboardView extends GetView<DashboardController> {
                             ),
                             label: item.title,
                             activeIcon: Padding(
-                              padding: .symmetric(vertical: 4),
+                              padding: const .symmetric(vertical: 4),
                               child: SvgPicture.asset(
                                 item.selectedIcon,
                                 height: 20,
@@ -90,7 +90,7 @@ class DashboardView extends GetView<DashboardController> {
                       ),
                     ),
                   ),
-                  Positioned(left: 142, top: -45, child: SniggyBottomButton()),
+                  const Positioned(left: 142, top: -45, child: SniggyBottomButton()),
                 ],
               ),
             ),
@@ -113,9 +113,9 @@ class SniggyBottomButton extends GetView<DashboardController> {
       child: Container(
         height: 110,
         width: 60,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
               color: AppColors.shadowBlue,
               offset: Offset.zero,

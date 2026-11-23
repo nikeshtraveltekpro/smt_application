@@ -7,47 +7,47 @@ class CalendarController extends GetxController {
   final DateTime calendarStartDate = DateTime.now();
   final int totalCalendarMonths = 12;
 
-  // Selected check-in and check-out dates
+
   final Rx<SelectDatesModel> selectedDates = const SelectDatesModel().obs;
 
-  // Current date
+
   final Rx<DateTime> today = DateTime.now().obs;
 
-  // Tells us whether the next selected date is check-out
+
   final RxBool isSelectingCheckOut = false.obs;
 
-  // Removes the time part from a date
+
   DateTime dateOnly(DateTime date) {
     return DateTime(date.year, date.month, date.day);
   }
 
-  // Check-in date formatted for the UI
+
   String get dateIn {
     final checkIn = selectedDates.value.checkInDate;
     return DateFormat('dd MMM, yyyy').format(checkIn ?? today.value);
   }
 
-  // Check-out date formatted for the UI
+
   String get dateOut {
     final checkOut = selectedDates.value.checkOutDate;
     return DateFormat('dd MMM, yyyy')
         .format(checkOut ?? today.value.add(const Duration(days: 1)));
   }
 
-  // Check-in weekday
+
   String get checkInDay {
     final checkIn = selectedDates.value.checkInDate;
     return DateFormat('EEEE').format(checkIn ?? today.value);
   }
 
-  // Check-out weekday
+
   String get checkOutDay {
     final checkOut = selectedDates.value.checkOutDate;
     return DateFormat('EEEE')
         .format(checkOut ?? today.value.add(const Duration(days: 1)));
   }
 
-  // Open calendar and receive selected dates
+
   Future<void> openCalendar({required bool isCheckIn}) async {
     prepareCalendar(initialDates: selectedDates.value, isCheckIn: isCheckIn);
 
@@ -58,7 +58,7 @@ class CalendarController extends GetxController {
     }
   }
 
-  // Prepare calendar depending on which date the user wants to select
+
   void prepareCalendar({
     SelectDatesModel? initialDates,
     required bool isCheckIn,
@@ -79,7 +79,7 @@ class CalendarController extends GetxController {
     }
   }
 
-  // Select a date from the calendar
+
   void selectDate(DateTime date) {
     final selectedDate = dateOnly(date);
     final checkIn = selectedDates.value.checkInDate;

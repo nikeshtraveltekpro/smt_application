@@ -1,29 +1,29 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
-// coverage:ignore-file
-// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+
+
+
+
 
 part of 'home_hotel_deal_model.dart';
 
-// **************************************************************************
-// FreezedGenerator
-// **************************************************************************
 
-// GENERATED CODE - DO NOT MODIFY BY HAND
-// dart format off
+
+
+
+
+
 T _$identity<T>(T value) => value;
 
-/// @nodoc
+
 mixin _$HomeHotelDealModel {
 
  int? get id; String? get title; String? get image; String? get location; double? get rating; String? get review; String? get price; String? get taxAmount;
-/// Create a copy of HomeHotelDealModel
-/// with the given fields replaced by the non-null parameter values.
+
+
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $HomeHotelDealModelCopyWith<HomeHotelDealModel> get copyWith => _$HomeHotelDealModelCopyWithImpl<HomeHotelDealModel>(this as HomeHotelDealModel, _$identity);
 
-  /// Serializes this HomeHotelDealModel to a JSON map.
+
   Map<String, dynamic> toJson();
 
 
@@ -49,7 +49,7 @@ String toString() {
 
 }
 
-/// @nodoc
+
 abstract mixin class $HomeHotelDealModelCopyWith<$Res>  {
   factory $HomeHotelDealModelCopyWith(HomeHotelDealModel value, $Res Function(HomeHotelDealModel) _then) = _$HomeHotelDealModelCopyWithImpl;
 @useResult
@@ -61,7 +61,7 @@ $Res call({
 
 
 }
-/// @nodoc
+
 class _$HomeHotelDealModelCopyWithImpl<$Res>
     implements $HomeHotelDealModelCopyWith<$Res> {
   _$HomeHotelDealModelCopyWithImpl(this._self, this._then);
@@ -69,18 +69,18 @@ class _$HomeHotelDealModelCopyWithImpl<$Res>
   final HomeHotelDealModel _self;
   final $Res Function(HomeHotelDealModel) _then;
 
-/// Create a copy of HomeHotelDealModel
-/// with the given fields replaced by the non-null parameter values.
+
+
 @pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? title = freezed,Object? image = freezed,Object? location = freezed,Object? rating = freezed,Object? review = freezed,Object? price = freezed,Object? taxAmount = freezed,}) {
   return _then(HomeHotelDealModel(
-id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int?,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String?,image: freezed == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
-as String?,location: freezed == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
-as String?,rating: freezed == rating ? _self.rating : rating // ignore: cast_nullable_to_non_nullable
-as double?,review: freezed == review ? _self.review : review // ignore: cast_nullable_to_non_nullable
-as String?,price: freezed == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
-as String?,taxAmount: freezed == taxAmount ? _self.taxAmount : taxAmount // ignore: cast_nullable_to_non_nullable
+id: freezed == id ? _self.id : id
+as int?,title: freezed == title ? _self.title : title
+as String?,image: freezed == image ? _self.image : image
+as String?,location: freezed == location ? _self.location : location
+as String?,rating: freezed == rating ? _self.rating : rating
+as double?,review: freezed == review ? _self.review : review
+as String?,price: freezed == price ? _self.price : price
+as String?,taxAmount: freezed == taxAmount ? _self.taxAmount : taxAmount
 as String?,
   ));
 }
@@ -88,19 +88,19 @@ as String?,
 }
 
 
-/// Adds pattern-matching-related methods to [HomeHotelDealModel].
+
 extension HomeHotelDealModelPatterns on HomeHotelDealModel {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
+
+
+
+
+
+
+
+
+
+
+
 
 @optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _HomeHotelDealModel value)?  $default,{required TResult orElse(),}){
 final _that = this;
@@ -111,18 +111,18 @@ return $default(_that);case _:
 
 }
 }
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
+
+
+
+
+
+
+
+
+
+
+
+
 
 @optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _HomeHotelDealModel value)  $default,){
 final _that = this;
@@ -133,17 +133,17 @@ return $default(_that);case _:
 
 }
 }
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
+
+
+
+
+
+
+
+
+
+
+
 
 @optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _HomeHotelDealModel value)?  $default,){
 final _that = this;
@@ -154,17 +154,17 @@ return $default(_that);case _:
 
 }
 }
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
+
+
+
+
+
+
+
+
+
+
+
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  String? title,  String? image,  String? location,  double? rating,  String? review,  String? price,  String? taxAmount)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
@@ -174,18 +174,18 @@ return $default(_that.id,_that.title,_that.image,_that.location,_that.rating,_th
 
 }
 }
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
+
+
+
+
+
+
+
+
+
+
+
+
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  String? title,  String? image,  String? location,  double? rating,  String? review,  String? price,  String? taxAmount)  $default,) {final _that = this;
 switch (_that) {
@@ -195,17 +195,17 @@ return $default(_that.id,_that.title,_that.image,_that.location,_that.rating,_th
 
 }
 }
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
+
+
+
+
+
+
+
+
+
+
+
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  String? title,  String? image,  String? location,  double? rating,  String? review,  String? price,  String? taxAmount)?  $default,) {final _that = this;
 switch (_that) {
@@ -218,7 +218,7 @@ return $default(_that.id,_that.title,_that.image,_that.location,_that.rating,_th
 
 }
 
-/// @nodoc
+
 @JsonSerializable()
 
 class _HomeHotelDealModel implements HomeHotelDealModel {
@@ -234,8 +234,8 @@ class _HomeHotelDealModel implements HomeHotelDealModel {
 @override final  String? price;
 @override final  String? taxAmount;
 
-/// Create a copy of HomeHotelDealModel
-/// with the given fields replaced by the non-null parameter values.
+
+
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 _$HomeHotelDealModelCopyWith<_HomeHotelDealModel> get copyWith => __$HomeHotelDealModelCopyWithImpl<_HomeHotelDealModel>(this, _$identity);
@@ -264,7 +264,7 @@ String toString() {
 
 }
 
-/// @nodoc
+
 abstract mixin class _$HomeHotelDealModelCopyWith<$Res> implements $HomeHotelDealModelCopyWith<$Res> {
   factory _$HomeHotelDealModelCopyWith(_HomeHotelDealModel value, $Res Function(_HomeHotelDealModel) _then) = __$HomeHotelDealModelCopyWithImpl;
 @override @useResult
@@ -276,7 +276,7 @@ $Res call({
 
 
 }
-/// @nodoc
+
 class __$HomeHotelDealModelCopyWithImpl<$Res>
     implements _$HomeHotelDealModelCopyWith<$Res> {
   __$HomeHotelDealModelCopyWithImpl(this._self, this._then);
@@ -284,18 +284,18 @@ class __$HomeHotelDealModelCopyWithImpl<$Res>
   final _HomeHotelDealModel _self;
   final $Res Function(_HomeHotelDealModel) _then;
 
-/// Create a copy of HomeHotelDealModel
-/// with the given fields replaced by the non-null parameter values.
+
+
 @override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? title = freezed,Object? image = freezed,Object? location = freezed,Object? rating = freezed,Object? review = freezed,Object? price = freezed,Object? taxAmount = freezed,}) {
   return _then(_HomeHotelDealModel(
-id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int?,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String?,image: freezed == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
-as String?,location: freezed == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
-as String?,rating: freezed == rating ? _self.rating : rating // ignore: cast_nullable_to_non_nullable
-as double?,review: freezed == review ? _self.review : review // ignore: cast_nullable_to_non_nullable
-as String?,price: freezed == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
-as String?,taxAmount: freezed == taxAmount ? _self.taxAmount : taxAmount // ignore: cast_nullable_to_non_nullable
+id: freezed == id ? _self.id : id
+as int?,title: freezed == title ? _self.title : title
+as String?,image: freezed == image ? _self.image : image
+as String?,location: freezed == location ? _self.location : location
+as String?,rating: freezed == rating ? _self.rating : rating
+as double?,review: freezed == review ? _self.review : review
+as String?,price: freezed == price ? _self.price : price
+as String?,taxAmount: freezed == taxAmount ? _self.taxAmount : taxAmount
 as String?,
   ));
 }
@@ -303,4 +303,4 @@ as String?,
 
 }
 
-// dart format on
+

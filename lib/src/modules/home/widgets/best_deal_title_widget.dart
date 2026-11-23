@@ -13,7 +13,7 @@ class BestDealTitleWidget extends StatelessWidget {
       child: Row(
         children: [
           Text(AppConstants.bestDeal, style: CustomTextstyle.boldText15),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Container(
             width: AppSize.s34,
             decoration: BoxDecoration(

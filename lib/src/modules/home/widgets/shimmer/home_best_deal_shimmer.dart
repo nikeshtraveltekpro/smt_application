@@ -6,10 +6,10 @@ class HomeBestDealShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CommonShimmer(
+    return const CommonShimmer(
       height: 229,
       width: 205,
-      padding: const EdgeInsets.only(left: 20.0),
+      padding: EdgeInsets.only(left: 20.0),
     );
   }
 }

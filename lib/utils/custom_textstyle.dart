@@ -35,6 +35,28 @@ class CustomTextstyle {
     fontWeight: FontWeight.w600,
     color: AppColors.white,
   );
+  static final medium500Text14 = GoogleFonts.poppins(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    height: 1.0,
+    letterSpacing: 0,
+    color: AppColors.white,
+  );
+static final regular400Text11 = GoogleFonts.poppins(
+  fontSize: 11,
+  fontWeight: FontWeight.w400,
+  height: 1.0,
+  letterSpacing: 0,
+  color: AppColors.white,
+);
+
+  static final medium500Text14Black = GoogleFonts.poppins(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    height: 1.0,
+    letterSpacing: 0,
+    color: AppColors.textIconBlue,
+  );
 
   static final bold600Text14 = GoogleFonts.poppins(
     fontSize: 14,
@@ -108,21 +130,21 @@ class CustomTextstyle {
   );
 
   static final normal500Text12 = GoogleFonts.poppins(
-    textStyle: TextStyle(
+    textStyle: const TextStyle(
       fontSize: 12,
       fontWeight: FontWeight.w500,
       color: AppColors.grey2,
     ),
   );
   static final normal400Text12 = GoogleFonts.poppins(
-    textStyle: TextStyle(
+    textStyle: const TextStyle(
       fontSize: 12,
       fontWeight: FontWeight.w400,
       color: AppColors.grey2,
     ),
   );
   static final normal400Text10 = GoogleFonts.poppins(
-    textStyle: TextStyle(
+    textStyle: const TextStyle(
       fontSize: 10,
       fontWeight: FontWeight.w400,
       color: AppColors.grey2,
@@ -250,7 +272,7 @@ class CustomTextstyle {
     color: AppColors.textGreyColor,
   );
   static final clearRecentSearch = GoogleFonts.poppins(
-    textStyle: TextStyle(
+    textStyle: const TextStyle(
       fontSize: 12,
       fontWeight: FontWeight.w400,
       color: AppColors.red,
